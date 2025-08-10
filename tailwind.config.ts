@@ -9,8 +9,7 @@ export default {
   theme: {
     screens: { sm: "400px", md: "700px", xlg: "950px", lg: "1200px" },
     fontFamily: {
-      jost: "Jost, sans-serif",
-      roboto: "Roboto, sans-serif",
+      quicksand: "Quicksand, sans-serif",
     },
     listStyleType: {
       square: "square",
@@ -18,10 +17,7 @@ export default {
     },
     extend: {
       colors: {
-        black: "#131118",
-        grey: "#A4A1AA",
-        errorRed: "#E54D51",
-        "blue-primary": "#4B6BFB",
+        teal: "#008080",
       },
     },
   },
