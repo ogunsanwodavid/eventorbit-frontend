@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 
+import QueryProvider from "./providers/QueryProvider";
+
 import LayoutContent from "./components/LayoutContent";
 
 //General metadata including opengraph information
@@ -29,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <LayoutContent>{children}</LayoutContent>
+        <QueryProvider>
+          <LayoutContent>{children}</LayoutContent>
+        </QueryProvider>
       </body>
     </html>
   );

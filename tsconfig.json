@@ -18,8 +18,12 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/shadcn-ui/*": ["app/shadcn-ui/*"],
+      "@/shadcn-lib/*": ["app/shadcn-lib/*"],
+      "@/shadcn-hooks/*": ["app/shadcn-hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
