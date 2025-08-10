@@ -4,7 +4,7 @@ type InstagramProps = {
   color?: string;
 };
 
-const Instagram = ({ size, fill, color }: InstagramProps) => (
+const Instagram = ({ size, fill }: InstagramProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
