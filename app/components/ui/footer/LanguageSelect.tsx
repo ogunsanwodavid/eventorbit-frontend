@@ -18,7 +18,7 @@ export default function LanguageSelect() {
 
   return (
     <Select value={value} onValueChange={(val) => setValue(val)}>
-      <SelectTrigger className="w-full text-[15px] text-[#0e0e0e] data-[state=open]:border-[2px] data-[state=open]:border-black focus:border-[2px] focus:border-black">
+      <SelectTrigger className="w-full text-[15px] text-[#0e0e0e] !ring-0 data-[state=open]:border-[2px] data-[state=open]:border-black focus:border-[2px] focus:border-black">
         <SelectValue />
       </SelectTrigger>
       <SelectContent className="text-[15px] text-[#0e0e0e]">

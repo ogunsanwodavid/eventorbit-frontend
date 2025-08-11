@@ -12,7 +12,7 @@ import tealLogo from "@/public/images/logo-teal.png";
 export default function Footer() {
   return (
     <div className="w-full bg-[#f5f5f5] mt-auto">
-      <footer className="inner-screen-max py-16 px-5 md:!pb-24 max:px-0">
+      <footer className="inner-screen-max py-16 px-5 md:!pb-24 lg:px-10 max:px-0">
         {/** Upper Section */}
         <section className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
           {/** About Us */}

@@ -25,7 +25,7 @@ select {
 /********** TAILWIND THEME AND UTILITIES **********/
 @theme {
   /** Breakpoints **/
-  --breakpoint-sm: 400px;
+  --breakpoint-sm: 450px;
   --breakpoint-md: 750px;
   --breakpoint-lg: 1000px;
   --breakpoint-max: 1250px;
@@ -38,6 +38,8 @@ select {
 
   /** Colors **/
   --color-teal: #008080;
+  --color-black: #0e0e0e;
+  --color-gray: #6f7881;
   --color-blur-black: #1c232be6;
 }
 
