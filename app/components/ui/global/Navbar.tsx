@@ -6,10 +6,10 @@ import Link from "next/link";
 
 import MobileNav from "./MobileNav";
 
-import Menu from "./ui/icons/Menu";
+import Menu from "../icons/Menu";
 
 import whiteLogo from "@/public/images/logo-white.png";
-import NavHoverLink from "./ui/nav/NavHoverLink";
+import NavHoverLink from "../nav/NavHoverLink";
 
 export default function Navbar() {
   //Get the current pathname

@@ -4,8 +4,11 @@
 
 @import "tw-animate-css";
 
+@import "keen-slider/keen-slider.min.css";
+
 body {
   font-family: Quicksand !important;
+  background-attachment: scroll !important;
 }
 
 input,

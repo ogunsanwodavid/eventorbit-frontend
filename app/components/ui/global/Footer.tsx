@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import LanguageSelect from "./ui/footer/LanguageSelect";
+import LanguageSelect from "../footer/LanguageSelect";
 
-import XTwitter from "./ui/icons/XTwitter";
-import Instagram from "./ui/icons/Instagram";
-import Linkedin from "./ui/icons/Linkedin";
+import XTwitter from "../icons/XTwitter";
+import Instagram from "../icons/Instagram";
+import Linkedin from "../icons/Linkedin";
 
 import tealLogo from "@/public/images/logo-teal.png";
 

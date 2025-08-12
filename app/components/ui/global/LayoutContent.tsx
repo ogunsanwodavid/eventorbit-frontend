@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-import PartnerWithUsFloatingBtn from "./ui/PartnerWithUsFloatingBtn";
+import PartnerWithUsFloatingBtn from "./PartnerWithUsFloatingBtn";
 
 export default function LayoutContent({
   children,

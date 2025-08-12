@@ -25,14 +25,14 @@ export default function Hero() {
 
   return (
     <div className="w-full bg-[#0e0e0e]">
-      <main className="inner-screen-max flex flex-col justify-between gap-12 pt-12 pb-10 px-5 lg:flex-row lg:px-10 max:px-0">
+      <main className="inner-screen-max flex flex-col justify-between gap-12 pt-12 pb-10 px-5 lg:flex-row lg:items-center lg:px-10 max:!px-0">
         {/** Texts Section */}
         <section className="w-full py-16 lg:py-40">
-          <h1 className="max-w-[32rem] text-white text-6xl">
+          <h1 className="max-w-[32rem] text-white text-4xl md:text-6xl">
             Your event journey starts
           </h1>
 
-          <h2 className="mt-4 text-white text-xl">
+          <h2 className="mt-4 text-white text-base md:text-xl">
             Your trusted partner for smooth and successful events worldwide
           </h2>
 
@@ -55,7 +55,7 @@ export default function Hero() {
         </section>
 
         {/** Images Section */}
-        <section className="w-full grid grid-cols-2 gap-6 lg:mt-10">
+        <section className="w-full max-w-[700px] mx-auto grid grid-cols-2 gap-12 lg:mt-10">
           {/** Image 1 */}
           <motion.div
             ref={refImage1}
@@ -65,11 +65,14 @@ export default function Hero() {
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <Image
-              src={HeroImage1}
-              className="h-64 object-cover rounded-[0.5rem] bg-scroll -mt-16 lg:h-72"
-              alt="events"
-            />
+            <div className="relative aspect-square  max-w-[288px] max:h-[288px] max:w-[288px]">
+              <Image
+                fill
+                src={HeroImage1}
+                className="object-cover rounded-[0.5rem]  -mt-16 "
+                alt="events"
+              />
+            </div>
           </motion.div>
 
           {/** Image 2 */}
@@ -78,11 +81,14 @@ export default function Hero() {
             animate={{ y: inView ? -24 : 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <Image
-              src={HeroImage2}
-              className="h-64 object-cover rounded-[0.5rem] bg-scroll lg:h-72"
-              alt="events"
-            />
+            <div className="relative aspect-square  max-w-[288px] max:h-[288px] max:w-[288px]">
+              <Image
+                fill
+                src={HeroImage2}
+                className="object-cover rounded-[0.5rem] "
+                alt="events"
+              />
+            </div>
           </motion.div>
 
           {/** Image 3 */}
@@ -94,11 +100,14 @@ export default function Hero() {
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <Image
-              src={HeroImage3}
-              className="h-64 object-cover rounded-[0.5rem] bg-scroll -mt-16 lg:h-72"
-              alt="events"
-            />
+            <div className="relative aspect-square  max-w-[288px] max:h-[288px] max:w-[288px]">
+              <Image
+                fill
+                src={HeroImage3}
+                className="object-cover rounded-[0.5rem] -mt-16"
+                alt="events"
+              />
+            </div>
           </motion.div>
 
           {/** Image 4 */}
@@ -107,11 +116,14 @@ export default function Hero() {
             animate={{ y: inView ? -24 : 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <Image
-              src={HeroImage4}
-              className="h-64 object-cover rounded-[0.5rem] bg-scroll -mb-6 lg:h-72 lg:-mb-0"
-              alt="events"
-            />
+            <div className="relative aspect-square  max-w-[288px] max:h-[288px] max:w-[288px]">
+              <Image
+                fill
+                src={HeroImage4}
+                className="bject-cover rounded-[0.5rem] -mb-6 lg:-mb-0 "
+                alt="events"
+              />
+            </div>
           </motion.div>
         </section>
       </main>

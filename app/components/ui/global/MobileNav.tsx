@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import useWindowDimensions from "../hooks/useWndowDimension";
+import useWindowDimensions from "../../../hooks/useWndowDimension";
 
-import X from "./ui/icons/X";
+import X from "../icons/X";
 
 import tealLogo from "@/public/images/logo-teal.png";
 

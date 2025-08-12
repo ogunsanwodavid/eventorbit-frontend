@@ -7,7 +7,7 @@ import "leaflet/dist/leaflet.css";
 
 import QueryProvider from "./providers/QueryProvider";
 
-import LayoutContent from "./components/LayoutContent";
+import LayoutContent from "./components/ui/global/LayoutContent";
 
 //General metadata including opengraph information
 export const metadata: Metadata = {
