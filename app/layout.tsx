@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 
-import QueryProvider from "./providers/QueryProvider";
+import Providers from "./providers";
 
 import LayoutContent from "./components/ui/global/LayoutContent";
 
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Discover Krist, your ultimate destination for stylish and affordable men’s, women’s, and kids' wear. Explore a wide range of trendy outfits designed for every occasion and elevate your wardrobe with our premium-quality apparel. Shop now and experience fashion redefined!",
   openGraph: {
-    title: "Krist",
+    title: "EventOrbit",
     description:
       "Discover Krist, your ultimate destination for stylish and affordable men’s, women’s, and kids' wear. Explore a wide range of trendy outfits designed for every occasion and elevate your wardrobe with our premium-quality apparel. Shop now and experience fashion redefined!",
     images:
@@ -31,9 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <QueryProvider>
+        <Providers>
           <LayoutContent>{children}</LayoutContent>
-        </QueryProvider>
+        </Providers>
       </body>
     </html>
   );

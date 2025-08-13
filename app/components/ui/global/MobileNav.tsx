@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import useWindowDimensions from "../../../hooks/useWndowDimension";
-
 import X from "../icons/X";
 
 import tealLogo from "@/public/images/logo-teal.png";
@@ -16,17 +14,13 @@ export default function MobileNav({
   isMobileNavOpen,
   toggleMobileNav,
 }: MobileNavProps) {
-  //Exact window dimensions
-  const { windowHeight } = useWindowDimensions();
-
   return (
     <div
-      className={`fixed top-0 right-0 w-screen bg-blur-black overflow-hidden z-10 transition-opacity duration-400 ${
+      className={`fixed top-0 right-0 w-screen h-screen bg-blur-black overflow-hidden z-10 transition-opacity duration-400 ${
         isMobileNavOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
       } lg:hidden`}
-      style={{ height: `${windowHeight}px` }}
     >
       {/** Main inner layer*/}
       <main
@@ -72,12 +66,12 @@ export default function MobileNav({
           </Link>
 
           {/** Log In */}
-          <Link href="/login">
+          <Link href="/sign-in">
             <span>Log In</span>
           </Link>
 
           {/** Sign Up */}
-          <Link href="/signup">
+          <Link href="/sign-up">
             <span>Sign Up</span>
           </Link>
         </section>

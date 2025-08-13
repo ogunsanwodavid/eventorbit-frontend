@@ -56,8 +56,8 @@ export default function Navbar() {
         <NavHoverLink href="/explore">Find Events</NavHoverLink>
         <NavHoverLink href="/create">Create Event</NavHoverLink>
         <NavHoverLink href="/help">Help</NavHoverLink>
-        <NavHoverLink href="/login">Log In</NavHoverLink>
-        <NavHoverLink href="/signup">Sign Up</NavHoverLink>
+        <NavHoverLink href="/sign-in">Log In</NavHoverLink>
+        <NavHoverLink href="/sign-up">Sign Up</NavHoverLink>
       </section>
     </nav>
   );
