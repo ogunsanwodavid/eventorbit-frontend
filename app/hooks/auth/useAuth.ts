@@ -41,12 +41,6 @@ export default function useAuth() {
     },
     retry: (failureCount) => failureCount <= 3, //RETRY THREE TIMES
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 3000), //EXPONENTIAL BACK-OFF
-    /* onSuccess: (data: AuthState) => {
-      dispatch(setAuth(data));
-    },
-    onError: () => {
-      dispatch(setAuth({ isAuthenticated: false, profile: null }));
-    }, */
   });
 
   useEffect(() => {

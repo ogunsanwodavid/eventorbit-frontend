@@ -247,7 +247,7 @@ export default function SignUp() {
         {/** Terms of Service */}
         <div className="text-[13px] text-gray mt-6">
           By continuing, you agree to{" "}
-          <Link href="#" className="inline-block text-teal">
+          <Link href="#" className="inline text-teal">
             EventOrbit&apos;s Terms of Service
           </Link>
         </div>
