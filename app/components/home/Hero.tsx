@@ -55,7 +55,7 @@ export default function Hero() {
         </section>
 
         {/** Images Section */}
-        <section className="w-full max-w-[700px] mx-auto grid grid-cols-2 gap-12 lg:mt-10">
+        <section className="w-full max-w-[700px] mx-auto grid grid-cols-2 gap-6 md:gap-12 lg:mt-10">
           {/** Image 1 */}
           <motion.div
             ref={refImage1}

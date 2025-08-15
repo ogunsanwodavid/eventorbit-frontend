@@ -5,9 +5,12 @@ export const SignupFormSchema = z
     userType: z.enum(["individual", "organization"], {
       error: "User type must be 'individual' or 'organization'",
     }),
-    firstName: z.string().optional(),
-    lastName: z.string().optional(),
-    organizationName: z.string().optional(),
+    firstName: z.string().min(1, "First name can't be empty").optional(),
+    lastName: z.string().min(1, "Last name can't be empty").optional(),
+    organizationName: z
+      .string()
+      .min(1, "Organization name can't be empty")
+      .optional(),
     email: z.email("Invalid email address"),
     password: z
       .string()
@@ -20,6 +23,7 @@ export const SignupFormSchema = z
         /[^A-Za-z0-9]/,
         "Password must contain at least one special character"
       ),
+    pageRedirect: z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (data.userType === "individual") {

@@ -4,6 +4,8 @@ import React from "react";
 
 import { usePathname } from "next/navigation";
 
+import { Toaster } from "sonner";
+
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
@@ -17,12 +19,13 @@ export default function LayoutContent({
   //Pathname function
   const pathname = usePathname();
 
-  // Define routes where Navbar and Footer should not appear
+  //Define routes where Navbar and Footer should not appear
   const authRoutes = [
     "/sign-in",
     "/sign-up",
     "/forgot-password",
     "/set-password",
+    "/verify-email",
   ];
 
   //Check if route is an auth page
@@ -40,6 +43,9 @@ export default function LayoutContent({
 
       {/*** Render Partner with us floating button if its not an auth page */}
       {!isAuthPage && <PartnerWithUsFloatingBtn />}
+
+      {/** Toaster */}
+      <Toaster richColors position="top-right" />
     </main>
   );
 }

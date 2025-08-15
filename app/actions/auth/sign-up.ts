@@ -16,6 +16,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
 //Signup function
 export async function signUp(formData: FormData, pageRedirect: string) {
+  //Form data
   const userType = String(formData.get("userType"));
   const firstName = String(formData.get("firstName"));
   const lastName = String(formData.get("lastName"));
@@ -35,6 +36,7 @@ export async function signUp(formData: FormData, pageRedirect: string) {
     organizationName: isOrganization ? organizationName : undefined,
     email,
     password,
+    pageRedirect: pageRedirect ?? undefined,
   });
 
   //If any form fields are invalid, return early
@@ -55,10 +57,20 @@ export async function signUp(formData: FormData, pageRedirect: string) {
       { withCredentials: true }
     );
 
-    console.log(response.data.message);
-  } catch {
-    return { success: false };
-  }
+    return {
+      success: true,
+      message: response.data.message ?? "User created successfully",
+    };
+  } catch (error) {
+    let errorMessage = "Failed to sign up";
 
-  return { success: true };
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      errorMessage = error.response.data.message;
+    }
+
+    return {
+      success: false,
+      message: errorMessage,
+    };
+  }
 }

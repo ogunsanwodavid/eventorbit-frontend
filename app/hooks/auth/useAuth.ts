@@ -39,7 +39,7 @@ export default function useAuth() {
         profile,
       };
     },
-    retry: (failureCount) => failureCount <= 3, //RETRY THREE TIMES
+    retry: (failureCount) => failureCount <= 2, //RETRY TWO TIMES
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 3000), //EXPONENTIAL BACK-OFF
   });
 

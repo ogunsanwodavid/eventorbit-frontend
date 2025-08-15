@@ -48,6 +48,7 @@ select {
   --color-error-red: #ff6f56;
   --color-error-red-2: #fc7455;
   --color-error-red-3: #fff1ea;
+  --color-success-green: #4caf50;
 }
 
 @utility inner-screen-max {

@@ -1,0 +1,20 @@
+type MailFilledProps = {
+  size: string;
+  fill?: string;
+};
+
+const MailFilled = ({ size, fill }: MailFilledProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill={fill || "currentColor"}
+      d="M4 3a2 2 0 0 0-2 2v.201l6 3.231l6-3.23V5a2 2 0 0 0-2-2H4Zm10 3.337L8.237 9.44a.5.5 0 0 1-.474 0L2 6.337V11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6.337Z"
+    />
+  </svg>
+);
+
+export default MailFilled;

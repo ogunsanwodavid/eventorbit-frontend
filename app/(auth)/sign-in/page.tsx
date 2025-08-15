@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+/* import { useState } from "react";
 
-import Link from "next/link";
+import Link from "next/link"; */
 
 export default function Signin() {
-  //Type of the error state of the form
+  /*  //Type of the error state of the form
   type LoginFormErrors = {
     email?: string[];
     password?: string[];
@@ -34,9 +34,9 @@ export default function Signin() {
     // Collect form data
     const formData = new FormData();
     formData.append("email", email);
-    formData.append("password", password);
+    formData.append("password", password); */
 
-    /*     // Call the login function
+  /*     // Call the login function
     const result = await login(formData);
 
     //Set errors is it exists else set to null
@@ -58,14 +58,14 @@ export default function Signin() {
       toast.success("Login successful!");
     } */
 
-    //Set Loading state false
+  /* //Set Loading state false
     setIsLoggingIn(false);
   };
-
+ */
   return (
     <>
       {/** Header */}
-      <header className="w-full p-6 pb-0 text-center space-y-1">
+      {/* <header className="w-full p-6 pb-0 text-center space-y-1">
         <h4 className="text-black text-[22px] font-semibold">
           Log in to EventOrbit
         </h4>
@@ -75,10 +75,10 @@ export default function Signin() {
             Sign Up
           </Link>
         </h5>
-      </header>
+      </header> */}
 
       {/** Form */}
-      <form onSubmit={handleSubmit} className="w-full p-6 space-y-4"></form>
+      {/* <form onSubmit={handleSubmit} className="w-full p-6 space-y-4"></form> */}
     </>
   );
 }

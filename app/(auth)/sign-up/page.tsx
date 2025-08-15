@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -13,13 +13,16 @@ import { UserType } from "@/app/models/auth";
 
 import { FlatErrors } from "@/app/utils/helpers/auth/flattenTreeErrors";
 
-import CheckBox from "@/app/components/ui/icons/CheckBox";
-import CheckBoxOutlineBlank from "@/app/components/ui/icons/CheckBoxOutlineBlank";
+import { toast } from "sonner";
 
 import Input from "@/app/components/auth/Input";
+import Button from "@/app/components/auth/Button";
+
+import CheckBox from "@/app/components/ui/icons/CheckBox";
+import CheckBoxOutlineBlank from "@/app/components/ui/icons/CheckBoxOutlineBlank";
+import Google from "@/app/components/ui/icons/Google";
 
 import tealLogo from "@/public/images/logo-teal.png";
-import Button from "@/app/components/auth/Button";
 
 export default function SignUp() {
   //Search parameters
@@ -62,7 +65,7 @@ export default function SignUp() {
 
   //Function to submit signup form
   const handleSubmit = async (e: React.FormEvent) => {
-    //Set Loading state true
+    //Set loading state true
     setIsSigningUp(true);
 
     //Prevent default
@@ -81,29 +84,26 @@ export default function SignUp() {
     //Redirect too
     const result = await signUp(formData, pageRedirect);
 
-    //Set errors is it exists else set to null
+    //Set validation errors is it exists else set empty
     if (result?.validationErrors) {
-      setErrors(result.validationErrors); //Set validation errors
+      setErrors(result.validationErrors);
     } else {
       setErrors({});
-    }
-
-    /*     //Check for error from server
-    if (result?.error) {
-      //Toast error
-      toast.error(result.error);
     }
 
     //Check if request is successful
     if (result.success) {
       //Toast success
-      toast.success("User successfully created");
+      toast.success(result.message);
 
-      //Redirect to login page
-      redirect(`/login?redirect=${pageRedirect}`);
+      //Redirect to home page
+      redirect("/");
+    } else {
+      //Toast error
+      toast.error(result.message);
     }
-  */
-    //Set Loading state false
+
+    //Set loading state false
     setIsSigningUp(false);
   };
 
@@ -166,62 +166,65 @@ export default function SignUp() {
           </button>
         </section>
 
-        {/** First name input */}
-        {isIndividual && (
+        {/** Inputs */}
+        <section>
+          {isIndividual && (
+            <div className="grid grid-cols-2 gap-2">
+              {/** First name input */}
+              <Input
+                name="firstName"
+                label="First name"
+                placeholder="Enter your first name"
+                value={firstName}
+                setValue={setFirstName}
+                error={firstNameInputError}
+              />
+
+              {/** Last name input */}
+              <Input
+                name="lastName"
+                label="Last name"
+                placeholder="Enter your last name"
+                value={lastName}
+                setValue={setLastName}
+                error={lastNameInputError}
+              />
+            </div>
+          )}
+
+          {/** Organization name input */}
+          {isOrganization && (
+            <Input
+              name="organizationName"
+              label="Organization name"
+              placeholder="Enter your organization name"
+              value={organizationName}
+              setValue={setOrganizationName}
+              error={organizationNameInputError}
+            />
+          )}
+
+          {/** Email input */}
           <Input
-            name="firstName"
-            label="First name"
-            placeholder="Enter your first name"
-            value={firstName}
-            setValue={setFirstName}
-            error={firstNameInputError}
+            name="email"
+            label="Email"
+            placeholder="Enter your email address"
+            value={email}
+            setValue={setEmail}
+            error={emailInputError}
           />
-        )}
 
-        {/** Last name input */}
-        {isIndividual && (
+          {/** Password input */}
           <Input
-            name="lastName"
-            label="Last name"
-            placeholder="Enter your last name"
-            value={lastName}
-            setValue={setLastName}
-            error={lastNameInputError}
+            name="password"
+            label="Password"
+            placeholder="Minimum 6 characters"
+            value={password}
+            setValue={setPassword}
+            error={passwordInputError}
+            isSecret
           />
-        )}
-
-        {/** Organization name input */}
-        {isOrganization && (
-          <Input
-            name="organizationName"
-            label="Organization name"
-            placeholder="Enter your organization name"
-            value={organizationName}
-            setValue={setOrganizationName}
-            error={organizationNameInputError}
-          />
-        )}
-
-        {/** Email input */}
-        <Input
-          name="email"
-          label="Email"
-          placeholder="Enter your email address"
-          value={email}
-          setValue={setEmail}
-          error={emailInputError}
-        />
-
-        {/** Password input */}
-        <Input
-          name="password"
-          label="Password"
-          placeholder="Minimum 6 characters"
-          value={password}
-          setValue={setPassword}
-          error={passwordInputError}
-          isSecret
-        />
+        </section>
 
         {/** Receive emails checkbox */}
         <div
@@ -255,6 +258,22 @@ export default function SignUp() {
         {/** Submit Button */}
         <Button isLoading={isSigningUp} text="continue" />
       </form>
+
+      {/** Footer */}
+      <footer className="w-full p-6 bg-[#fafafa] border-t-[1px] border-t-[#e2e5e7] flex flex-col gap-3">
+        {/** Sign up with Google button */}
+        <button
+          className="w-full bg-white py-2 px-3 text-base text-black-2 flex items-center justify-center gap-x-2 hover:bg-[#f5f5f5]"
+          style={{
+            boxShadow: "0 0 0 1px #E2E5E7",
+          }}
+        >
+          {/** Google icon */}
+          <Google size="16" />
+
+          <span>Sign up with Google</span>
+        </button>
+      </footer>
     </>
   );
 }
