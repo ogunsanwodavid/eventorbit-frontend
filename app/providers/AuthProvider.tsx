@@ -25,8 +25,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const isAuthPage = AUTH_PAGES.includes(pathname);
 
   //Auth info
-  //const { isLoading } = useAuth();
-  const isLoading = false;
+  const { isLoading } = useAuth();
+  //const isLoading = false;
 
   //Show loading page if not visiting protected page
   if (isLoading && !isAuthPage) {
