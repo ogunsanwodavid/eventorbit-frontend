@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 
 import useWindowDimensions from "../hooks/global/useWindowDimensions";
 
@@ -21,7 +21,7 @@ export default function AllAuthPages({ children }: AllAuthPagesProps) {
       }}
     >
       <main className="w-full max-w-[500px] mx-auto bg-white rounded-[6px] overflow-hidden">
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        {children}
       </main>
     </div>
   );

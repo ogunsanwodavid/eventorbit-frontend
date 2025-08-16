@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import type { Metadata } from "next";
 
@@ -31,9 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <Providers>
-          <LayoutContent>{children}</LayoutContent>
-        </Providers>
+        <Suspense fallback={null}>
+          <Providers>
+            <LayoutContent>{children}</LayoutContent>
+          </Providers>
+        </Suspense>
       </body>
     </html>
   );
