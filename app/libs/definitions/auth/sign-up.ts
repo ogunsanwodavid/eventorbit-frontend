@@ -23,6 +23,8 @@ export const SignupFormSchema = z
         /[^A-Za-z0-9]/,
         "Password must contain at least one special character"
       ),
+    latitude: z.number().min(-90).max(90).optional(),
+    longitude: z.number().min(-180).max(180).optional(),
     pageRedirect: z.string().optional(),
   })
   .superRefine((data, ctx) => {

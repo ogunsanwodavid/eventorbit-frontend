@@ -8,6 +8,8 @@ import { RootState } from "../redux/store";
 
 import { useAppSelector } from "../hooks/global/redux";
 
+import { toast } from "sonner";
+
 //Path of auth pages
 const AUTH_PAGES = [
   "/sign-in",
@@ -68,8 +70,12 @@ export default function RedirectProvider({
     //AUTH PAGES
     if (isAuthPage) {
       //::Already authenticated, send to home
-      if (isAuthenticated) {
+      //::Only if not on verify email page for some UX issues
+      if (isAuthenticated && pathname !== "/verify-email") {
         router.replace("/");
+
+        toast.info("Already signed in");
+
         return;
       }
 

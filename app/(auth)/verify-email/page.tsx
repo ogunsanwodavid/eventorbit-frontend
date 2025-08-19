@@ -9,6 +9,10 @@ import { redirect, useSearchParams } from "next/navigation";
 
 import { verifyEmail } from "@/app/actions/auth/verify-email";
 
+import useAuth from "@/app/hooks/auth/useAuth";
+
+import getSafeRedirect from "@/app/utils/helpers/global/getSafeRedirect";
+
 import Button from "@/app/components/auth/Button";
 
 import MailFilled from "@/app/components/ui/icons/MailFilled";
@@ -16,7 +20,6 @@ import MailCheckmarkFilled from "@/app/components/ui/icons/MailCheckmarkFilled";
 import MailDismissFilled from "@/app/components/ui/icons/MailDismissFilled";
 
 import tealLogo from "@/public/images/logo-teal.png";
-import useAuth from "@/app/hooks/auth/useAuth";
 
 export default function VerifyEmail() {
   const { refreshAuth } = useAuth();
@@ -29,8 +32,9 @@ export default function VerifyEmail() {
   const token = searchParams.get("token") || "";
 
   //Page redirect from query params
-  //::Or home
-  const pageRedirect = decodeURIComponent(searchParams.get("redirect") || "/");
+  const pageRedirect = decodeURIComponent(
+    getSafeRedirect(searchParams.get("redirect"))
+  );
 
   //Verification status
   const [isVerified, setIsVerified] = useState<boolean>(false);
@@ -67,6 +71,7 @@ export default function VerifyEmail() {
     verify();
   }, [token]);
 
+  //Refresh auth status when verified
   useEffect(() => {
     if (isVerified) {
       refreshAuth();

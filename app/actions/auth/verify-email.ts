@@ -8,7 +8,6 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
 //Verify email function
 export async function verifyEmail(token: string) {
-  //Sign up user via API
   try {
     const response = await axios.get<VerifyEmailApiResponse>(
       `${API_BASE_URL}/api/auth/verify-email?token=${token}`,

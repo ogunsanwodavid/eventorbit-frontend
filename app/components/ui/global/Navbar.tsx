@@ -4,6 +4,10 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
+import { useAppSelector } from "@/app/hooks/global/redux";
+
+import { RootState } from "@/app/redux/store";
+
 import MobileNav from "./MobileNav";
 
 import Menu from "../icons/Menu";
@@ -12,6 +16,11 @@ import whiteLogo from "@/public/images/logo-white.png";
 import NavHoverLink from "../nav/NavHoverLink";
 
 export default function Navbar() {
+  //Authentication status
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
   //Get the current pathname
   const pathname = usePathname();
 
@@ -56,8 +65,12 @@ export default function Navbar() {
         <NavHoverLink href="/explore">Find Events</NavHoverLink>
         <NavHoverLink href="/create">Create Event</NavHoverLink>
         <NavHoverLink href="/help">Help</NavHoverLink>
-        <NavHoverLink href="/sign-in">Log In</NavHoverLink>
-        <NavHoverLink href="/sign-up">Sign Up</NavHoverLink>
+        {!isAuthenticated && (
+          <>
+            <NavHoverLink href="/sign-in">Log In</NavHoverLink>
+            <NavHoverLink href="/sign-up">Sign Up</NavHoverLink>
+          </>
+        )}
       </section>
     </nav>
   );

@@ -9,9 +9,15 @@ import Link from "next/link";
 
 import { signUp } from "@/app/actions/auth/sign-up";
 
+import { googleSignIn } from "@/app/actions/auth/google-sign-in";
+
 import { UserType } from "@/app/models/auth";
 
 import { FlatErrors } from "@/app/utils/helpers/auth/flattenTreeErrors";
+
+import { useGeolocation } from "@/app/hooks/global/useGeoLocation";
+
+import getSafeRedirect from "@/app/utils/helpers/global/getSafeRedirect";
 
 import { toast } from "sonner";
 
@@ -22,6 +28,8 @@ import CheckBox from "@/app/components/ui/icons/CheckBox";
 import CheckBoxOutlineBlank from "@/app/components/ui/icons/CheckBoxOutlineBlank";
 import Google from "@/app/components/ui/icons/Google";
 
+import Tadpole from "@/app/components/ui/spinners/TadPole";
+
 import tealLogo from "@/public/images/logo-teal.png";
 
 export default function SignUp() {
@@ -29,8 +37,7 @@ export default function SignUp() {
   const searchParams = useSearchParams();
 
   //Page redirection route
-  //Or home for default
-  const pageRedirect = searchParams.get("redirect") || "/";
+  const pageRedirect = getSafeRedirect(searchParams.get("redirect"));
 
   //State of the inputs and errors of the form
   const [userType, setUserType] = useState<UserType>("individual");
@@ -53,6 +60,9 @@ export default function SignUp() {
     setUserType(type);
   }
 
+  //Get user's location by lat and long
+  const { latitude, longitude } = useGeolocation();
+
   //Error states of form
   const firstNameInputError = errors?.firstName?.at(0);
   const lastNameInputError = errors?.lastName?.at(0);
@@ -62,9 +72,10 @@ export default function SignUp() {
 
   //Loading state of signup
   const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
+  const [isGoogleSigningUp, setIsGoogleSigningUp] = useState<boolean>(false);
 
   //Function to submit signup form
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     //Set loading state true
     setIsSigningUp(true);
 
@@ -79,10 +90,13 @@ export default function SignUp() {
     formData.append("organizationName", organizationName);
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("latitude", String(latitude));
+    formData.append("longitude", String(longitude));
+    formData.append("pageRedirect", pageRedirect);
 
     //Call the sign up function
     //Redirect too
-    const result = await signUp(formData, pageRedirect);
+    const result = await signUp(formData);
 
     //Set validation errors is it exists else set empty
     if (result?.validationErrors) {
@@ -105,6 +119,17 @@ export default function SignUp() {
 
     //Set loading state false
     setIsSigningUp(false);
+  };
+
+  //Function to sign up with Google
+  const handleGoogleSignUp = (e: FormEvent) => {
+    //Prevent default
+    e.preventDefault();
+
+    setIsGoogleSigningUp(true);
+
+    //Redirect to backend auth route
+    googleSignIn(latitude, longitude, pageRedirect);
   };
 
   return (
@@ -256,7 +281,11 @@ export default function SignUp() {
         </div>
 
         {/** Submit Button */}
-        <Button isLoading={isSigningUp} text="continue" />
+        <Button
+          isLoading={isSigningUp}
+          text="continue"
+          disabled={isGoogleSigningUp || isSigningUp}
+        />
       </form>
 
       {/** Footer */}
@@ -267,11 +296,19 @@ export default function SignUp() {
           style={{
             boxShadow: "0 0 0 1px #E2E5E7",
           }}
+          disabled={isGoogleSigningUp || isSigningUp}
+          onClick={(e) => handleGoogleSignUp(e)}
         >
-          {/** Google icon */}
-          <Google size="16" />
+          {!isGoogleSigningUp ? (
+            <>
+              {/** Google icon */}
+              <Google size="16" />
 
-          <span>Sign up with Google</span>
+              <span>Sign up with Google</span>
+            </>
+          ) : (
+            <Tadpole size="20" />
+          )}
         </button>
       </footer>
     </>

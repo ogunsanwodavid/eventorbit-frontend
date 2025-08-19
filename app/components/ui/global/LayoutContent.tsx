@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { ReactNode } from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -11,11 +11,7 @@ import Footer from "./Footer";
 
 import PartnerWithUsFloatingBtn from "./PartnerWithUsFloatingBtn";
 
-export default function LayoutContent({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function LayoutContent({ children }: { children: ReactNode }) {
   //Pathname function
   const pathname = usePathname();
 
@@ -45,7 +41,11 @@ export default function LayoutContent({
       {!isAuthPage && <PartnerWithUsFloatingBtn />}
 
       {/** Toaster */}
-      <Toaster richColors position="top-right" />
+      <Toaster
+        richColors
+        position="top-center"
+        className="!font-quicksand !z-30"
+      />
     </main>
   );
 }

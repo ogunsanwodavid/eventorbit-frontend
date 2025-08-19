@@ -15,7 +15,7 @@ interface SignUpApiResponse {
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
 //Signup function
-export async function signUp(formData: FormData, pageRedirect: string) {
+export async function signUp(formData: FormData) {
   //Form data
   const userType = String(formData.get("userType"));
   const firstName = String(formData.get("firstName"));
@@ -23,6 +23,9 @@ export async function signUp(formData: FormData, pageRedirect: string) {
   const organizationName = String(formData.get("organizationName"));
   const email = String(formData.get("email"));
   const password = String(formData.get("password"));
+  const latitude = Number(formData.get("latitude"));
+  const longitude = Number(formData.get("longitude"));
+  const pageRedirect = String(formData.get("pageRedirect"));
 
   //Check if user is individual or organization
   const isIndividual = userType === "individual";
@@ -36,7 +39,9 @@ export async function signUp(formData: FormData, pageRedirect: string) {
     organizationName: isOrganization ? organizationName : undefined,
     email,
     password,
-    pageRedirect: pageRedirect ?? undefined,
+    latitude,
+    longitude,
+    pageRedirect,
   });
 
   //If any form fields are invalid, return early

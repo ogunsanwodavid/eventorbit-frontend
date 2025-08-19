@@ -12,7 +12,5 @@ export async function getAuthStatus() {
     { withCredentials: true }
   );
 
-  console.log(response);
-
   return response.data.authenticated ?? false;
 }
