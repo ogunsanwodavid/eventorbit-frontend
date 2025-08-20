@@ -41,7 +41,7 @@ export default function Input({
       <header className="flex items-center justify-between">
         <label
           htmlFor={name}
-          className={`text-[15px] text-black-2 mb-2 ${
+          className={`block text-[15px] text-black-2 mb-2 ${
             error && "!text-error-red-2"
           }`}
         >

@@ -2,41 +2,29 @@ import z from "zod";
 
 import axios from "axios";
 
-import SignUpFormSchema from "@/app/libs/definitions/auth/sign-up";
+import SignInFormSchema from "@/app/libs/definitions/auth/sign-in";
 
 import flattenTreeErrors, {
   ZodErrorTree,
 } from "@/app/utils/helpers/auth/flattenTreeErrors";
 
-interface SignUpApiResponse {
+interface SignInApiResponse {
   message: string;
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
-//Sign up function
-export async function signUp(formData: FormData) {
+//Sign in function
+export async function signIn(formData: FormData) {
   //Form data
-  const userType = String(formData.get("userType"));
-  const firstName = String(formData.get("firstName"));
-  const lastName = String(formData.get("lastName"));
-  const organizationName = String(formData.get("organizationName"));
   const email = String(formData.get("email"));
   const password = String(formData.get("password"));
   const latitude = Number(formData.get("latitude"));
   const longitude = Number(formData.get("longitude"));
   const pageRedirect = String(formData.get("pageRedirect"));
 
-  //Check if user is individual or organization
-  const isIndividual = userType === "individual";
-  const isOrganization = userType === "organization";
-
   //Validate form fields
-  const validatedFields = SignUpFormSchema.safeParse({
-    userType,
-    firstName: isIndividual ? firstName : undefined,
-    lastName: isIndividual ? lastName : undefined,
-    organizationName: isOrganization ? organizationName : undefined,
+  const validatedFields = SignInFormSchema.safeParse({
     email,
     password,
     latitude,
@@ -54,20 +42,20 @@ export async function signUp(formData: FormData) {
     };
   }
 
-  //Sign up user via API
+  //Sign in user via API
   try {
-    const response = await axios.post<SignUpApiResponse>(
-      `${API_BASE_URL}/api/auth/signup`,
+    const response = await axios.post<SignInApiResponse>(
+      `${API_BASE_URL}/api/auth/signin`,
       validatedFields.data,
       { withCredentials: true }
     );
 
     return {
       success: true,
-      message: response.data.message ?? "User created successfully",
+      message: response.data.message ?? "Sign in successful",
     };
   } catch (error) {
-    let errorMessage = "Failed to sign up";
+    let errorMessage = "Failed to sign in";
 
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       errorMessage = error.response.data.message;

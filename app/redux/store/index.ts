@@ -1,7 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import authReducer from "@/app/redux/slices/auth";
-
 import { AuthState } from "@/app/models/auth";
 
 export interface ReduxStoreState {
@@ -10,9 +8,7 @@ export interface ReduxStoreState {
 
 //Configure the store
 const store = configureStore({
-  reducer: {
-    auth: authReducer,
-  },
+  reducer: {},
 });
 
 export default store;

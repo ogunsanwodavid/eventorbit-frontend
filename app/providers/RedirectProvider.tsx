@@ -4,11 +4,7 @@ import { useEffect, useRef } from "react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { RootState } from "../redux/store";
-
-import { useAppSelector } from "../hooks/global/redux";
-
-import { toast } from "sonner";
+import { useAuth } from "../contexts/AuthContext";
 
 //Path of auth pages
 const AUTH_PAGES = [
@@ -27,10 +23,8 @@ export default function RedirectProvider({
 }: {
   children: React.ReactNode;
 }) {
-  //Check auth status from redux store
-  const isAuthenticated = useAppSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
+  //Auth status
+  const { isAuthenticated } = useAuth();
 
   //Pathname function
   const pathname = usePathname();
@@ -73,8 +67,6 @@ export default function RedirectProvider({
       //::Only if not on verify email page for some UX issues
       if (isAuthenticated && pathname !== "/verify-email") {
         router.replace("/");
-
-        toast.info("Already signed in");
 
         return;
       }

@@ -7,9 +7,9 @@ import Link from "next/link";
 
 import { redirect, useSearchParams } from "next/navigation";
 
-import { verifyEmail } from "@/app/actions/auth/verify-email";
+import { useAuth } from "@/app/contexts/AuthContext";
 
-import useAuth from "@/app/hooks/auth/useAuth";
+import { verifyEmail } from "@/app/actions/auth/verify-email";
 
 import getSafeRedirect from "@/app/utils/helpers/global/getSafeRedirect";
 
@@ -22,6 +22,7 @@ import MailDismissFilled from "@/app/components/ui/icons/MailDismissFilled";
 import tealLogo from "@/public/images/logo-teal.png";
 
 export default function VerifyEmail() {
+  //Auth context variables
   const { refreshAuth } = useAuth();
 
   //Search parameters
@@ -58,6 +59,9 @@ export default function VerifyEmail() {
         if (result.success) {
           //Set verification status true
           setIsVerified(true);
+
+          //Refresh auth status
+          await refreshAuth();
         } else {
           //Set verification status false
           setIsVerified(false);
@@ -70,13 +74,6 @@ export default function VerifyEmail() {
 
     verify();
   }, [token]);
-
-  //Refresh auth status when verified
-  useEffect(() => {
-    if (isVerified) {
-      refreshAuth();
-    }
-  }, [isVerified]);
 
   //Size of filled email icon
   const [mailFilledIconSize, setMailFilledIconSize] = useState<number>(32);

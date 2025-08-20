@@ -98,21 +98,17 @@ export default function SignUp() {
     //Redirect too
     const result = await signUp(formData);
 
-    //Set validation errors is it exists else set empty
-    if (result?.validationErrors) {
-      setErrors(result.validationErrors);
-    } else {
-      setErrors({});
-    }
+    // Set validation errors if any
+    setErrors(result?.validationErrors || {});
 
     //Check if request is successful
-    if (result.success) {
+    if (result.success === true) {
       //Toast success
       toast.success(result.message);
 
       //Redirect to home page
       redirect("/");
-    } else {
+    } else if (result.success === false) {
       //Toast error
       toast.error(result.message);
     }

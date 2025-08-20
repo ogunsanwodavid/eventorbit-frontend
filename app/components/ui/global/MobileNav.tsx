@@ -1,9 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { useAppSelector } from "@/app/hooks/global/redux";
-
-import { RootState } from "@/app/redux/store";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 import useWindowDimensions from "@/app/hooks/global/useWindowDimensions";
 
@@ -20,10 +18,8 @@ export default function MobileNav({
   isMobileNavOpen,
   toggleMobileNav,
 }: MobileNavProps) {
-  //Authentication status
-  const isAuthenticated = useAppSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
+  //Auth status
+  const { isAuthenticated } = useAuth();
 
   //Window dimensions
   const { windowWidth, windowHeight } = useWindowDimensions();

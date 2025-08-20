@@ -2,7 +2,7 @@ import useWindowDimensions from "@/app/hooks/global/useWindowDimensions";
 
 import BlocksWave from "../spinners/BlocksWave";
 
-export default function LoadingPage() {
+export default function OnboardingPage() {
   //Window dimensions
   const { windowWidth, windowHeight } = useWindowDimensions();
 

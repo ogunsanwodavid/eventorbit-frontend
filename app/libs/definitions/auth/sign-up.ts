@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const SignupFormSchema = z
+export const SignUpFormSchema = z
   .object({
     userType: z.enum(["individual", "organization"], {
       error: "User type must be 'individual' or 'organization'",
@@ -56,10 +56,12 @@ export const SignupFormSchema = z
     }
   });
 
-export type SignupFormState =
+export default SignUpFormSchema;
+
+export type SignUpFormState =
   | {
       errors?: Partial<
-        Record<keyof z.infer<typeof SignupFormSchema>, string[]>
+        Record<keyof z.infer<typeof SignUpFormSchema>, string[]>
       >;
       message?: string;
     }

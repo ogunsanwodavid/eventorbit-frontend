@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
 
 import { usePathname } from "next/navigation";
+
+import { useAuth } from "@/app/contexts/AuthContext";
+
 import Image from "next/image";
 import Link from "next/link";
 
-import { useAppSelector } from "@/app/hooks/global/redux";
-
-import { RootState } from "@/app/redux/store";
-
 import MobileNav from "./MobileNav";
+
+import NavHoverLink from "../nav/NavHoverLink";
 
 import Menu from "../icons/Menu";
 
 import whiteLogo from "@/public/images/logo-white.png";
-import NavHoverLink from "../nav/NavHoverLink";
 
 export default function Navbar() {
-  //Authentication status
-  const isAuthenticated = useAppSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
+  //Auth status
+  const { isAuthenticated } = useAuth();
 
   //Get the current pathname
   const pathname = usePathname();
