@@ -108,7 +108,7 @@ export default function Signin() {
   };
 
   return (
-    <>
+    <div className="w-full bg-white">
       {/** Header */}
       <header className="w-full p-6 pb-0 text-center space-y-1">
         {/** Logo */}
@@ -197,6 +197,6 @@ export default function Signin() {
           )}
         </button>
       </footer>
-    </>
+    </div>
   );
 }

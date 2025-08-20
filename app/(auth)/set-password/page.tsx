@@ -129,13 +129,13 @@ export default function SetPassword() {
   //Return tadepole spinner when validating reset token
   if (isValidatingResetToken)
     return (
-      <div className="w-full h-full bg-blur-black flex items-center justify-center text-white">
+      <div className="w-full h-full flex items-center justify-center text-white">
         <Tadpole size="47" />
       </div>
     );
 
   return (
-    <>
+    <div className="w-full bg-white">
       {/** Header */}
       <header className="w-full p-6 pb-0 text-center space-y-1">
         {/** Logo */}
@@ -249,6 +249,6 @@ export default function SetPassword() {
           />
         </form>
       )}
-    </>
+    </div>
   );
 }

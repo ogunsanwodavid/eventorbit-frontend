@@ -6,6 +6,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useAuth } from "../contexts/AuthContext";
 
+import { toast } from "sonner";
+
 //Path of auth pages
 const AUTH_PAGES = [
   "/sign-in",
@@ -67,6 +69,8 @@ export default function RedirectProvider({
       //::Only if not on verify email page for some UX issues
       if (isAuthenticated && pathname !== "/verify-email") {
         router.replace("/");
+
+        toast.info("Already signed in");
 
         return;
       }

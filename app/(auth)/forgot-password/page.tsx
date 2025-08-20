@@ -73,7 +73,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <>
+    <div className="w-full bg-white">
       {/** Header */}
       <header className="w-full p-6 pb-0 text-center space-y-1">
         {/** Logo */}
@@ -120,6 +120,6 @@ export default function ForgotPassword() {
           disabled={isSendingResetLink}
         />
       </form>
-    </>
+    </div>
   );
 }

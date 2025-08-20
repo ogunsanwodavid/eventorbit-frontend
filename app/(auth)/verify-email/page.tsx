@@ -98,7 +98,7 @@ export default function VerifyEmail() {
   }, []);
 
   return (
-    <div className="p-6 flex flex-col items-center justify-center gap-y-3 text-black">
+    <div className="w-full bg-white p-6 flex flex-col items-center justify-center gap-y-3 text-black">
       {/** Logo */}
       <Image
         src={tealLogo}
