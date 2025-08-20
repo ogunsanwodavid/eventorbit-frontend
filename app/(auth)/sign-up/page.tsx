@@ -199,6 +199,7 @@ export default function SignUp() {
                 value={firstName}
                 setValue={setFirstName}
                 error={firstNameInputError}
+                disabled={isSigningUp}
               />
 
               {/** Last name input */}
@@ -209,6 +210,7 @@ export default function SignUp() {
                 value={lastName}
                 setValue={setLastName}
                 error={lastNameInputError}
+                disabled={isSigningUp}
               />
             </div>
           )}
@@ -222,6 +224,7 @@ export default function SignUp() {
               value={organizationName}
               setValue={setOrganizationName}
               error={organizationNameInputError}
+              disabled={isSigningUp}
             />
           )}
 
@@ -233,6 +236,7 @@ export default function SignUp() {
             value={email}
             setValue={setEmail}
             error={emailInputError}
+            disabled={isSigningUp}
           />
 
           {/** Password input */}
@@ -244,6 +248,7 @@ export default function SignUp() {
             setValue={setPassword}
             error={passwordInputError}
             isSecret
+            disabled={isSigningUp}
           />
         </section>
 

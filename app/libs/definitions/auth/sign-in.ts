@@ -10,11 +10,4 @@ const SignInFormSchema = z.object({
 
 export default SignInFormSchema;
 
-export type SignupFormState =
-  | {
-      errors?: Partial<
-        Record<keyof z.infer<typeof SignInFormSchema>, string[]>
-      >;
-      message?: string;
-    }
-  | undefined;
+export type SignInFormType = z.infer<typeof SignInFormSchema>;

@@ -58,11 +58,4 @@ export const SignUpFormSchema = z
 
 export default SignUpFormSchema;
 
-export type SignUpFormState =
-  | {
-      errors?: Partial<
-        Record<keyof z.infer<typeof SignUpFormSchema>, string[]>
-      >;
-      message?: string;
-    }
-  | undefined;
+export type SignUpFormType = z.infer<typeof SignUpFormSchema>;

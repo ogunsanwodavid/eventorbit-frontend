@@ -20,7 +20,7 @@ export default function AllAuthPages({ children }: AllAuthPagesProps) {
         height: `${windowHeight}px`,
       }}
     >
-      <main className="w-full max-w-[500px] mx-auto bg-white rounded-[6px] overflow-hidden">
+      <main className="w-full max-w-[500px] mx-auto bg-white rounded-[6px]">
         {children}
       </main>
     </div>

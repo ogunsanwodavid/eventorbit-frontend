@@ -52,11 +52,11 @@ export default function Signin() {
   const emailInputError = errors?.email?.at(0);
   const passwordInputError = errors?.password?.at(0);
 
-  //Loading state of signup
+  //Loading state of sign in
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
   const [isGoogleSigningIn, setIsGoogleSigningIn] = useState<boolean>(false);
 
-  //Function to submit signup form
+  //Function to submit sign in form
   const handleSubmit = async (e: FormEvent) => {
     //Set loading state true
     setIsSigningIn(true);
@@ -73,7 +73,6 @@ export default function Signin() {
     formData.append("pageRedirect", pageRedirect);
 
     //Call the sign in function
-    //Redirect too
     const result = await signIn(formData);
 
     // Set validation errors if any
@@ -143,6 +142,7 @@ export default function Signin() {
             value={email}
             setValue={setEmail}
             error={emailInputError}
+            disabled={isSigningIn}
           />
 
           {/** Password input */}
@@ -154,6 +154,7 @@ export default function Signin() {
             setValue={setPassword}
             error={passwordInputError}
             isSecret
+            disabled={isSigningIn}
             labelRightComponent={
               <Link
                 href="/forgot-password"

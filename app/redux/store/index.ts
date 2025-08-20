@@ -1,14 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { AuthState } from "@/app/models/auth";
-
-export interface ReduxStoreState {
-  auth: AuthState;
-}
+// dummy reducer does nothing
+const dummyReducer = (state = {}) => state;
 
 //Configure the store
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    _dummy: dummyReducer,
+  },
 });
 
 export default store;

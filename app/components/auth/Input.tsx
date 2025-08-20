@@ -14,6 +14,7 @@ interface InputProps {
   setValue: Dispatch<SetStateAction<string>>;
   error: string | undefined;
   isSecret?: boolean;
+  disabled?: boolean;
 }
 
 export default function Input({
@@ -25,6 +26,7 @@ export default function Input({
   setValue,
   error,
   isSecret,
+  disabled,
 }: InputProps) {
   //Check if secret input is focused  and visible
   const [isSecretInputFocused, setIsSecretInputFocused] = useState(false);
@@ -61,6 +63,7 @@ export default function Input({
             error && "!bg-error-red-3 !border-error-red"
           }`}
           placeholder={!error ? placeholder : undefined}
+          disabled={disabled}
         />
       )}
 
@@ -80,6 +83,7 @@ export default function Input({
             placeholder={!error ? placeholder : undefined}
             onFocus={() => setIsSecretInputFocused(true)}
             onBlur={() => setIsSecretInputFocused(false)}
+            disabled={disabled}
           />
 
           {/** Eye */}
