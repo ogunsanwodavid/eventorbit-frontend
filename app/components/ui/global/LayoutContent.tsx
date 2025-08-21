@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 
-import { usePathname } from "next/navigation";
+import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContext";
 
 import { Toaster } from "sonner";
 
@@ -12,33 +12,21 @@ import Footer from "./Footer";
 import PartnerWithUsFloatingBtn from "./PartnerWithUsFloatingBtn";
 
 export default function LayoutContent({ children }: { children: ReactNode }) {
-  //Pathname function
-  const pathname = usePathname();
-
-  //Define routes where Navbar and Footer should not appear
-  const authRoutes = [
-    "/sign-in",
-    "/sign-up",
-    "/forgot-password",
-    "/set-password",
-    "/verify-email",
-  ];
-
-  //Check if route is an auth page
-  const isAuthPage = authRoutes.includes(pathname);
+  //Nav and footer visibility
+  const { showNav, showFooter } = useNavFooterVisibility();
 
   return (
     <main className="flex flex-col min-h-screen">
-      {/*** Render Navbar if it is not an auth page */}
-      {!isAuthPage && <Navbar />}
+      {/* Navbar */}
+      {showNav && <Navbar />}
 
       {children}
 
-      {/*** Render Footer if it is not an auth page */}
-      {!isAuthPage && <Footer />}
+      {/* Footer */}
+      {showFooter && <Footer />}
 
-      {/*** Render Partner with us floating button if its not an auth page */}
-      {!isAuthPage && <PartnerWithUsFloatingBtn />}
+      {/* Floating Button (depends on nav/footer being shown) */}
+      {showNav && showFooter && <PartnerWithUsFloatingBtn />}
 
       {/** Toaster */}
       <Toaster

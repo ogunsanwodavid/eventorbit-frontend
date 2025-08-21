@@ -182,7 +182,7 @@ export default function MobileNav({
 
           {/** Settings */}
           {isAuthenticated && (
-            <Link href="#">
+            <Link href="/settings">
               <span>Settings</span>
             </Link>
           )}

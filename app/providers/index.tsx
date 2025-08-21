@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { AuthProvider } from "../contexts/AuthContext";
+import { NavFooterVisibilityProvider } from "../contexts/NavFooterVisibilityContext";
 
 import QueryProvider from "./QueryProvider";
 import ReduxProvider from "./ReduxProvider";
@@ -14,7 +15,11 @@ export default function Providers({ children }: { children: ReactNode }) {
         <QueryProvider>
           <AuthProvider>
             <OnboardingProvider>
-              <RedirectProvider>{children}</RedirectProvider>
+              <RedirectProvider>
+                <NavFooterVisibilityProvider>
+                  {children}
+                </NavFooterVisibilityProvider>
+              </RedirectProvider>
             </OnboardingProvider>
           </AuthProvider>
         </QueryProvider>

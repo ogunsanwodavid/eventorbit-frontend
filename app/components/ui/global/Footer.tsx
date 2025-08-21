@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContext";
+
 import LanguageSelect from "../footer/LanguageSelect";
 
 import XTwitter from "../icons/XTwitter";
@@ -10,6 +12,12 @@ import Linkedin from "../icons/Linkedin";
 import tealLogo from "@/public/images/logo-teal.png";
 
 export default function Footer() {
+  //Footer visibility
+  const { showFooter } = useNavFooterVisibility();
+
+  //Don't show footer is visibility false
+  if (!showFooter) return null;
+
   return (
     <div className="w-full bg-[#f5f5f5] mt-auto">
       <footer className="inner-screen-max py-16 px-5 md:!pb-24 lg:px-10 max:px-0">

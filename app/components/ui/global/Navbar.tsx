@@ -4,6 +4,8 @@ import { redirect, usePathname } from "next/navigation";
 
 import { useAuth } from "@/app/contexts/AuthContext";
 
+import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContext";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,6 +24,9 @@ import Tadpole from "../spinners/TadPole";
 import whiteLogo from "@/public/images/logo-white.png";
 
 export default function Navbar() {
+  //Navbar visibility
+  const { showNav } = useNavFooterVisibility();
+
   //Auth context variables
   const { isAuthenticated, profile, refreshAuth } = useAuth();
 
@@ -99,6 +104,9 @@ export default function Navbar() {
       setIsSigningOut(false);
     }
   };
+
+  //Dont show navbar if visibility false
+  if (!showNav) return null;
 
   return (
     <nav className="fixed top-0 left-0 z-5 w-full bg-teal px-5 flex items-center justify-between lg:px-10">
@@ -237,7 +245,10 @@ export default function Navbar() {
                 </Link>
 
                 {/** Settings */}
-                <Link href="#" className="h-[45px] flex items-center px-6">
+                <Link
+                  href="/settings"
+                  className="h-[45px] flex items-center px-6"
+                >
                   Settings
                 </Link>
 
