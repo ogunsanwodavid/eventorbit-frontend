@@ -69,7 +69,7 @@ export default function Hero() {
               <Image
                 fill
                 src={HeroImage1}
-                className="object-cover rounded-[0.5rem]  -mt-16 "
+                className="object-cover rounded-[0.5rem] -mt-16"
                 alt="events"
               />
             </div>
