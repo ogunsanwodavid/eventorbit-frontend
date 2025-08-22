@@ -120,7 +120,7 @@ export default function Navbar() {
       </Link>
 
       {/** Menu icon */}
-      <section className="text-white py-4 lg:hidden" onClick={toggleMobileNav}>
+      <section className="text-white py-3 lg:hidden" onClick={toggleMobileNav}>
         <Menu size="32" />
       </section>
 

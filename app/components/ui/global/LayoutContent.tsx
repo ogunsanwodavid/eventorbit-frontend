@@ -16,11 +16,14 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
   const { showNav, showFooter } = useNavFooterVisibility();
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       {/* Navbar */}
       {showNav && <Navbar />}
 
-      {children}
+      {/** Main content */}
+      <main className={`${showNav && "mt-[56px] lg:mt-[70px]"}`}>
+        {children}
+      </main>
 
       {/* Footer */}
       {showFooter && <Footer />}
@@ -34,6 +37,6 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
         position="top-center"
         className="!font-quicksand !z-30"
       />
-    </main>
+    </div>
   );
 }
