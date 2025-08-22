@@ -85,7 +85,7 @@ export default function UpdateEmailModal({
       //Toast success
       toast.success(result.message);
 
-      //Refresh account in Redux
+      //Refresh account state in Redux
       await dispatch(fetchAccount());
 
       //Refresh auth

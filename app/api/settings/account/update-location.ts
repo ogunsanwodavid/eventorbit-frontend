@@ -2,30 +2,26 @@ import z from "zod";
 
 import axios from "axios";
 
-import UpdatePasswordFormSchema from "@/app/libs/definitions/settings/account/update-password";
+import UpdateLocationFormSchema from "@/app/libs/definitions/settings/account/update-location";
 
 import flattenTreeErrors, {
   ZodErrorTree,
 } from "@/app/utils/helpers/auth/flattenTreeErrors";
 
-interface UpdatePasswordApiResponse {
+interface UpdateLocationApiResponse {
   message: string;
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
-//Update password function
-export async function updatePassword(formData: FormData) {
+//Update location function
+export async function updateLocation(formData: FormData) {
   //Form data
-  const currentPassword = String(formData.get("currentPassword"));
-  const newPassword = String(formData.get("newPassword"));
-  const confirmNewPassword = String(formData.get("confirmNewPassword"));
+  const location = String(formData.get("location"));
 
   //Validate form fields
-  const validatedFields = UpdatePasswordFormSchema.safeParse({
-    currentPassword,
-    newPassword,
-    confirmNewPassword,
+  const validatedFields = UpdateLocationFormSchema.safeParse({
+    location,
   });
 
   //If any form fields are invalid, return early
@@ -38,20 +34,20 @@ export async function updatePassword(formData: FormData) {
     };
   }
 
-  //Update password via API
+  //Update location via API
   try {
-    const response = await axios.patch<UpdatePasswordApiResponse>(
-      `${API_BASE_URL}/api/account/update-password`,
+    const response = await axios.patch<UpdateLocationApiResponse>(
+      `${API_BASE_URL}/api/account/update-location`,
       validatedFields.data,
       { withCredentials: true }
     );
 
     return {
       success: true,
-      message: response.data.message ?? "Password updated successfully.",
+      message: response.data.message ?? "Location updated successfully.",
     };
   } catch (error) {
-    let errorMessage = "Failed to update password.";
+    let errorMessage = "Failed to update Location.";
 
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       errorMessage = error.response.data.message;
