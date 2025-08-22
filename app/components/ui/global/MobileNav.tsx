@@ -9,7 +9,7 @@ import { useAuth } from "@/app/contexts/AuthContext";
 
 import useWindowDimensions from "@/app/hooks/global/useWindowDimensions";
 
-import { signOut } from "@/app/actions/auth/sign-out";
+import { signOut } from "@/app/api/auth/sign-out";
 
 import { toast } from "sonner";
 

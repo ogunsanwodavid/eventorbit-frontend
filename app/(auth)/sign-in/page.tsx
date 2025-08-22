@@ -9,9 +9,9 @@ import Link from "next/link";
 
 import { useAuth } from "@/app/contexts/AuthContext";
 
-import { signIn } from "@/app/actions/auth/sign-in";
+import { signIn } from "@/app/api/auth/sign-in";
 
-import { googleSignIn } from "@/app/actions/auth/google-sign-in";
+import { googleSignIn } from "@/app/api/auth/google-sign-in";
 
 import { FlatErrors } from "@/app/utils/helpers/auth/flattenTreeErrors";
 
@@ -21,7 +21,8 @@ import getSafeRedirect from "@/app/utils/helpers/global/getSafeRedirect";
 
 import { toast } from "sonner";
 
-import Input from "@/app/components/auth/Input";
+import Input from "@/app/components/ui/global/Input";
+
 import Button from "@/app/components/auth/Button";
 
 import Google from "@/app/components/ui/icons/Google";

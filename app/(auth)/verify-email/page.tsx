@@ -9,7 +9,7 @@ import { redirect, useSearchParams } from "next/navigation";
 
 import { useAuth } from "@/app/contexts/AuthContext";
 
-import { verifyEmail } from "@/app/actions/auth/verify-email";
+import { verifyEmail } from "@/app/api/auth/verify-email";
 
 import getSafeRedirect from "@/app/utils/helpers/global/getSafeRedirect";
 

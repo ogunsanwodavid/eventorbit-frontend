@@ -7,15 +7,16 @@ import Link from "next/link";
 
 import { redirect, useSearchParams } from "next/navigation";
 
-import { setPassword } from "@/app/actions/auth/set-password";
+import { setPassword } from "@/app/api/auth/set-password";
 
-import { validateResetToken } from "@/app/actions/auth/validate-reset-token";
+import { validateResetToken } from "@/app/api/auth/validate-reset-token";
 
 import { FlatErrors } from "@/app/utils/helpers/auth/flattenTreeErrors";
 
 import { toast } from "sonner";
 
-import Input from "@/app/components/auth/Input";
+import Input from "@/app/components/ui/global/Input";
+
 import Button from "@/app/components/auth/Button";
 
 import Warning from "@/app/components/ui/icons/Warning";

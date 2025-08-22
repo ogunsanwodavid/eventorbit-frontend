@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-// dummy reducer does nothing
-const dummyReducer = (state = {}) => state;
+import accountReducer from "../slices/accountSlice";
 
 //Configure the store
 const store = configureStore({
   reducer: {
-    _dummy: dummyReducer,
+    account: accountReducer,
   },
 });
 

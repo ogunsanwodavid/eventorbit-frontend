@@ -7,7 +7,7 @@ import { redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-import { forgotPassword } from "@/app/actions/auth/forgot-password";
+import { forgotPassword } from "@/app/api/auth/forgot-password";
 
 import { FlatErrors } from "@/app/utils/helpers/auth/flattenTreeErrors";
 
@@ -15,7 +15,8 @@ import getSafeRedirect from "@/app/utils/helpers/global/getSafeRedirect";
 
 import { toast } from "sonner";
 
-import Input from "@/app/components/auth/Input";
+import Input from "@/app/components/ui/global/Input";
+
 import Button from "@/app/components/auth/Button";
 
 import tealLogo from "@/public/images/logo-teal.png";

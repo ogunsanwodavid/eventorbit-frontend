@@ -4,9 +4,9 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 import { Profile } from "@/app/models/auth";
 
-import { getAuthStatus } from "@/app/actions/auth/get-status";
+import { getAuthStatus } from "@/app/api/auth/get-status";
 
-import { getProfile } from "@/app/actions/auth/get-profile";
+import { getProfile } from "@/app/api/auth/get-profile";
 
 interface AuthState {
   loading: boolean;

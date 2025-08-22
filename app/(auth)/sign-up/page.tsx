@@ -7,9 +7,9 @@ import { redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-import { signUp } from "@/app/actions/auth/sign-up";
+import { signUp } from "@/app/api/auth/sign-up";
 
-import { googleSignIn } from "@/app/actions/auth/google-sign-in";
+import { googleSignIn } from "@/app/api/auth/google-sign-in";
 
 import { UserType } from "@/app/models/auth";
 
@@ -21,7 +21,8 @@ import getSafeRedirect from "@/app/utils/helpers/global/getSafeRedirect";
 
 import { toast } from "sonner";
 
-import Input from "@/app/components/auth/Input";
+import Input from "@/app/components/ui/global/Input";
+
 import Button from "@/app/components/auth/Button";
 
 import CheckBox from "@/app/components/ui/icons/CheckBox";

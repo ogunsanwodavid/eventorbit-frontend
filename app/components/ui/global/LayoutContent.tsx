@@ -4,6 +4,8 @@ import { ReactNode } from "react";
 
 import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContext";
 
+import useWindowDimensions from "@/app/hooks/global/useWindowDimensions";
+
 import { Toaster } from "sonner";
 
 import Navbar from "./Navbar";
@@ -15,13 +17,25 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
   //Nav and footer visibility
   const { showNav, showFooter } = useNavFooterVisibility();
 
+  //Window dimensions
+  const { windowHeight } = useWindowDimensions();
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div
+      className="flex flex-col"
+      style={{
+        minHeight: `${windowHeight}px`,
+      }}
+    >
       {/* Navbar */}
       {showNav && <Navbar />}
 
       {/** Main content */}
-      <main className={`${showNav && "mt-[56px] lg:mt-[70px]"}`}>
+      <main
+        className={`${
+          showNav && "flex-1 mt-[56px] flex flex-col lg:mt-[70px]"
+        }`}
+      >
         {children}
       </main>
 

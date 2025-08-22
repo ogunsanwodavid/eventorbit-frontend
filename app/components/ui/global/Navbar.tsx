@@ -9,7 +9,7 @@ import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContex
 import Image from "next/image";
 import Link from "next/link";
 
-import { signOut } from "@/app/actions/auth/sign-out";
+import { signOut } from "@/app/api/auth/sign-out";
 
 import { toast } from "sonner";
 

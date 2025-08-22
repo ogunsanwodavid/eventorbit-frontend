@@ -2,14 +2,14 @@
 
 import { Dispatch, SetStateAction, ReactNode, useState } from "react";
 
-import Eye from "../ui/icons/Eye";
-import EyeClosed from "../ui/icons/EyeClosed";
+import Eye from "../icons/Eye";
+import EyeClosed from "../icons/EyeClosed";
 
 interface InputProps {
   name: string;
   label: string;
   labelRightComponent?: ReactNode;
-  placeholder: string;
+  placeholder?: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   error: string | undefined;
@@ -57,6 +57,7 @@ export default function Input({
       {!isSecret && (
         <input
           type="text"
+          name={name}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className={`h-[42px] w-full bg-white text-base text-black-2 p-2 border-[1px] border-[#E2E5E7] rounded-[6px] transition-all duration-250 focus:border-teal ${
@@ -77,6 +78,7 @@ export default function Input({
           {/** Input */}
           <input
             type={isSecretInputVisible ? "text" : "password"}
+            name={name}
             value={value}
             onChange={(e) => setValue(e.target.value)}
             className="w-full h-full outline-0 border-0 bg-transparent text-base text-black-2 "
