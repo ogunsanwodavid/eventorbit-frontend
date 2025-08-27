@@ -61,7 +61,7 @@ export default function VerifyEmail() {
           setIsVerified(true);
 
           //Refresh auth status
-          await refreshAuth();
+          await refreshAuth({ setLoading: false });
         } else {
           //Set verification status false
           setIsVerified(false);

@@ -73,7 +73,11 @@ export default function EmailAddressBox({ email }: EmailAddressBoxProps) {
         {/** Email input */}
         <Input
           name="email"
-          label="Email"
+          label={
+            <div>
+              Email <span className="text-error-red-2">*</span>
+            </div>
+          }
           value={emailInputValue}
           setValue={setEmailInputValue}
           error={emailInputError}
@@ -83,7 +87,7 @@ export default function EmailAddressBox({ email }: EmailAddressBoxProps) {
         <div className="mt-[9px] w-max ml-auto">
           <Button
             isLoading={false}
-            text="update email"
+            text="save email"
             disabled={!emailInputValue}
           />
         </div>

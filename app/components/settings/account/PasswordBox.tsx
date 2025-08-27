@@ -60,7 +60,7 @@ export default function PasswordBox() {
       toast.success(result.message);
 
       //Refresh auth
-      await refreshAuth();
+      await refreshAuth({ setLoading: false });
 
       //Redirect to sign in
       redirect("/sign-in");
@@ -83,7 +83,11 @@ export default function PasswordBox() {
         {/** Current Password input */}
         <Input
           name="currentPassword"
-          label="Current password"
+          label={
+            <div>
+              Current password <span className="text-error-red-2">*</span>
+            </div>
+          }
           value={currentPassword}
           setValue={setCurrentPassword}
           error={currentPasswordInputError}
@@ -94,7 +98,11 @@ export default function PasswordBox() {
         {/** New Password input */}
         <Input
           name="newPassword"
-          label="New password"
+          label={
+            <div>
+              New password <span className="text-error-red-2">*</span>
+            </div>
+          }
           value={newPassword}
           setValue={setNewPassword}
           error={newPasswordInputError}
@@ -105,7 +113,11 @@ export default function PasswordBox() {
         {/** Set New Password input */}
         <Input
           name="confirmNewPassword"
-          label="Confirm new password"
+          label={
+            <div>
+              Confirm new password <span className="text-error-red-2">*</span>
+            </div>
+          }
           value={confirmNewPassword}
           setValue={setConfirmNewPassword}
           error={confirmNewPasswordInputError}
@@ -114,12 +126,14 @@ export default function PasswordBox() {
         />
 
         {/** Submit button */}
-        <div className="mt-[9px] w-[157px] ml-auto">
+        <div className="mt-[9px] w-[139px] ml-auto">
           <Button
             isLoading={isUpdatingPassword}
-            text="update password"
+            text="save password"
             disabled={
-              (!currentPassword && !newPassword && !confirmNewPassword) ||
+              !currentPassword ||
+              !newPassword ||
+              !confirmNewPassword ||
               isUpdatingPassword
             }
           />

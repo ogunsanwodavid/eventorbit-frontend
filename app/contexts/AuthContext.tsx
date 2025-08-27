@@ -14,8 +14,12 @@ interface AuthState {
   profile: Profile | null;
 }
 
+type RefreshAuthOptions = {
+  setLoading?: boolean;
+};
+
 interface AuthContextValue extends AuthState {
-  refreshAuth: () => Promise<void>;
+  refreshAuth: (options?: RefreshAuthOptions) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -29,8 +33,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   //Refresh auth function
-  const refreshAuth = async () => {
-    setAuth((prev) => ({ ...prev, loading: true }));
+  //::With OPTIONS
+  const refreshAuth = async (options?: RefreshAuthOptions) => {
+    //Make set loading true optional
+    //::Default to true
+    const { setLoading = true } = options ?? {};
+
+    if (setLoading) {
+      setAuth((prev) => ({ ...prev, loading: true }));
+    }
 
     try {
       const authenticated = await getAuthStatus();

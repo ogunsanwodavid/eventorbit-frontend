@@ -9,6 +9,8 @@ import { fetchAccount } from "@/app/actions/settings/account/fetchAccount";
 import EmailAddressBox from "@/app/components/settings/account/EmailAddressBox";
 import PasswordBox from "@/app/components/settings/account/PasswordBox";
 import LocationBox from "@/app/components/settings/account/LocationBox";
+import PoliciesBox from "@/app/components/settings/account/PoliciesBox";
+import DisableAccountBox from "@/app/components/settings/account/DisableAccountBox";
 
 import BlocksShuffle3 from "@/app/components/ui/spinners/BlocksShuffle3";
 
@@ -44,6 +46,12 @@ export default function AccountSettings() {
 
       {/** Location Box */}
       <LocationBox location={account?.location || ""} />
+
+      {/** Policies Box */}
+      <PoliciesBox policies={account?.policies} />
+
+      {/** Disable Account Box */}
+      <DisableAccountBox />
     </div>
   );
 }

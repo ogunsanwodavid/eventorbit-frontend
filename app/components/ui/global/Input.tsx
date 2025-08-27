@@ -7,14 +7,15 @@ import EyeClosed from "../icons/EyeClosed";
 
 interface InputProps {
   name: string;
-  label: string;
+  label: string | ReactNode;
   labelRightComponent?: ReactNode;
   placeholder?: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
-  error: string | undefined;
+  error?: string;
   isSecret?: boolean;
   disabled?: boolean;
+  textarea?: boolean;
 }
 
 export default function Input({
@@ -27,6 +28,7 @@ export default function Input({
   error,
   isSecret,
   disabled,
+  textarea,
 }: InputProps) {
   //Check if secret input is focused  and visible
   const [isSecretInputFocused, setIsSecretInputFocused] = useState(false);
@@ -53,14 +55,28 @@ export default function Input({
         {labelRightComponent}
       </header>
 
-      {/** Normal Input */}
-      {!isSecret && (
+      {/** Normal non-textarea Input */}
+      {!isSecret && !textarea && (
         <input
           type="text"
           name={name}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className={`h-[42px] w-full bg-white text-base text-black-2 p-2 border-[1px] border-[#E2E5E7] rounded-[6px] transition-all duration-250 focus:border-teal ${
+          className={`h-[42px] w-full bg-white text-[15px] text-black-2 p-2 border-[1px] border-[#E2E5E7] rounded-[6px] transition-all duration-250 focus:border-teal ${
+            error && "!bg-error-red-3 !border-error-red"
+          }`}
+          placeholder={!error ? placeholder : undefined}
+          disabled={disabled}
+        />
+      )}
+
+      {/** Normal textarea Input */}
+      {!isSecret && textarea && (
+        <textarea
+          name={name}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className={`min-h-[72px] max-h-[110px] w-full bg-white text-base text-black-2 p-2 border-[1px] border-[#E2E5E7] rounded-[6px] transition-all duration-250 focus:border-teal ${
             error && "!bg-error-red-3 !border-error-red"
           }`}
           placeholder={!error ? placeholder : undefined}

@@ -58,7 +58,7 @@ export default function MobileNav({
       //Check if successful
       if (result.success) {
         //Refresh auth status
-        await refreshAuth();
+        await refreshAuth({ setLoading: false });
 
         //Toast message
         toast.success(result.message);

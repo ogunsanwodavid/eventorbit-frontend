@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import {
   Select,
   SelectContent,
@@ -6,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shadcn-ui/ui/select";
-import { useState } from "react";
 
 export default function LanguageSelect() {
   //Select value

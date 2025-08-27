@@ -47,15 +47,6 @@ export default function LocationBox({ location }: LocationBoxProps) {
     const formData = new FormData();
     formData.append("location", locationInputValue);
 
-    //Make sure location has changed
-    if (locationInputValue === location) {
-      setErrors({ location: ["New location is same as current one"] });
-
-      setIsUpdatingLocation(false);
-
-      return;
-    }
-
     //Call the update location function
     const result = await updateLocation(formData);
 
@@ -96,11 +87,11 @@ export default function LocationBox({ location }: LocationBoxProps) {
         />
 
         {/** Submit button */}
-        <div className="mt-[9px] w-[157px] ml-auto">
+        <div className="mt-[9px] w-[132px] ml-auto">
           <Button
             isLoading={isUpdatingLocation}
-            text="update location"
-            disabled={!location || isUpdatingLocation}
+            text="save location"
+            disabled={!locationInputValue || isUpdatingLocation}
           />
         </div>
       </form>

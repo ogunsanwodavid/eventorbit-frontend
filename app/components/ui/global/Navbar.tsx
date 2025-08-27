@@ -34,7 +34,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   //Profile info
-  const { info: { userType, firstName, lastName, organizationName } = {} } =
+  const { info: { userType, firstName, organizationName } = {} } =
     profile ?? {};
 
   //State of the mobile nav
@@ -88,7 +88,7 @@ export default function Navbar() {
       //Check if successful
       if (result.success) {
         //Refresh auth status
-        await refreshAuth();
+        await refreshAuth({ setLoading: false });
 
         //Toast message
         toast.success(result.message);
@@ -209,13 +209,13 @@ export default function Navbar() {
                     height={36}
                   />
                 ) : (
-                  <div className="w-7 h-7 rounded-full bg-emerald-600 text-white text-[14px] uppercase flex items-center justify-center">
+                  <div
+                    className={`w-7 h-7 rounded-full bg-emerald-600 text-white text-[15px] uppercase flex items-center justify-center`}
+                  >
                     {/** Provisional profile pic
                      * using intials of name
                      */}
-                    {userType === "individual" &&
-                      `${firstName?.charAt(0)}
-                    ${lastName?.charAt(0)}`}
+                    {userType === "individual" && `${firstName?.charAt(0)}`}
 
                     {userType === "organization" &&
                       `${organizationName?.charAt(0)}`}

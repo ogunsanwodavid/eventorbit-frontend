@@ -37,3 +37,9 @@ export interface EmailPreferences {
     others: boolean;
   };
 }
+
+export interface EmailPreferencesState {
+  emailPreferences: EmailPreferences | null;
+  loading: boolean;
+  error: string | null;
+}

@@ -6,11 +6,7 @@ import { useAuth } from "@/app/contexts/AuthContext";
 
 import { FlatErrors } from "@/app/utils/helpers/auth/flattenTreeErrors";
 
-import { updateEmail } from "@/app/api/settings/account/update-email";
-
-import { useAppDispatch } from "@/app/hooks/global/redux";
-
-import { fetchAccount } from "@/app/actions/settings/account/fetchAccount";
+import { disableAccount } from "@/app/api/settings/account/disable-account";
 
 import useWindowDimensions from "@/app/hooks/global/useWindowDimensions";
 
@@ -22,23 +18,18 @@ import Input from "../../ui/global/Input";
 
 import X from "../../ui/icons/X";
 
-interface UpdateEmailModalProps {
-  email: string;
-  setShowUpdateEmailModal: (arg: boolean) => void;
+interface DisableAccountModalProps {
+  setShowDisableAccountModal: (arg: boolean) => void;
 }
 
-export default function UpdateEmailModal({
-  email,
-  setShowUpdateEmailModal,
-}: UpdateEmailModalProps) {
+export default function DisableAccountModal({
+  setShowDisableAccountModal,
+}: DisableAccountModalProps) {
   //Auth context tools
   const { refreshAuth } = useAuth();
 
   //Window dimensions
   const { windowWidth, windowHeight } = useWindowDimensions();
-
-  //Redux dispatch function
-  const dispatch = useAppDispatch();
 
   //Input values and errors
   const [password, setPassword] = useState<string>("");
@@ -46,11 +37,11 @@ export default function UpdateEmailModal({
   const passwordInputError = errors?.password?.at(0);
 
   //Loading states
-  const [isUpdatingEmail, setIsUpdatingEmail] = useState<boolean>(false);
+  const [isDisablingAccount, setIsDisablingAccount] = useState<boolean>(false);
 
   //Close modal function
   function handleCloseModal() {
-    setShowUpdateEmailModal(false);
+    setShowDisableAccountModal(false);
   }
 
   //Cancel function
@@ -65,7 +56,7 @@ export default function UpdateEmailModal({
   //Submit function
   const handleSubmit = async (e: FormEvent) => {
     //Set loading state true
-    setIsUpdatingEmail(true);
+    setIsDisablingAccount(true);
 
     //Prevent default
     e.preventDefault();
@@ -74,8 +65,8 @@ export default function UpdateEmailModal({
     const formData = new FormData();
     formData.append("password", password);
 
-    //Call the update email function
-    const result = await updateEmail(email, formData);
+    //Call the disable account function
+    const result = await disableAccount(formData);
 
     // Set validation errors if any
     setErrors(result?.validationErrors || {});
@@ -85,21 +76,18 @@ export default function UpdateEmailModal({
       //Toast success
       toast.success(result.message);
 
-      //Refresh account state in Redux
-      await dispatch(fetchAccount());
-
       //Refresh auth
       await refreshAuth({ setLoading: false });
 
-      //Redirect to sign in
-      redirect("/sign-in");
+      //Redirect to home
+      redirect("/");
     } else if (result.success === false) {
       //Toast error
       toast.error(result.message);
     }
 
     //Set loading state false
-    setIsUpdatingEmail(false);
+    setIsDisablingAccount(false);
   };
 
   return (
@@ -112,13 +100,26 @@ export default function UpdateEmailModal({
     >
       <main className="w-full max-w-[600px] bg-white p-6 rounded-[6px]">
         {/** Header */}
-        <header className="flex items-center justify-between">
-          <h4 className="text-black text-[19px] font-semibold">Save Email</h4>
-
+        <header className="flex flex-col gap-y-3">
           {/** X icon */}
-          <span className="text-gray" onClick={handleCloseModal}>
+          <span
+            className="inline-block w-max ml-auto text-gray"
+            onClick={handleCloseModal}
+          >
             <X size="21" />
           </span>
+
+          {/** Texts */}
+          <div className="space-y-1">
+            <h4 className="text-black text-[19px] font-semibold">
+              Are you sure you want to disable your account?
+            </h4>
+
+            <p className="text-black-2 text-[14px] font-medium">
+              Your account will remain inactive until you contact support or
+              request reactivation.
+            </p>
+          </div>
         </header>
 
         {/** Form */}
@@ -135,7 +136,7 @@ export default function UpdateEmailModal({
             setValue={setPassword}
             error={passwordInputError}
             isSecret
-            disabled={isUpdatingEmail}
+            disabled={isDisablingAccount}
           />
 
           {/** Buttons */}
@@ -150,10 +151,10 @@ export default function UpdateEmailModal({
 
             {/** Submit */}
             <Button
-              isLoading={isUpdatingEmail}
-              text="submit"
-              className="!w-[82px] !bg-teal !text-white"
-              disabled={!password || isUpdatingEmail}
+              isLoading={isDisablingAccount}
+              text="disable"
+              className="!w-[82px] !bg-error-red !border-error-red !text-white"
+              disabled={!password || isDisablingAccount}
             />
           </div>
         </form>

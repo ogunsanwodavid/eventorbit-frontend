@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import accountReducer from "../slices/accountSlice";
+import accountReducer from "../slices/settings/accountSlice";
+
+import emailPreferencesReducer from "../slices/settings/emailPreferencesSlice";
 
 //Configure the store
 const store = configureStore({
   reducer: {
     account: accountReducer,
+    emailPreferences: emailPreferencesReducer,
   },
 });
 

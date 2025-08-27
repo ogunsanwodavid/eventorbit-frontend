@@ -84,7 +84,7 @@ export default function Signin() {
       //Toast success
       toast.success(result.message);
 
-      await refreshAuth();
+      await refreshAuth({ setLoading: false });
 
       //Redirect
       redirect(pageRedirect);
