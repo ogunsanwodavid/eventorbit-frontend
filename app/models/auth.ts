@@ -1,6 +1,7 @@
 export type UserType = "individual" | "organization";
 
 export interface Profile {
+  userId: string;
   isDisabled: boolean;
   info: {
     firstName?: string;
@@ -9,6 +10,7 @@ export interface Profile {
     userType: UserType;
     description?: string;
     profileSlug: string;
+    location?: string;
     isPrivate: boolean;
     isABusinessSeller: boolean;
     businessAddress?: string;

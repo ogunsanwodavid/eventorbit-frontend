@@ -63,11 +63,11 @@ export default function PoliciesBox({ policies }: PoliciesBoxProps) {
 
     //Check if request is successful
     if (result.success === true) {
-      //Toast success
-      toast.success(result.message);
-
       //Refresh account state in Redux
       await dispatch(fetchAccount());
+
+      //Toast success
+      toast.success(result.message);
     } else if (result.success === false) {
       //Toast error
       toast.error(result.message);

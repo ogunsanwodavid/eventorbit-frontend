@@ -30,7 +30,7 @@ export default function MobileNav({
   toggleMobileNav,
 }: MobileNavProps) {
   //Auth status
-  const { isAuthenticated, refreshAuth } = useAuth();
+  const { isAuthenticated, refreshAuth, profile } = useAuth();
 
   //Window dimensions
   const { windowWidth, windowHeight } = useWindowDimensions();
@@ -111,6 +111,13 @@ export default function MobileNav({
 
           {/** Nav Links */}
           <div className="w-full pr-6 mt-5 flex flex-col gap-y-0 text-[#0e0e0e] text-[15px] font-medium">
+            {/** My Events */}
+            {isAuthenticated && (
+              <Link href="/events" className="pb-[15px]">
+                <span>My Events</span>
+              </Link>
+            )}
+
             {/** My Tickets */}
             {isAuthenticated && (
               <Link
@@ -174,8 +181,8 @@ export default function MobileNav({
         {/** Lower Section */}
         <section className="w-full mt-auto border-t-[#cbcbcb] border-t-[1px] py-4 pl-6 flex flex-col gap-y-4 text-[#6f7881] text-[15px] font-medium">
           {/** Profile */}
-          {isAuthenticated && (
-            <Link href="#">
+          {isAuthenticated && profile && (
+            <Link href={`/users/${profile.info.profileSlug}`}>
               <span>Profile</span>
             </Link>
           )}

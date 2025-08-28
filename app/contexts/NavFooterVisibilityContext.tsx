@@ -48,11 +48,19 @@ export const NavFooterVisibilityProvider = ({
   const pathname = usePathname();
 
   //Nav and footer visibility
-  const [showNav, setShowNav] = useState(true);
-  const [showFooter, setShowFooter] = useState(true);
+  /* const [showNav, setShowNav] = useState(true);
+  const [showFooter, setShowFooter] = useState(true); */
+  const [showFooter, setShowFooter] = useState(
+    () => !footerHiddenRoutes.some((route) => pathname?.startsWith(route))
+  );
+
+  const [showNav, setShowNav] = useState(
+    () => !navHiddenRoutes.some((route) => pathname?.startsWith(route))
+  );
 
   //Auto-toggle visibility whenever pathname changes
   useEffect(() => {
+    if (!pathname) return;
     setShowNav(!navHiddenRoutes.some((route) => pathname.startsWith(route)));
     setShowFooter(
       !footerHiddenRoutes.some((route) => pathname.startsWith(route))

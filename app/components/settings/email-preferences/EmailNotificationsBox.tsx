@@ -101,11 +101,11 @@ export default function EmailNotificationsBox({
 
     //Check if request is successful
     if (result.success === true) {
-      //Toast success
-      toast.success(result.message);
-
       //Refresh email pref state in Redux
       await dispatch(fetchEmailPreferences());
+
+      //Toast success
+      toast.success(result.message);
     } else if (result.success === false) {
       //Toast error
       toast.error(result.message);

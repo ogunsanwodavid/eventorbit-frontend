@@ -82,14 +82,14 @@ export default function UpdateEmailModal({
 
     //Check if request is successful
     if (result.success === true) {
-      //Toast success
-      toast.success(result.message);
-
       //Refresh account state in Redux
       await dispatch(fetchAccount());
 
       //Refresh auth
       await refreshAuth({ setLoading: false });
+
+      //Toast success
+      toast.success(result.message);
 
       //Redirect to sign in
       redirect("/sign-in");

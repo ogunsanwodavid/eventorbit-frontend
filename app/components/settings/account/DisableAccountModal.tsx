@@ -73,11 +73,11 @@ export default function DisableAccountModal({
 
     //Check if request is successful
     if (result.success === true) {
-      //Toast success
-      toast.success(result.message);
-
       //Refresh auth
       await refreshAuth({ setLoading: false });
+
+      //Toast success
+      toast.success(result.message);
 
       //Redirect to home
       redirect("/");

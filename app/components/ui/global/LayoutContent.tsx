@@ -49,7 +49,8 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
       <Toaster
         richColors
         position="top-center"
-        className="!font-quicksand !z-30"
+        className="!font-quicksand !z-30 !mt-[45px] lg:!mt-[60px] !text-[17px]"
+        closeButton
       />
     </div>
   );

@@ -64,12 +64,12 @@ export default function SocialChannelsBox() {
 
     //Check if request is successful
     if (result.success === true) {
-      //Toast success
-      toast.success(result.message);
-
       //Refresh auth
       //::Hence profile information
       await refreshAuth({ setLoading: false });
+
+      //Toast success
+      toast.success(result.message);
     } else if (result.success === false) {
       //Toast error
       toast.error(result.message);

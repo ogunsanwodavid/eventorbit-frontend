@@ -81,10 +81,10 @@ export default function Signin() {
 
     //Check if request is successful
     if (result.success === true) {
+      await refreshAuth({ setLoading: false });
+
       //Toast success
       toast.success(result.message);
-
-      await refreshAuth({ setLoading: false });
 
       //Redirect
       redirect(pageRedirect);

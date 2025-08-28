@@ -147,31 +147,31 @@ export default function Navbar() {
               {/** Create event */}
               <Link
                 href="/create"
-                className="border-b-[1px] border-b-[#dcdcdc] h-[45px] flex items-center px-6"
+                className="border-b-[1px] border-b-[#dcdcdc] h-[40px] flex items-center px-6"
               >
                 Create Event
               </Link>
 
               {/** Features */}
-              <Link href="#" className="h-[45px] flex items-center px-6">
+              <Link href="#" className="h-[40px] flex items-center px-6">
                 Features
               </Link>
 
               {/** Privacy */}
               <Link
                 href="#"
-                className="border-b-[1px] border-b-[#dcdcdc] h-[45px] flex items-center px-6"
+                className="border-b-[1px] border-b-[#dcdcdc] h-[40px] flex items-center px-6"
               >
                 Privacy
               </Link>
 
               {/** Attractions */}
-              <Link href="#" className="h-[45px] flex items-center px-6">
+              <Link href="#" className="h-[40px] flex items-center px-6">
                 Attractions
               </Link>
 
               {/** Clubs */}
-              <Link href="#" className="h-[45px] flex items-center px-6">
+              <Link href="#" className="h-[40px] flex items-center px-6">
                 Clubs
               </Link>
             </div>
@@ -231,35 +231,46 @@ export default function Navbar() {
 
             {isUserDropdownOpen && (
               <div className="absolute right-0 min-w-[12rem] rounded-[0.5rem] py-2 bg-white -mt-[0.5rem] transform-none shadow-[0_0_7px_#0000001a] z-5 text-[15px] text-black-2 cursor-pointer">
+                {/** My Events */}
+                <Link
+                  href="/events"
+                  className="h-[40px] flex items-center px-6"
+                >
+                  My Events
+                </Link>
+
                 {/** My Tickets */}
                 <Link
                   href="/tickets"
-                  className="border-b-[1px] border-b-[#dcdcdc] h-[45px] flex items-center px-6"
+                  className="border-b-[1px] border-b-[#dcdcdc] h-[40px] flex items-center px-6"
                 >
                   My Tickets
                 </Link>
 
                 {/** Profile */}
-                <Link href="#" className="h-[45px] flex items-center px-6">
+                <Link
+                  href={`/users/${profile.info.profileSlug}`}
+                  className="h-[40px] flex items-center px-6"
+                >
                   Profile
                 </Link>
 
                 {/** Settings */}
                 <Link
                   href="/settings"
-                  className="h-[45px] flex items-center px-6"
+                  className="h-[40px] flex items-center px-6"
                 >
                   Settings
                 </Link>
 
                 {/** Help */}
-                <Link href="/help" className="h-[45px] flex items-center px-6">
+                <Link href="/help" className="h-[40px] flex items-center px-6">
                   Help
                 </Link>
 
                 {/** Log out */}
                 <div
-                  className="h-[45px] flex items-center px-6"
+                  className="h-[40px] flex items-center px-6"
                   onClick={() => handleSignOut()}
                 >
                   {isSigningOut ? <Tadpole size="19" /> : <span>Log Out</span>}

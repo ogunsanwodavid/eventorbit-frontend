@@ -31,6 +31,7 @@ select {
   --breakpoint-sm: 450px;
   --breakpoint-md: 750px;
   --breakpoint-lg: 1000px;
+  --breakpoint-xl: 1200px;
   --breakpoint-max: 1250px;
 
   /** Widths **/
@@ -52,7 +53,7 @@ select {
 }
 
 @utility inner-screen-max {
-  @apply w-full mx-auto max-w-screen-max;
+  @apply w-full mx-auto !max-w-[1200px];
 }
 
 /** No scrollbar **/
