@@ -4,7 +4,7 @@ import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { useAuth } from "@/app/contexts/AuthContext";
 
@@ -29,11 +29,11 @@ import Location from "@/app/components/ui/icons/Location";
 
 import profileNotFoundImg from "@/static/users/profile-not-found.svg";
 
-interface UserProfilePageProps {
+/* interface UserProfilePageProps {
   slug: string;
-}
+} */
 
-export default function UserProfilePage({ slug }: UserProfilePageProps) {
+export default function UserProfilePage() {
   //Router function
   const router = useRouter();
 
@@ -44,7 +44,7 @@ export default function UserProfilePage({ slug }: UserProfilePageProps) {
   const { setShowFooter } = useNavFooterVisibility();
 
   //Params
-  //const { slug } = useParams<{ slug: string }>();
+  const { slug } = useParams<{ slug: string }>();
 
   //Page profile
   const [pageProfile, setPageProfile] = useState<Profile | null>(null);
