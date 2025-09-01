@@ -16,7 +16,6 @@ export default function PageNotFound() {
   //Hide footer on mount
   useEffect(() => {
     setShowFooter(!showFooter);
-    console.log("cool", showFooter);
   }, []);
 
   return (
