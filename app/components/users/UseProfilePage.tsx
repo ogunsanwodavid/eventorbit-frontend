@@ -29,10 +29,6 @@ import Location from "@/app/components/ui/icons/Location";
 
 import profileNotFoundImg from "@/static/users/profile-not-found.svg";
 
-/* interface UserProfilePageProps {
-  slug: string;
-} */
-
 export default function UserProfilePage() {
   //Router function
   const router = useRouter();
@@ -269,7 +265,7 @@ export default function UserProfilePage() {
     );
 
   return (
-    <div className="w-full bg-[#fafafa] pb-8">
+    <div className="w-full bg-[#fafafa] pb-24">
       <main className="inner-screen-max">
         {/** Header */}
         <header className="relative w-full h-[230px] bg-emerald-600 cursor-pointer md:h-[350px] md:rounded-b-[12px] md:!overflow-hidden">
