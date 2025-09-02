@@ -2,20 +2,20 @@
 
 import { useEffect } from "react";
 
-import { usePathname } from "next/navigation";
+//import { usePathname } from "next/navigation";
 
 import { useAuth } from "../contexts/AuthContext";
 
 import OnboardingPage from "../components/ui/global/OnboardingPage";
 
 //Path to auth pages
-const AUTH_PAGES = [
+/* const AUTH_PAGES = [
   "/sign-in",
   "/sign-up",
   "/forgot-password",
   "/set-password",
   "/verify-email",
-];
+]; */
 
 export default function OnboardingProvider({
   children,
@@ -23,7 +23,7 @@ export default function OnboardingProvider({
   children: React.ReactNode;
 }) {
   //Pathname function
-  const pathname = usePathname();
+  //const pathname = usePathname();
 
   //Auth context variables
   const { refreshAuth, loading } = useAuth();
@@ -34,10 +34,10 @@ export default function OnboardingProvider({
   }, []);
 
   //Check if auth page
-  const isAuthPage = AUTH_PAGES.some((p) => pathname.startsWith(p));
+  //const isAuthPage = AUTH_PAGES.some((p) => pathname.startsWith(p));
 
   //Show onboarding page only if not accessing auth pages
-  if (!isAuthPage && loading) {
+  if (loading) {
     return <OnboardingPage />;
   }
 

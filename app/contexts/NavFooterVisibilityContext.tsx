@@ -33,6 +33,7 @@ const footerHiddenRoutes = [
   "/set-password",
   "/verify-email",
   "/settings",
+  "/create",
 ];
 
 const NavFooterVisibilityContext = createContext<
@@ -48,8 +49,12 @@ export const NavFooterVisibilityProvider = ({
   const pathname = usePathname();
 
   //Nav and footer visibility
-  const [showNav, setShowNav] = useState(true);
-  const [showFooter, setShowFooter] = useState(true);
+  const [showNav, setShowNav] = useState(
+    !navHiddenRoutes.some((route) => pathname.startsWith(route))
+  );
+  const [showFooter, setShowFooter] = useState(
+    !footerHiddenRoutes.some((route) => pathname.startsWith(route))
+  );
 
   //Last pathname
   const [lastPath, setLastPath] = useState(pathname);

@@ -6,7 +6,7 @@ import { NavFooterVisibilityProvider } from "../contexts/NavFooterVisibilityCont
 import QueryProvider from "./QueryProvider";
 import ReduxProvider from "./ReduxProvider";
 import RedirectProvider from "./RedirectProvider";
-import OnboardingProvider from "./OnboardingProvider";
+//import OnboardingProvider from "./OnboardingProvider";
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
@@ -14,13 +14,13 @@ export default function Providers({ children }: { children: ReactNode }) {
       <ReduxProvider>
         <QueryProvider>
           <AuthProvider>
-            <OnboardingProvider>
-              <RedirectProvider>
-                <NavFooterVisibilityProvider>
-                  {children}
-                </NavFooterVisibilityProvider>
-              </RedirectProvider>
-            </OnboardingProvider>
+            {/* <OnboardingProvider> */}
+            <RedirectProvider>
+              <NavFooterVisibilityProvider>
+                {children}
+              </NavFooterVisibilityProvider>
+            </RedirectProvider>
+            {/* </OnboardingProvider> */}
           </AuthProvider>
         </QueryProvider>
       </ReduxProvider>

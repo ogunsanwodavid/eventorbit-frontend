@@ -4,11 +4,14 @@ import accountReducer from "../slices/settings/accountSlice";
 
 import emailPreferencesReducer from "../slices/settings/emailPreferencesSlice";
 
+import createEventReducer from "../slices/create/createEventSlice";
+
 //Configure the store
 const store = configureStore({
   reducer: {
     account: accountReducer,
     emailPreferences: emailPreferencesReducer,
+    createEvent: createEventReducer,
   },
 });
 

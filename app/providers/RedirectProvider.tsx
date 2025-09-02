@@ -24,7 +24,7 @@ export default function RedirectProvider({
   children: React.ReactNode;
 }) {
   //Auth status
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
   //Pathname function
   const pathname = usePathname();
@@ -40,6 +40,9 @@ export default function RedirectProvider({
   const prevRedirectRef = useRef<string | null>(null);
 
   useEffect(() => {
+    //Don’t run redirect until auth state is resolved
+    if (loading) return;
+
     //Check current page is auth or protected
     const isAuthPage = AUTH_PAGES.includes(pathname);
     const isProtected = PROTECTED_PATHS.some((path) =>
@@ -52,8 +55,9 @@ export default function RedirectProvider({
     const hasRedirectParam = searchParams?.has("redirect");
 
     //PROTECTED PAGES
-    //::If authenticated, redirect to sign-in page with proper redirect
-    if (isProtected && !isAuthenticated) {
+    //::If not authenticated, redirect to sign-in page with proper redirect
+    //::If not loading auth status
+    if (isProtected && !isAuthenticated && !loading) {
       const redirectPath = encodeURIComponent(
         pathname + (searchParams?.toString() ? `?${searchParams}` : "")
       );
@@ -63,10 +67,12 @@ export default function RedirectProvider({
 
     //AUTH PAGES
     if (isAuthPage) {
-      //::Already authenticated, send to home
+      //::Already authenticated, send to redirect page or home
       //::Only if not on verify email page for some UX issues
       if (isAuthenticated && pathname !== "/verify-email") {
-        router.replace("/");
+        router.replace(
+          decodeURIComponent(searchParams?.get("redirect") || "/")
+        );
 
         return;
       }
@@ -99,7 +105,7 @@ export default function RedirectProvider({
     if (hasRedirectParam) {
       prevRedirectRef.current = searchParams.get("redirect");
     }
-  }, [pathname, searchParams, isAuthenticated, router]);
+  }, [pathname, searchParams, isAuthenticated, router, loading]);
 
   return <>{children}</>;
 }

@@ -16,6 +16,7 @@ interface InputProps {
   isSecret?: boolean;
   disabled?: boolean;
   textarea?: boolean;
+  maxLength?: number;
 }
 
 export default function Input({
@@ -29,6 +30,7 @@ export default function Input({
   isSecret,
   disabled,
   textarea,
+  maxLength,
 }: InputProps) {
   //Check if secret input is focused  and visible
   const [isSecretInputFocused, setIsSecretInputFocused] = useState(false);
@@ -45,7 +47,7 @@ export default function Input({
       <header className="flex items-center justify-between">
         <label
           htmlFor={name}
-          className={`block text-[15px] text-black-2 mb-2 ${
+          className={`w-full block text-[15px] text-black-2 mb-2 ${
             error && "!text-error-red-2"
           }`}
         >
@@ -67,6 +69,7 @@ export default function Input({
           }`}
           placeholder={!error ? placeholder : undefined}
           disabled={disabled}
+          maxLength={maxLength}
         />
       )}
 
@@ -81,6 +84,7 @@ export default function Input({
           }`}
           placeholder={!error ? placeholder : undefined}
           disabled={disabled}
+          maxLength={maxLength}
         />
       )}
 
@@ -102,6 +106,7 @@ export default function Input({
             onFocus={() => setIsSecretInputFocused(true)}
             onBlur={() => setIsSecretInputFocused(false)}
             disabled={disabled}
+            maxLength={maxLength}
           />
 
           {/** Eye */}
