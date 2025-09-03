@@ -2,7 +2,7 @@
 
 import { useAppSelector } from "@/app/hooks/global/redux";
 
-import Basics from "@/app/components/create/Basics";
+import Basics from "@/app/components/create/basics/Basics";
 
 interface StepPageProps {
   type: string;

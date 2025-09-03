@@ -27,7 +27,7 @@ export default function StepLayout({ children, type, step }: StepLayoutProps) {
   }, [router, step, type, currentStep]);
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-16">
       {/** Create event step menu */}
       <StepMenu type={type} />
 
