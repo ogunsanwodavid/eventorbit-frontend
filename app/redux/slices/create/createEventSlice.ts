@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Event, EventStatus, EventType } from "@/app/models/events";
+import { Duration, Event, EventStatus, EventType } from "@/app/models/events";
 
 export type CreateEvent = Omit<Event, "_id" | "hostId">;
 
@@ -53,7 +53,7 @@ const createEventSlice = createSlice({
   initialState,
   reducers: {
     //Update current step
-    updateCurrentStep(state, action: PayloadAction<Partial<number>>) {
+    updateCurrentStep(state, action: PayloadAction<number>) {
       state.currentStep = action.payload;
     },
 
@@ -75,6 +75,11 @@ const createEventSlice = createSlice({
     //Update nested basics
     updateBasics(state, action: PayloadAction<Partial<Event["basics"]>>) {
       state.event.basics = { ...state.event.basics, ...action.payload };
+    },
+
+    //Update duration
+    updateDuration(state, action: PayloadAction<Duration>) {
+      state.event.duration = { ...state.event.duration, ...action.payload };
     },
 
     //Update location specifically
@@ -117,6 +122,7 @@ export const {
   updateEventType,
   updateEventStatus,
   updateBasics,
+  updateDuration,
   updateLocation,
   updateTickets,
   updateAdditionalDetails,

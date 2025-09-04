@@ -1,6 +1,8 @@
 import StepPage from "@/app/components/create/StepPage";
 
-type paramsType = Promise<{ type: string; step: string }>;
+import { EventType } from "@/app/models/events";
+
+type paramsType = Promise<{ type: EventType; step: string }>;
 
 interface CreateEventStepPageProps {
   params: paramsType;
@@ -10,7 +12,7 @@ export default async function CreateEventStepPage({
   params,
 }: CreateEventStepPageProps) {
   //Params
-  const { type } = await params;
+  const { type, step } = await params;
 
-  return <StepPage type={type} />;
+  return <StepPage type={type} step={Number(step)} />;
 }

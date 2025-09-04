@@ -56,44 +56,30 @@ export default function Input({
 
   //Handle when inputs are focused
   function handleFocus() {
-    if (!setIsInputFocused) return;
-
-    //For normal and textarea inputs
-    if (!isSecret && !isLocation) {
-      setIsInputFocused(true);
-    }
+    if (setIsInputFocused) setIsInputFocused(true);
 
     //For secret inputs
     if (isSecret && !isLocation) {
-      setIsInputFocused(true);
       setIsSecretInputFocused(true);
     }
 
     //For location inputs
     if (isLocation && !isSecret) {
-      setIsInputFocused(true);
       setIsLocationInputFocused(true);
     }
   }
 
   //Handle when inputs are blurred
   function handleBlur() {
-    if (!setIsInputFocused) return;
-
-    //For normal and textarea inputs
-    if (!isSecret && !isLocation) {
-      setIsInputFocused(false);
-    }
+    if (setIsInputFocused) setIsInputFocused(false);
 
     //For secret inputs
     if (isSecret && !isLocation) {
-      setIsInputFocused(false);
       setIsSecretInputFocused(false);
     }
 
     //For location inputs
     if (isLocation && !isSecret) {
-      setIsInputFocused(false);
       setIsLocationInputFocused(false);
     }
   }

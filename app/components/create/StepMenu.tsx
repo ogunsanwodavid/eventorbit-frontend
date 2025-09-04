@@ -2,20 +2,27 @@
 
 import { useRouter } from "next/navigation";
 
-import { useAppSelector } from "@/app/hooks/global/redux";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/global/redux";
+
+import { updateCurrentStep } from "@/app/redux/slices/create/createEventSlice";
 
 import Number1Circle from "../ui/icons/Number1Circle";
 import Number2Circle from "../ui/icons/Number2Circle";
 import Number3Circle from "../ui/icons/Number3Circle";
 import Number4Circle from "../ui/icons/Number4Circle";
+import CheckCircle from "../ui/icons/CheckCircle";
 
 interface StepMenuProps {
   type: string;
+  step: number;
 }
 
-export default function StepMenu({ type }: StepMenuProps) {
+export default function StepMenu({ type, step }: StepMenuProps) {
   //Router function
   const router = useRouter();
+
+  //Redux dispatch function
+  const dispatch = useAppDispatch();
 
   //Get current step from redux state
   const { currentStep } = useAppSelector((state) => state.createEvent);
@@ -28,6 +35,10 @@ export default function StepMenu({ type }: StepMenuProps) {
   function handleNavigation(argStep: number) {
     if (currentStep <= argStep) return;
 
+    //Set current step
+    dispatch(updateCurrentStep(argStep));
+
+    //Route to step page
     router.replace(`/create/${type}/${argStep}`);
   }
 
@@ -38,12 +49,16 @@ export default function StepMenu({ type }: StepMenuProps) {
         {/** Basics - 1 */}
         <div
           className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
-            currentStep === 1 && "!text-teal"
-          }`}
+            step === 1 && "!text-black-2"
+          } ${step === 2 && "!text-teal"}`}
           onClick={() => handleNavigation(1)}
         >
           <span className="shrink-0">
-            <Number1Circle size="20" />
+            {step === 2 ? (
+              <CheckCircle size="20" />
+            ) : (
+              <Number1Circle size="20" />
+            )}
           </span>
 
           <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">
@@ -56,13 +71,17 @@ export default function StepMenu({ type }: StepMenuProps) {
          */}
         {isRegular && (
           <div
-            className={`flex items-center justify-center gap-x-2 px-8 py-4 text-[#a0b0b7] ${
-              currentStep === 2 && "!text-teal"
-            }`}
+            className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+              step === 2 && "!text-black-2"
+            } ${step === 3 && "!text-teal"}`}
             onClick={() => handleNavigation(2)}
           >
             <span className="shrink-0">
-              <Number2Circle size="20" />
+              {step === 3 ? (
+                <CheckCircle size="20" />
+              ) : (
+                <Number2Circle size="20" />
+              )}
             </span>
 
             <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">
@@ -76,13 +95,17 @@ export default function StepMenu({ type }: StepMenuProps) {
          */}
         {isTimedEntry && (
           <div
-            className={`flex items-center justify-center gap-x-2 px-8 py-4 text-[#a0b0b7] ${
-              currentStep === 2 && "!text-teal"
-            }`}
+            className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+              step === 2 && "!text-black-2"
+            } ${step === 3 && "!text-teal"}`}
             onClick={() => handleNavigation(2)}
           >
             <span className="shrink-0">
-              <Number2Circle size="20" />
+              {step === 3 ? (
+                <CheckCircle size="20" />
+              ) : (
+                <Number2Circle size="20" />
+              )}
             </span>
 
             <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">
@@ -93,13 +116,17 @@ export default function StepMenu({ type }: StepMenuProps) {
 
         {/** Tickets - 3 */}
         <div
-          className={`flex items-center justify-center gap-x-2 px-8 py-4 text-[#a0b0b7] ${
-            currentStep === 3 && "!text-teal"
-          }`}
+          className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+            step === 3 && "!text-black-2"
+          } ${step === 4 && "!text-teal"}`}
           onClick={() => handleNavigation(3)}
         >
           <span className="shrink-0">
-            <Number3Circle size="20" />
+            {step === 4 ? (
+              <CheckCircle size="20" />
+            ) : (
+              <Number3Circle size="20" />
+            )}
           </span>
 
           <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">
@@ -109,13 +136,17 @@ export default function StepMenu({ type }: StepMenuProps) {
 
         {/** Additional details - 4 */}
         <div
-          className={`flex items-center justify-center gap-x-2 px-8 py-4 text-[#a0b0b7] ${
-            currentStep === 4 && "!text-teal"
-          }`}
+          className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+            step === 4 && "!text-black-2"
+          } ${step === 5 && "!text-teal"}`}
           onClick={() => handleNavigation(4)}
         >
           <span className="shrink-0">
-            <Number4Circle size="20" />
+            {step === 5 ? (
+              <CheckCircle size="20" />
+            ) : (
+              <Number4Circle size="20" />
+            )}
           </span>
 
           <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">
@@ -129,7 +160,7 @@ export default function StepMenu({ type }: StepMenuProps) {
         <div
           className="bg-teal h-full"
           style={{
-            width: `${(currentStep / 4) * 100}%`,
+            width: `${(step / 4) * 100}%`,
           }}
         ></div>
       </div>

@@ -13,6 +13,18 @@ const store = configureStore({
     emailPreferences: emailPreferencesReducer,
     createEvent: createEventReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // ignore these paths in state
+        ignoredPaths: [
+          "createEvent.event.duration.startDate",
+          "createEvent.event.duration.endDate",
+        ],
+        // ignore these in actions
+        ignoredActionPaths: ["payload.startDate", "payload.endDate"],
+      },
+    }),
 });
 
 export default store;

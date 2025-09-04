@@ -149,7 +149,7 @@ export default function CreateEvent() {
         {/** Continue button */}
         <Button
           text="Continue"
-          className="sticky bottom-2 mt-6 md:w-max md:ml-auto"
+          className="sticky bottom-2 mt-8 md:relative  md:w-max md:ml-auto"
           onClick={handleContinue}
         />
       </main>

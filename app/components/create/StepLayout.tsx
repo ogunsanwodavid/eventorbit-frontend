@@ -21,15 +21,15 @@ export default function StepLayout({ children, type, step }: StepLayoutProps) {
   //Get current step from redux state
   const { currentStep } = useAppSelector((state) => state.createEvent);
 
-  //Route to first step if user attempts to navigate to steps above current step
   useEffect(() => {
+    //Route to first step if user attempts to navigate to steps above current step
     if (step > currentStep) router.replace(`/create/${type}/1`);
   }, [router, step, type, currentStep]);
 
   return (
     <div className="w-full mb-16">
       {/** Create event step menu */}
-      <StepMenu type={type} />
+      <StepMenu type={type} step={step} />
 
       {children}
     </div>
