@@ -12,6 +12,7 @@ import { EventType } from "@/app/models/events";
 
 import {
   updateCurrentStep,
+  updateTimeFormat,
   updateDuration,
   updateLocation,
 } from "@/app/redux/slices/create/createEventSlice";
@@ -50,10 +51,16 @@ export default function TimeAndLocation({ type }: TimeAndLocationProps) {
   const timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   //Input states
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [timeFormat, setTimeFormat] = useState<string>("full");
-  const [isVirtual, setIsVirtual] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<Date | null>(
+    createEvent.event.duration?.startDate || null
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    createEvent.event.duration?.endDate || null
+  );
+  const [timeFormat, setTimeFormat] = useState<string>(createEvent.timeFormat);
+  const [isVirtual, setIsVirtual] = useState<boolean>(
+    createEvent.event.basics.location.isVirtual
+  );
   const [address, setAddress] = useState<string>(
     createEvent.event.basics.location.address || ""
   );
@@ -115,10 +122,9 @@ export default function TimeAndLocation({ type }: TimeAndLocationProps) {
 
     //Check for errors
     if (!hasPageErrors) {
-      //Update current step
-      dispatch(updateCurrentStep(3));
-
       //Update create event redux state
+      dispatch(updateCurrentStep(3));
+      dispatch(updateTimeFormat(timeFormat));
       dispatch(
         updateDuration({
           startDate: startDate ?? new Date(),
@@ -126,7 +132,15 @@ export default function TimeAndLocation({ type }: TimeAndLocationProps) {
           timeZone,
         })
       );
-      dispatch(updateLocation({ address, venueName }));
+      dispatch(
+        updateLocation({
+          address,
+          venueName,
+          isVirtual,
+          organizerAddress,
+          connectionDetails,
+        })
+      );
 
       //Route to next step
       router.push(`/create/${type}/3`);

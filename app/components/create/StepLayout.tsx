@@ -23,8 +23,9 @@ export default function StepLayout({ children, type, step }: StepLayoutProps) {
 
   useEffect(() => {
     //Route to first step if user attempts to navigate to steps above current step
+    //::RUN ONLY ON MOUNT
     if (step > currentStep) router.replace(`/create/${type}/1`);
-  }, [router, step, type, currentStep]);
+  }, []);
 
   return (
     <div className="w-full mb-16">

@@ -50,15 +50,11 @@ export default function StepMenu({ type, step }: StepMenuProps) {
         <div
           className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
             step === 1 && "!text-black-2"
-          } ${step === 2 && "!text-teal"}`}
+          } ${step > 1 && "!text-teal"}`}
           onClick={() => handleNavigation(1)}
         >
           <span className="shrink-0">
-            {step === 2 ? (
-              <CheckCircle size="20" />
-            ) : (
-              <Number1Circle size="20" />
-            )}
+            {step > 1 ? <CheckCircle size="20" /> : <Number1Circle size="20" />}
           </span>
 
           <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">
@@ -73,11 +69,11 @@ export default function StepMenu({ type, step }: StepMenuProps) {
           <div
             className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
               step === 2 && "!text-black-2"
-            } ${step === 3 && "!text-teal"}`}
+            } ${step > 2 && "!text-teal"}`}
             onClick={() => handleNavigation(2)}
           >
             <span className="shrink-0">
-              {step === 3 ? (
+              {step > 2 ? (
                 <CheckCircle size="20" />
               ) : (
                 <Number2Circle size="20" />
@@ -97,11 +93,11 @@ export default function StepMenu({ type, step }: StepMenuProps) {
           <div
             className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
               step === 2 && "!text-black-2"
-            } ${step === 3 && "!text-teal"}`}
+            } ${step > 2 && "!text-teal"}`}
             onClick={() => handleNavigation(2)}
           >
             <span className="shrink-0">
-              {step === 3 ? (
+              {step > 2 ? (
                 <CheckCircle size="20" />
               ) : (
                 <Number2Circle size="20" />
@@ -118,15 +114,11 @@ export default function StepMenu({ type, step }: StepMenuProps) {
         <div
           className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
             step === 3 && "!text-black-2"
-          } ${step === 4 && "!text-teal"}`}
+          } ${step > 3 && "!text-teal"}`}
           onClick={() => handleNavigation(3)}
         >
           <span className="shrink-0">
-            {step === 4 ? (
-              <CheckCircle size="20" />
-            ) : (
-              <Number3Circle size="20" />
-            )}
+            {step > 3 ? <CheckCircle size="20" /> : <Number3Circle size="20" />}
           </span>
 
           <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">
@@ -138,15 +130,11 @@ export default function StepMenu({ type, step }: StepMenuProps) {
         <div
           className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
             step === 4 && "!text-black-2"
-          } ${step === 5 && "!text-teal"}`}
+          } ${step > 4 && "!text-teal"}`}
           onClick={() => handleNavigation(4)}
         >
           <span className="shrink-0">
-            {step === 5 ? (
-              <CheckCircle size="20" />
-            ) : (
-              <Number4Circle size="20" />
-            )}
+            {step > 4 ? <CheckCircle size="20" /> : <Number4Circle size="20" />}
           </span>
 
           <p className="hidden text-[15px] text-nowrap font-bold leading-[18px] md:block">

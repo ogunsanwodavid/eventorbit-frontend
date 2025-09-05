@@ -7,11 +7,13 @@ export type CreateEvent = Omit<Event, "_id" | "hostId">;
 interface CreateEventState {
   event: CreateEvent;
   currentStep: number;
+  timeFormat: string;
 }
 
 //Initial state
 const initialState: CreateEventState = {
   currentStep: 1,
+  timeFormat: "full",
   event: {
     status: "drafted",
     type: "regular",
@@ -55,6 +57,11 @@ const createEventSlice = createSlice({
     //Update current step
     updateCurrentStep(state, action: PayloadAction<number>) {
       state.currentStep = action.payload;
+    },
+
+    //Update time format
+    updateTimeFormat(state, action: PayloadAction<string>) {
+      state.timeFormat = action.payload;
     },
 
     //Generic update for nested keys
@@ -118,6 +125,7 @@ const createEventSlice = createSlice({
 
 export const {
   updateCurrentStep,
+  updateTimeFormat,
   updateEvent,
   updateEventType,
   updateEventStatus,

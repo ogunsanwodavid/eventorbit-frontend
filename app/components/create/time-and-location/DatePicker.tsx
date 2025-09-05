@@ -179,7 +179,7 @@ export default function DatePicker({
           <PopoverTrigger asChild>
             <Button
               variant={"outline"}
-              className={`!h-[42px] w-full !justify-start !gap-x-4 pl-3 text-left font-normal !text-[16px] !text-black-2 !shadow-none border-[1px]  !rounded-l-[6px] !rounded-r-none !font-quicksand hover:!bg-white ${
+              className={`!h-[42px] w-full !justify-start !gap-x-4 pl-3 text-left font-normal !text-[16px] !text-black-2 !shadow-none border-[1px]  !rounded-l-[6px] !rounded-r-none !font-quicksand hover:bg-white ${
                 isTimeInputFocused && "border-r-0"
               } ${isRawDateInputFocused ? "border-teal" : "border-[#e2e5e7]"} ${
                 error && "!border-error-red !bg-error-red-3 border-r-0"
