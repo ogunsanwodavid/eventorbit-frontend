@@ -159,7 +159,7 @@ export default function Signin() {
             labelRightComponent={
               <Link
                 href="/forgot-password"
-                className="text-[15px] text-teal mb-2 font-medium"
+                className="text-nowrap text-[14px] text-teal mb-2 font-medium"
               >
                 Forgot Password?
               </Link>

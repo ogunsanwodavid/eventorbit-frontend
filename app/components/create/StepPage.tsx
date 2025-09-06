@@ -4,6 +4,7 @@ import { EventType } from "@/app/models/events";
 
 import Basics from "./basics/Basics";
 import TimeAndLocation from "./time-and-location/TimeAndLocation";
+import Schedules from "./schedules/Schedules";
 
 interface StepPageProps {
   type: EventType;
@@ -20,6 +21,9 @@ export default function StepPage({ type, step }: StepPageProps) {
 
         {/** Time and Location */}
         {step === 2 && type === "regular" && <TimeAndLocation type={type} />}
+
+        {/** Schedules */}
+        {step === 2 && type === "timed-entry" && <Schedules type={type} />}
       </main>
     </div>
   );

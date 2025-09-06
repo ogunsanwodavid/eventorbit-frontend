@@ -14,6 +14,7 @@ export default function EmailNotisCheckBox({
   text,
   disabled,
 }: EmailNotificationCheckBoxProps) {
+  //Handle click
   function handleClick() {
     if (disabled) return;
 
@@ -22,7 +23,7 @@ export default function EmailNotisCheckBox({
 
   return (
     <div
-      className={`w-max mt-3 flex items-center gap-x-2 text-black-2 text-[15px] cursor-pointer ${
+      className={`w-full mt-3 flex items-center gap-x-2 text-black-2 text-[15px] cursor-pointer  ${
         disabled && "!opacity-50"
       }`}
       onClick={handleClick}
@@ -35,7 +36,6 @@ export default function EmailNotisCheckBox({
         </span>
       ) : (
         <span className="text-teal">
-          {" "}
           <CheckBox size="21" />
         </span>
       )}

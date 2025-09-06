@@ -5,8 +5,11 @@ import {
   PlacePrediction,
 } from "@/app/api/create/basics/get-address-predictions";
 import { getPredictionDetails } from "@/app/api/create/basics/get-prediction-details";
+
 import Input from "../../ui/global/Input";
+
 import Tadpole from "../../ui/spinners/TadPole";
+
 import AddressMap from "./AddressMap";
 
 interface PredictionDetails {
@@ -143,7 +146,7 @@ export default function AddressForm({
                   <>
                     {/** If no results found */}
                     <span className="font-semibold text-[15px]">
-                      No result found.
+                      No results found.
                     </span>
                   </>
                 )}

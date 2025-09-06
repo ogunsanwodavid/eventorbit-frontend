@@ -46,7 +46,7 @@ export default function Select({
       disabled={disabled}
     >
       <SelectTrigger
-        className={`w-full text-[15px] text-black-2 !ring-0 data-[state=open]:border-[1px] data-[state=open]:border-teal focus:border-[1px] focus:border-teal ${
+        className={`w-full text-[15px] text-black-2 !ring-0 data-[state=open]:border-[1px] data-[state=open]:border-teal rounded-[6px] !shadow-none focus:border-[1px] focus:border-teal ${
           error && "!border-error-red !bg-error-red-3"
         } ${triggerClassName}`}
       >
