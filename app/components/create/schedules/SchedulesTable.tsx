@@ -7,6 +7,7 @@ import { eachDayOfInterval, format as formatDateFns } from "date-fns";
 import { TimeSlotAdderMode } from "./TimeSlotAdder";
 
 import EditSolid from "../../ui/icons/EditSolid";
+import Delete from "../../ui/icons/Delete";
 
 interface SchedulesTableProps {
   schedules: Omit<Schedule, "_id" | "sold">[];
@@ -18,6 +19,7 @@ interface SchedulesTableProps {
 
 export default function SchedulesTable({
   schedules,
+  setSchedules,
   setShowTimeSlotAdder,
   setTimeSlotAdderMode,
   setEditedScheduleIndex,
@@ -65,6 +67,13 @@ export default function SchedulesTable({
     setTimeSlotAdderMode("edit");
     setEditedScheduleIndex(index);
     setShowTimeSlotAdder(true);
+  }
+
+  //Handle delete schedule
+  function handleDeleteSchedule(scheduleIndex: number) {
+    setSchedules((prev) =>
+      prev.filter((schedule, index) => index !== scheduleIndex)
+    );
   }
 
   return (
@@ -150,7 +159,7 @@ export default function SchedulesTable({
               </div>
 
               {/** Lower segment */}
-              <div className="flex gap-x-1">
+              <div className="flex items-center gap-x-5">
                 {/** Edit button */}
                 <button
                   className="w-[200px] flex items-center justify-center border-[1px] border-[#e2e5e7] py-1 text-gray rounded-[6px]"
@@ -160,6 +169,12 @@ export default function SchedulesTable({
                 </button>
 
                 {/** Delete icon */}
+                <span
+                  className="text-gray"
+                  onClick={() => handleDeleteSchedule(index)}
+                >
+                  <Delete size="18" />
+                </span>
               </div>
             </section>
           );

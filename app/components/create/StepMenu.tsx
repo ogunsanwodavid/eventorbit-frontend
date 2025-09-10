@@ -33,10 +33,10 @@ export default function StepMenu({ type, step }: StepMenuProps) {
 
   //Handle navigation
   function handleNavigation(argStep: number) {
-    if (currentStep <= argStep) return;
+    /* if (currentStep <= argStep) return;
 
     //Set current step
-    dispatch(updateCurrentStep(argStep));
+    dispatch(updateCurrentStep(argStep)); */
 
     //Route to step page
     router.replace(`/create/${type}/${argStep}`);
