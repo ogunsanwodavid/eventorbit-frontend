@@ -81,6 +81,15 @@ export default function DatePicker({
     useState<boolean>(false);
   const [isTimeInputFocused, setIsTimeInputFocused] = useState<boolean>(false);
 
+  //Other states
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+
+  //Handle open change
+  function handlePopoverOpenChange(open: boolean) {
+    setShowPopover(open);
+    setIsRawDateInputFocused(open);
+  }
+
   //Generate times from 00:00 to 23:30 in 30-min intervals (HH:mm format)
   function generateTimeOptions(rawDate: Date | null): string[] {
     const times: string[] = [];
@@ -164,12 +173,16 @@ export default function DatePicker({
       {/** Input box */}
       <main className="w-full grid grid-cols-2">
         {/** Raw date picker */}
-        <Popover onOpenChange={setIsRawDateInputFocused}>
+        <Popover open={showPopover} onOpenChange={handlePopoverOpenChange}>
           <PopoverContent align="start">
             <Calendar
               mode="single"
               selected={rawDate || undefined}
-              onSelect={(date) => setRawDate(date ?? null)}
+              onSelect={(date) => {
+                setRawDate(date ?? null);
+                setShowPopover(false);
+                setIsRawDateInputFocused(false);
+              }}
               disabled={(date) => date < startOfDay(new Date())}
               captionLayout="dropdown"
               className="!w-full !font-quicksand"

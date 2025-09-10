@@ -30,6 +30,15 @@ export default function DatePicker({
   //Focus state
   const [isDateInputFocused, setIsDateInputFocused] = useState<boolean>(false);
 
+  //Popover states
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+
+  //Handle open change
+  function handlePopoverOpenChange(open: boolean) {
+    setShowPopover(open);
+    setIsDateInputFocused(open);
+  }
+
   return (
     <div className="flex flex-col gap-y-1 cursor-pointer">
       {/** Label */}
@@ -38,12 +47,16 @@ export default function DatePicker({
       {/** Input box */}
       <main className="w-full">
         {/** Raw date picker */}
-        <Popover onOpenChange={setIsDateInputFocused}>
+        <Popover open={showPopover} onOpenChange={handlePopoverOpenChange}>
           <PopoverContent align="start">
             <Calendar
               mode="single"
               selected={date || undefined}
-              onSelect={(date) => setDate(date ?? null)}
+              onSelect={(date) => {
+                setDate(date ?? null);
+                setShowPopover(false); //close popover after selecting
+                setIsDateInputFocused(false);
+              }}
               disabled={
                 disabledDates
                   ? disabledDates
@@ -54,7 +67,7 @@ export default function DatePicker({
             />
           </PopoverContent>
 
-          <PopoverTrigger className="w-full" asChild>
+          <PopoverTrigger className="!w-full" style={{ width: "100%" }} asChild>
             <Button
               variant={"outline"}
               className={`!h-[42px] !justify-start !gap-x-4 pl-2 text-left font-normal !text-[15px] !text-black-2 !shadow-none border-[1px] rounded-[6px] !font-quicksand hover:bg-white ${

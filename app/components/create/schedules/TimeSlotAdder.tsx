@@ -16,15 +16,26 @@ import Plus from "../../ui/icons/Plus";
 import CheckBox from "../../ui/icons/CheckBox";
 import CheckBoxOutlineBlank from "../../ui/icons/CheckBoxOutlineBlank";
 
+export type TimeSlotAdderMode = "add" | "edit";
+
 interface TimeSlotAdderProps {
   setShowTimeSlotAdder: Dispatch<SetStateAction<boolean>>;
   schedules: Omit<Schedule, "_id" | "sold">[];
   setSchedules: Dispatch<SetStateAction<Omit<Schedule, "_id" | "sold">[]>>;
+  mode?: TimeSlotAdderMode;
+  editedScheduleIndex?: number;
+  setTimeSlotAdderMode: Dispatch<SetStateAction<TimeSlotAdderMode>>;
+  setEditedScheduleIndex: Dispatch<SetStateAction<number | null>>;
 }
 
 export default function TimeSlotAdder({
   setShowTimeSlotAdder,
+  schedules,
   setSchedules,
+  mode,
+  editedScheduleIndex,
+  setTimeSlotAdderMode,
+  setEditedScheduleIndex,
 }: TimeSlotAdderProps) {
   //Window dimensions
   const { windowWidth, windowHeight } = useWindowDimensions();
@@ -32,12 +43,32 @@ export default function TimeSlotAdder({
   //Time zone
   const timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+  //Edited schedule
+  const editedSchedule =
+    mode === "edit" && editedScheduleIndex !== undefined
+      ? schedules[editedScheduleIndex]
+      : null;
+
   //Input values
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [timeSlots, setTimeSlots] = useState<(TimeSlot | null)[]>([null]);
-  const [repeat, setRepeat] = useState<string>("no-repeat");
-  const [repeatDays, setRepeatDays] = useState<WeekDay[] | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(
+    editedSchedule?.startDate || null
+  );
+  const [timeSlots, setTimeSlots] = useState<(TimeSlot | null)[]>(
+    editedSchedule?.timeSlots || [null]
+  );
+  const [repeat, setRepeat] = useState<string>(
+    editedSchedule?.repeatDays
+      ? editedSchedule?.repeatDays.length === 7
+        ? "repeated-everyday"
+        : "repeat-selected-days"
+      : "no-repeat"
+  );
+  const [repeatDays, setRepeatDays] = useState<WeekDay[] | null>(
+    editedSchedule?.repeatDays || null
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    editedSchedule?.endDate || null
+  );
 
   //Repeat days options
   const repeatDaysOptions: WeekDay[] = [
@@ -71,7 +102,7 @@ export default function TimeSlotAdder({
 
   //Handle adding an empty null timeslot
   function handleEmptyTimeSlot() {
-    setTimeSlots([...timeSlots, null]);
+    setTimeSlots((prev) => [...prev, null]);
   }
 
   //Calculate number of timeslots
@@ -119,9 +150,16 @@ export default function TimeSlotAdder({
     return 0;
   }
 
+  //Handle close modal
+  function handleCloseModal() {
+    setShowTimeSlotAdder(false);
+    setEditedScheduleIndex(null);
+    setTimeSlotAdderMode("add");
+  }
+
   //Handle add timeslots
   function handleAddTimeSlots() {
-    if (calculateTimeSlots() === 0) return;
+    if (mode !== "add" || calculateTimeSlots() === 0) return;
 
     //Add timeslots to schedules
     setSchedules((prev) => [
@@ -135,7 +173,29 @@ export default function TimeSlotAdder({
     ]);
 
     //Close modal
-    setShowTimeSlotAdder(false);
+    handleCloseModal();
+  }
+
+  //Handle edit time slots
+  function handleEditTimeSlots() {
+    if (mode !== "edit" || calculateTimeSlots() === 0) return;
+
+    //Edit timeslots in schedules
+    setSchedules((prev) =>
+      prev.map((item, index) => {
+        return index === editedScheduleIndex
+          ? ({
+              startDate: startDate!,
+              endDate: repeat !== "no-repeat" ? endDate! : undefined,
+              timeSlots: timeSlots.filter((t): t is TimeSlot => t !== null),
+              repeatDays: repeat !== "no-repeat" ? repeatDays : undefined,
+            } as Omit<Schedule, "_id" | "sold">)
+          : item;
+      })
+    );
+
+    //Close modal
+    handleCloseModal();
   }
 
   return (
@@ -152,24 +212,26 @@ export default function TimeSlotAdder({
         <header className="space-y-5 p-6 pb-0">
           <div className="flex items-center justify-between">
             <h3 className="text-[19px] text-black-2 font-bold">
-              Add timeslot(s)
+              <span className="capitalize">{mode || "Add"}</span> timeslot(s)
             </h3>
 
             <span
               className="text-gray cursor-pointer"
-              onClick={() => setShowTimeSlotAdder(false)}
+              onClick={handleCloseModal}
             >
               <X size="22" />
             </span>
           </div>
 
-          <p className="text-[15px] text-black-2">
-            Add timeslot(s) for your attendees
-          </p>
+          {mode === "add" && (
+            <p className="text-[15px] text-black-2">
+              Add timeslot(s) for your attendees
+            </p>
+          )}
         </header>
 
         {/** Start date */}
-        <section className="mt-5 px-6">
+        <section className="mt-5 px-6 md:pr-0 md:w-[259px]">
           <DatePicker
             label={
               <div className="text-[15px]">
@@ -309,13 +371,14 @@ export default function TimeSlotAdder({
             You may delete or modify individual timeslots after they are added.
           </p>
 
-          {/** Add time slots button */}
+          {/** Add or edit time slots button */}
           <button
             className="block w-max ml-auto px-4 py-2 rounded-[6px] border-[1px] border-teal bg-teal text-white text-[15px] duration-250 transition-all hover:opacity-80 disabled:opacity-60"
             disabled={calculateTimeSlots() === 0}
-            onClick={handleAddTimeSlots}
+            onClick={mode === "add" ? handleAddTimeSlots : handleEditTimeSlots}
           >
-            Add {calculateTimeSlots()} timeslot{calculateTimeSlots() > 1 && "s"}
+            <span className="capitalize">{mode}</span> {calculateTimeSlots()}{" "}
+            timeslot{calculateTimeSlots() > 1 && "s"}
           </button>
         </footer>
       </main>

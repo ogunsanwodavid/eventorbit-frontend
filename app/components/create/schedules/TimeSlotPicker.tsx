@@ -29,15 +29,25 @@ interface TimeSlotPickerProps {
 export default function TimeSlotPicker({
   timeZone,
   timeSlotIndex,
-  //timeSlot,
+  timeSlot,
   timeSlots,
   setTimeSlots,
   startDate,
 }: TimeSlotPickerProps) {
   //Input values
-  const [startTime, setStartTime] = useState<string>("");
-  const [durationValue, setDurationValue] = useState<number | null>(null);
-  const [durationUnit, setDurationUnit] = useState<string>("hours");
+  const [startTime, setStartTime] = useState<string>(
+    timeSlot?.startTime
+      ? `${String(timeSlot?.startTime.hours).padStart(2, "0")}:${String(
+          timeSlot?.startTime.minutes
+        ).padStart(2, "0")}`
+      : ""
+  );
+  const [durationValue, setDurationValue] = useState<number | null>(
+    timeSlot?.duration.value || null
+  );
+  const [durationUnit, setDurationUnit] = useState<string>(
+    timeSlot?.duration.unit || "hours"
+  );
 
   //Duration unit options
   const durationUnitOptions = [
@@ -108,7 +118,7 @@ export default function TimeSlotPicker({
   function handleDeleteTimeSlot() {
     if (!timeSlots || timeSlots.length === 0) return;
 
-    setTimeSlots(timeSlots.filter((_, index) => index !== timeSlotIndex));
+    setTimeSlots((prev) => prev.filter((_, index) => index !== timeSlotIndex));
   }
 
   useEffect(() => {

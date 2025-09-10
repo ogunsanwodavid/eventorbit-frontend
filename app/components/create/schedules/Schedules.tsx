@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { EventType, Schedule } from "@/app/models/events";
 
 import Select from "../Select";
 
-import TimeSlotAdder from "./TimeSlotAdder";
+import TimeSlotAdder, { TimeSlotAdderMode } from "./TimeSlotAdder";
 import SchedulesTable from "./SchedulesTable";
 
 import Plus from "../../ui/icons/Plus";
@@ -22,16 +22,17 @@ export default function Schedules({}: SchedulesProps) {
 
   //Other states
   const [showTimeSlotAdder, setShowTimeSlotAdder] = useState<boolean>(false);
+  const [timeSlotAdderMode, setTimeSlotAdderMode] =
+    useState<TimeSlotAdderMode>("add");
+  const [editedScheduleIndex, setEditedScheduleIndex] = useState<number | null>(
+    null
+  );
 
   //Time display options
   const timeDisplayOptions = [
     { value: "start-and-end", label: "Start and end time" },
     { value: "start-only", label: "Start time only" },
   ];
-
-  useEffect(() => {
-    console.log(schedules);
-  }, [schedules]);
 
   return (
     <>
@@ -73,7 +74,13 @@ export default function Schedules({}: SchedulesProps) {
 
           {/** Table of schedules */}
           {schedules.length > 0 && (
-            <SchedulesTable schedules={schedules} setSchedules={setSchedules} />
+            <SchedulesTable
+              schedules={schedules}
+              setSchedules={setSchedules}
+              setShowTimeSlotAdder={setShowTimeSlotAdder}
+              setTimeSlotAdderMode={setTimeSlotAdderMode}
+              setEditedScheduleIndex={setEditedScheduleIndex}
+            />
           )}
 
           {/** Add timeslot */}
@@ -97,6 +104,12 @@ export default function Schedules({}: SchedulesProps) {
           setShowTimeSlotAdder={setShowTimeSlotAdder}
           schedules={schedules}
           setSchedules={setSchedules}
+          mode={timeSlotAdderMode}
+          editedScheduleIndex={
+            editedScheduleIndex !== null ? editedScheduleIndex : undefined
+          }
+          setTimeSlotAdderMode={setTimeSlotAdderMode}
+          setEditedScheduleIndex={setEditedScheduleIndex}
         />
       )}
     </>
