@@ -186,6 +186,7 @@ export default function DatePicker({
               disabled={(date) => date < startOfDay(new Date())}
               captionLayout="dropdown"
               className="!w-full !font-quicksand"
+              endMonth={new Date(2099, 0)}
             />
           </PopoverContent>
 

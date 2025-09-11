@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 import { EventType } from "@/app/models/events";
 
 import Basics from "./basics/Basics";
@@ -12,10 +14,20 @@ interface StepPageProps {
 }
 
 export default function StepPage({ type, step }: StepPageProps) {
+  //Pathname function
+  const pathname = usePathname();
+
+  const largeWidthPathnames = ["/create/timed-entry/2"];
+
   return (
     <div className="mt-6">
       {/** Inner */}
-      <main className="w-full max-w-[900px] mx-auto px-5 lg:px-0">
+      <main
+        className={`w-full mx-auto px-5 lg:px-10`}
+        style={{
+          maxWidth: largeWidthPathnames.includes(pathname) ? "1200px" : "900px",
+        }}
+      >
         {/** Basics */}
         {step === 1 && <Basics type={type} />}
 

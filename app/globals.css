@@ -6,6 +6,8 @@
 
 @import "keen-slider/keen-slider.min.css";
 
+@import "./styles/create/schedules/schedule-calendar.module.css";
+
 body {
   font-family: Quicksand !important;
   background-attachment: scroll !important;

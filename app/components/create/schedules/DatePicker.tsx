@@ -64,6 +64,7 @@ export default function DatePicker({
               }
               captionLayout="dropdown"
               className="!w-full !font-quicksand"
+              endMonth={new Date(2099, 0)}
             />
           </PopoverContent>
 

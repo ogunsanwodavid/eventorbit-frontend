@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   //Authentication status
   const [auth, setAuth] = useState<AuthState>({
     loading: false,
-    isAuthenticated: true,
+    isAuthenticated: false,
     profile: null,
   });
 

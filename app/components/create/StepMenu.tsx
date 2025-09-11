@@ -33,10 +33,10 @@ export default function StepMenu({ type, step }: StepMenuProps) {
 
   //Handle navigation
   function handleNavigation(argStep: number) {
-    /* if (currentStep <= argStep) return;
+    if (currentStep <= argStep) return;
 
     //Set current step
-    dispatch(updateCurrentStep(argStep)); */
+    dispatch(updateCurrentStep(argStep));
 
     //Route to step page
     router.replace(`/create/${type}/${argStep}`);
@@ -45,10 +45,10 @@ export default function StepMenu({ type, step }: StepMenuProps) {
   return (
     <div className="w-full cursor-pointer">
       {/** Main content */}
-      <main className="w-full max-w-[1100px] mx-auto grid grid-cols-4 px-5 lg:px-0">
+      <main className="w-full max-w-[1000px] mx-auto grid grid-cols-4 px-5 lg:px-0">
         {/** Basics - 1 */}
         <div
-          className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+          className={`flex items-center  gap-x-2 px-8 py-5 text-[#a0b0b7] ${
             step === 1 && "!text-black-2"
           } ${step > 1 && "!text-teal"}`}
           onClick={() => handleNavigation(1)}
@@ -67,7 +67,7 @@ export default function StepMenu({ type, step }: StepMenuProps) {
          */}
         {isRegular && (
           <div
-            className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+            className={`flex items-center   gap-x-2 px-8 py-5 text-[#a0b0b7] ${
               step === 2 && "!text-black-2"
             } ${step > 2 && "!text-teal"}`}
             onClick={() => handleNavigation(2)}
@@ -91,7 +91,7 @@ export default function StepMenu({ type, step }: StepMenuProps) {
          */}
         {isTimedEntry && (
           <div
-            className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+            className={`flex items-center   gap-x-2 px-8 py-5 text-[#a0b0b7] ${
               step === 2 && "!text-black-2"
             } ${step > 2 && "!text-teal"}`}
             onClick={() => handleNavigation(2)}
@@ -112,7 +112,7 @@ export default function StepMenu({ type, step }: StepMenuProps) {
 
         {/** Tickets - 3 */}
         <div
-          className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+          className={`flex items-center   gap-x-2 px-8 py-5 text-[#a0b0b7] ${
             step === 3 && "!text-black-2"
           } ${step > 3 && "!text-teal"}`}
           onClick={() => handleNavigation(3)}
@@ -128,7 +128,7 @@ export default function StepMenu({ type, step }: StepMenuProps) {
 
         {/** Additional details - 4 */}
         <div
-          className={`flex items-center justify-center gap-x-2 px-8 py-5 text-[#a0b0b7] ${
+          className={`flex items-center   gap-x-2 px-8 py-5 text-[#a0b0b7] ${
             step === 4 && "!text-black-2"
           } ${step > 4 && "!text-teal"}`}
           onClick={() => handleNavigation(4)}

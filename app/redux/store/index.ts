@@ -16,13 +16,14 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // ignore these paths in state
+        //ignore these paths in state
         ignoredPaths: [
           "createEvent.event.duration.startDate",
           "createEvent.event.duration.endDate",
+          "createEvent.event.schedules",
         ],
-        // ignore these in actions
-        ignoredActionPaths: ["payload.startDate", "payload.endDate"],
+        //ignore these in actions
+        ignoredActionPaths: ["payload.startDate", "payload.endDate", "payload"],
       },
     }),
 });

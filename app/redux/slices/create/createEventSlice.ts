@@ -1,8 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Duration, Event, EventStatus, EventType } from "@/app/models/events";
+import {
+  Duration,
+  Event,
+  EventStatus,
+  EventType,
+  Schedule,
+} from "@/app/models/events";
 
-export type CreateEvent = Omit<Event, "_id" | "hostId">;
+export type CreateSchedule = Omit<Schedule, "_id" | "sold">;
+
+export type CreateEvent = Omit<Event, "_id" | "hostId" | "schedules"> & {
+  schedules?: CreateSchedule[];
+};
 
 interface CreateEventState {
   event: CreateEvent;
@@ -100,6 +110,11 @@ const createEventSlice = createSlice({
       };
     },
 
+    //Update schedules
+    updateSchedules(state, action: PayloadAction<CreateSchedule[]>) {
+      state.event.schedules = action.payload;
+    },
+
     //Update tickets
     updateTickets(state, action: PayloadAction<Partial<Event["tickets"]>>) {
       state.event.tickets = { ...state.event.tickets, ...action.payload };
@@ -132,6 +147,7 @@ export const {
   updateBasics,
   updateDuration,
   updateLocation,
+  updateSchedules,
   updateTickets,
   updateAdditionalDetails,
   resetEvent,

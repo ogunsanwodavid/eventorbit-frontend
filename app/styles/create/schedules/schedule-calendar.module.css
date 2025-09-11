@@ -1,0 +1,16 @@
+.schedule-calendar .rdp-day.selected-day button {
+  color: white !important;
+  border: 0 !important;
+  background: #008080 !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.schedule-calendar .rdp-day button {
+  font-size: 15px !important;
+  background: transparent !important;
+}
+
+.schedule-calendar .rdp-today {
+  background: transparent !important;
+}
