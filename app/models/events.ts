@@ -78,10 +78,7 @@ export interface Event {
       receive: string;
     };
     refundPolicy: string;
-    hasSoldTickets?: {
-      type: boolean;
-      default: false;
-    };
+    hasSoldTickets?: boolean;
   };
   additionalDetails: {
     contact: string;

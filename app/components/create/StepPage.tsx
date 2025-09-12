@@ -7,6 +7,7 @@ import { EventType } from "@/app/models/events";
 import Basics from "./basics/Basics";
 import TimeAndLocation from "./time-and-location/TimeAndLocation";
 import Schedules from "./schedules/Schedules";
+import Tickets from "./tickets/Tickets";
 
 interface StepPageProps {
   type: EventType;
@@ -17,7 +18,10 @@ export default function StepPage({ type, step }: StepPageProps) {
   //Pathname function
   const pathname = usePathname();
 
-  const largeWidthPathnames = ["/create/timed-entry/2"];
+  //Custon max-width for some pathnames
+  const pathnameMaxWidths: Record<string, string> = {
+    "/create/timed-entry/2": "1200px",
+  };
 
   return (
     <div className="mt-6">
@@ -25,7 +29,7 @@ export default function StepPage({ type, step }: StepPageProps) {
       <main
         className={`w-full mx-auto px-5 lg:px-10`}
         style={{
-          maxWidth: largeWidthPathnames.includes(pathname) ? "1200px" : "900px",
+          maxWidth: pathnameMaxWidths[pathname] || "900px",
         }}
       >
         {/** Basics */}
@@ -36,6 +40,9 @@ export default function StepPage({ type, step }: StepPageProps) {
 
         {/** Schedules */}
         {step === 2 && type === "timed-entry" && <Schedules type={type} />}
+
+        {/** Tickets */}
+        {step === 3 && <Tickets type={type} />}
       </main>
     </div>
   );

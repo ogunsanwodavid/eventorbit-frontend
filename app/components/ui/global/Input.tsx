@@ -10,7 +10,7 @@ interface InputProps {
   className?: string;
   inputClassName?: string;
   name: string;
-  label: string | ReactNode;
+  label?: string | ReactNode;
   labelRightComponent?: ReactNode;
   placeholder?: string;
   value: string;
@@ -88,14 +88,16 @@ export default function Input({
     <div className={`w-full mb-[15px] ${className}`}>
       {/** Header */}
       <header className="flex items-center justify-between">
-        <label
-          htmlFor={name}
-          className={`w-full block text-[15px] text-black-2 mb-2 ${
-            error && "!text-error-red-2"
-          }`}
-        >
-          {label}
-        </label>
+        {label && (
+          <label
+            htmlFor={name}
+            className={`w-full block text-[15px] text-black-2 mb-2 ${
+              error && "!text-error-red-2"
+            }`}
+          >
+            {label}
+          </label>
+        )}
 
         {labelRightComponent}
       </header>

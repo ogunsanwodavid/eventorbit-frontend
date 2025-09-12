@@ -15,11 +15,11 @@ export default function Providers({ children }: { children: ReactNode }) {
         <QueryProvider>
           <AuthProvider>
             <OnboardingProvider>
-              <RedirectProvider>
-                <NavFooterVisibilityProvider>
-                  {children}
-                </NavFooterVisibilityProvider>
-              </RedirectProvider>
+            <RedirectProvider>
+              <NavFooterVisibilityProvider>
+                {children}
+              </NavFooterVisibilityProvider>
+            </RedirectProvider>
             </OnboardingProvider>
           </AuthProvider>
         </QueryProvider>

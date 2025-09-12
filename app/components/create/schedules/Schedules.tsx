@@ -206,7 +206,7 @@ export default function Schedules({ type }: SchedulesProps) {
         />
       </div>
 
-      {/** TimeSlot Adder */}
+      {/** TimeSlot Adder and Editor */}
       {showTimeSlotAdder && (
         <TimeSlotAdder
           setShowTimeSlotAdder={setShowTimeSlotAdder}

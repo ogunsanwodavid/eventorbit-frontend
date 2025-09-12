@@ -6,12 +6,19 @@ import {
   EventStatus,
   EventType,
   Schedule,
+  TicketType,
 } from "@/app/models/events";
 
 export type CreateSchedule = Omit<Schedule, "_id" | "sold">;
 
-export type CreateEvent = Omit<Event, "_id" | "hostId" | "schedules"> & {
+export type CreateEvent = Omit<
+  Event,
+  "_id" | "hostId" | "schedules" | "tickets"
+> & {
   schedules?: CreateSchedule[];
+  tickets: Omit<Event["tickets"], "types"> & {
+    types: Omit<TicketType, "_id" | "sold">[];
+  };
 };
 
 interface CreateEventState {
@@ -41,17 +48,12 @@ const initialState: CreateEventState = {
       types: [],
       urgency: {
         indicate: false,
-        percentageSold: 60,
       },
       currencies: {
         buy: "USD",
         receive: "USD",
       },
-      refundPolicy: "",
-      hasSoldTickets: {
-        type: false,
-        default: false,
-      },
+      refundPolicy: "No refunds at any time",
     },
     additionalDetails: {
       contact: "",
@@ -75,7 +77,7 @@ const createEventSlice = createSlice({
     },
 
     //Generic update for nested keys
-    updateEvent(state, action: PayloadAction<Partial<Event>>) {
+    updateEvent(state, action: PayloadAction<Partial<CreateEvent>>) {
       return { ...state, ...action.payload };
     },
 
@@ -90,7 +92,7 @@ const createEventSlice = createSlice({
     },
 
     //Update nested basics
-    updateBasics(state, action: PayloadAction<Partial<Event["basics"]>>) {
+    updateBasics(state, action: PayloadAction<Partial<CreateEvent["basics"]>>) {
       state.event.basics = { ...state.event.basics, ...action.payload };
     },
 
@@ -102,7 +104,7 @@ const createEventSlice = createSlice({
     //Update location specifically
     updateLocation(
       state,
-      action: PayloadAction<Partial<Event["basics"]["location"]>>
+      action: PayloadAction<Partial<CreateEvent["basics"]["location"]>>
     ) {
       state.event.basics.location = {
         ...state.event.basics.location,
@@ -116,14 +118,17 @@ const createEventSlice = createSlice({
     },
 
     //Update tickets
-    updateTickets(state, action: PayloadAction<Partial<Event["tickets"]>>) {
+    updateTickets(
+      state,
+      action: PayloadAction<Partial<CreateEvent["tickets"]>>
+    ) {
       state.event.tickets = { ...state.event.tickets, ...action.payload };
     },
 
     //Update additional details
     updateAdditionalDetails(
       state,
-      action: PayloadAction<Partial<Event["additionalDetails"]>>
+      action: PayloadAction<Partial<CreateEvent["additionalDetails"]>>
     ) {
       state.event.additionalDetails = {
         ...state.event.additionalDetails,
