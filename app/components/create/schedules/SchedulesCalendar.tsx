@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 
 import { Schedule, TimeSlot, WeekDay } from "@/app/models/events";
 
-import { format as formatDateFns, eachDayOfInterval } from "date-fns";
+import {
+  format as formatDateFns,
+  eachDayOfInterval,
+  isSameDay,
+} from "date-fns";
 
 import { Calendar } from "@/app/shadcn-ui/ui/calendar";
 
@@ -113,6 +117,13 @@ export default function SchedulesCalendar({
             if (!date) return;
 
             setSelectedDate(date);
+          }}
+          onDayClick={(date) => {
+            if (!date) return;
+
+            if (selectedDate && isSameDay(selectedDate, date)) {
+              setSelectedDate(null);
+            }
           }}
           disabled={(date) =>
             !formattedSchedules[formatDateFns(date, "dd-MM-yyyy")]

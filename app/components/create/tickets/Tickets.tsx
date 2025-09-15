@@ -62,7 +62,9 @@ export default function Tickets({ type }: TicketsProps) {
     createEvent.event.tickets.urgency.indicate
   );
   const [urgencyPercentageSold, setUrgencyPercentageSold] = useState<string>(
-    String(createEvent.event.tickets.urgency?.percentageSold) || "60"
+    createEvent.event.tickets.urgency?.percentageSold
+      ? String(createEvent.event.tickets.urgency?.percentageSold)
+      : "60"
   );
   const [buyCurrency, setBuyCurrency] = useState<string>(
     createEvent.event.tickets.currencies.buy

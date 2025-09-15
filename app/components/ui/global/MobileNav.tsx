@@ -113,7 +113,7 @@ export default function MobileNav({
           <div className="w-full pr-6 mt-5 flex flex-col gap-y-0 text-[#0e0e0e] text-[15px] font-medium">
             {/** My Events */}
             {isAuthenticated && (
-              <Link href="/events" className="pb-[15px]">
+              <Link href="/my-events" className="pb-[15px]">
                 <span>My Events</span>
               </Link>
             )}

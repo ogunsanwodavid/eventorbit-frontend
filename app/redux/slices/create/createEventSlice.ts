@@ -13,7 +13,7 @@ export type CreateSchedule = Omit<Schedule, "_id" | "sold">;
 
 export type CreateEvent = Omit<
   Event,
-  "_id" | "hostId" | "schedules" | "tickets"
+  "_id" | "alias" | "hostId" | "schedules" | "tickets"
 > & {
   schedules?: CreateSchedule[];
   tickets: Omit<Event["tickets"], "types"> & {
@@ -21,20 +21,21 @@ export type CreateEvent = Omit<
   };
 };
 
-interface CreateEventState {
+export interface CreateEventState {
   event: CreateEvent;
   currentStep: number;
   timeFormat: string;
+  timeDisplay: string;
 }
 
 //Initial state
 const initialState: CreateEventState = {
   currentStep: 1,
   timeFormat: "full",
+  timeDisplay: "start-and-end",
   event: {
     status: "drafted",
     type: "regular",
-    alias: "",
     basics: {
       name: "",
       description: "",
@@ -74,6 +75,11 @@ const createEventSlice = createSlice({
     //Update time format
     updateTimeFormat(state, action: PayloadAction<string>) {
       state.timeFormat = action.payload;
+    },
+
+    //Update time display
+    updateTimeDisplay(state, action: PayloadAction<string>) {
+      state.timeDisplay = action.payload;
     },
 
     //Generic update for nested keys
@@ -146,6 +152,7 @@ const createEventSlice = createSlice({
 export const {
   updateCurrentStep,
   updateTimeFormat,
+  updateTimeDisplay,
   updateEvent,
   updateEventType,
   updateEventStatus,

@@ -24,4 +24,4 @@ const TimeAndPlaceFormSchema = z
 
 export default TimeAndPlaceFormSchema;
 
-export type AboutYourEventFormType = z.infer<typeof TimeAndPlaceFormSchema>;
+export type TimeAndPlaceFormType = z.infer<typeof TimeAndPlaceFormSchema>;

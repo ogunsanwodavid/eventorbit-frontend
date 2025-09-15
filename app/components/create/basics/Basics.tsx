@@ -12,6 +12,7 @@ import {
   updateCurrentStep,
   updateBasics,
   updateLocation,
+  updateEventType,
 } from "@/app/redux/slices/create/createEventSlice";
 
 import flattenTreeErrors, {
@@ -142,6 +143,7 @@ export default function Basics({ type }: BasicsProps) {
       dispatch(updateCurrentStep(2));
 
       //Update create event redux state
+      dispatch(updateEventType(type));
       dispatch(updateBasics({ name, description, category, visibility }));
       dispatch(updateLocation({ address, venueName }));
 

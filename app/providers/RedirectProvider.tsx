@@ -16,7 +16,7 @@ const AUTH_PAGES = [
 ];
 
 //Path to protected routes
-const PROTECTED_PATHS = ["/create", "/tickets", "/settings"];
+const PROTECTED_PATHS = ["/create", "/tickets", "/settings", "my-events"];
 
 export default function RedirectProvider({
   children,

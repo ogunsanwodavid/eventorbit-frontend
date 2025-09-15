@@ -233,7 +233,7 @@ export default function Navbar() {
               <div className="absolute right-0 min-w-[12rem] rounded-[0.5rem] py-2 bg-white -mt-[0.5rem] transform-none shadow-[0_0_7px_#0000001a] z-5 text-[15px] text-black-2 cursor-pointer">
                 {/** My Events */}
                 <Link
-                  href="/events"
+                  href="/my-events"
                   className="h-[40px] flex items-center px-6"
                 >
                   My Events

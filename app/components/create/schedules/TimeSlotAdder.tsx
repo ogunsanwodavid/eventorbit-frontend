@@ -59,7 +59,7 @@ export default function TimeSlotAdder({
   const [repeat, setRepeat] = useState<string>(
     editedSchedule?.repeatDays
       ? editedSchedule?.repeatDays.length === 7
-        ? "repeated-everyday"
+        ? "repeat-everyday"
         : "repeat-selected-days"
       : "no-repeat"
   );
@@ -93,10 +93,11 @@ export default function TimeSlotAdder({
 
   useEffect(() => {
     //Set repeat days on repeat change
-    if (repeat === "repeat-everday" || "repeat-selected-days") {
+    if (
+      repeat === "repeat-everyday" ||
+      (repeat === "repeat-selected-days" && !repeatDays)
+    ) {
       setRepeatDays(["sun", "mon", "tue", "wed", "thu", "fri", "sat"]);
-    } else {
-      setRepeatDays(null);
     }
   }, [repeat]);
 
@@ -293,7 +294,7 @@ export default function TimeSlotAdder({
           {/** Select days of the week checkboxes
            * SHOW ONLY IF TO REPEAT ON SELECTED DAYS
            */}
-          {repeat === "repeat-selected-days" && (
+          {repeat === "repeat-selected-days" && repeatDays && (
             <div className="space-y-2">
               <p className="text-[15px] font-medium">
                 Selected days of the week{" "}
@@ -320,11 +321,11 @@ export default function TimeSlotAdder({
                   return (
                     <div
                       key={index}
-                      className="inline-flex items-center gap-x-1"
+                      className="inline-flex items-center gap-x-1 cursor-pointer"
                       onClick={handleClick}
                     >
                       {/** Checkbox */}
-                      {repeatDays && repeatDays.includes(day) ? (
+                      {repeatDays.includes(day) ? (
                         <span className="text-teal">
                           <CheckBox size="18" />
                         </span>

@@ -8,6 +8,7 @@ import Basics from "./basics/Basics";
 import TimeAndLocation from "./time-and-location/TimeAndLocation";
 import Schedules from "./schedules/Schedules";
 import Tickets from "./tickets/Tickets";
+import AdditionalDetails from "./additional-details/AdditionalDetails";
 
 interface StepPageProps {
   type: EventType;
@@ -21,6 +22,8 @@ export default function StepPage({ type, step }: StepPageProps) {
   //Custon max-width for some pathnames
   const pathnameMaxWidths: Record<string, string> = {
     "/create/timed-entry/2": "1200px",
+    "/create/regular/4": "950px",
+    "/create/timed-entry/4": "950px",
   };
 
   return (
@@ -43,6 +46,9 @@ export default function StepPage({ type, step }: StepPageProps) {
 
         {/** Tickets */}
         {step === 3 && <Tickets type={type} />}
+
+        {/** Additional Details */}
+        {step === 4 && <AdditionalDetails type={type} />}
       </main>
     </div>
   );

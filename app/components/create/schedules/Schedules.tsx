@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks/global/redux";
 import {
   updateCurrentStep,
   updateSchedules,
+  updateTimeDisplay,
 } from "@/app/redux/slices/create/createEventSlice";
 
 import { eachDayOfInterval } from "date-fns";
@@ -39,7 +40,9 @@ export default function Schedules({ type }: SchedulesProps) {
   const createEvent = useAppSelector((state) => state.createEvent);
 
   //Input values
-  const [timeDisplay, setTimeDisplay] = useState<string>("start-and-end");
+  const [timeDisplay, setTimeDisplay] = useState<string>(
+    createEvent.timeDisplay
+  );
   const [schedules, setSchedules] = useState<Omit<Schedule, "_id" | "sold">[]>(
     createEvent.event.schedules || []
   );
@@ -123,6 +126,7 @@ export default function Schedules({ type }: SchedulesProps) {
 
     //Update create event redux state
     dispatch(updateCurrentStep(3));
+    dispatch(updateTimeDisplay(timeDisplay));
     dispatch(updateSchedules(schedules));
 
     //Route to next step

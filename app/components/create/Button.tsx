@@ -21,14 +21,14 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`w-full py-2 px-4 bg-teal rounded-[6px] text-white text-[16px] flex items-center justify-center transition-all duration-250 ${className} ${
+      className={`w-full py-2 px-4 bg-teal rounded-[6px] text-white text-[15px] font-medium flex items-center justify-center transition-all duration-250 ${className} ${
         disabled ? "!opacity-60" : "hover:opacity-90"
       }`}
       disabled={disabled}
       onClick={onClick}
     >
       {isLoading ? (
-        <Tadpole size="20" />
+        <Tadpole size="18" />
       ) : (
         <div className="flex items-center justify-center gap-x-1">
           <span>{text}</span>
