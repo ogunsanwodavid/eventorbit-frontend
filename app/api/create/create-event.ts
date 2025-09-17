@@ -11,7 +11,6 @@ interface CreateEventApiResponse {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
-//Update email function
 export async function createEvent(event: CreateEvent) {
   try {
     const response = await axios.post<CreateEventApiResponse>(

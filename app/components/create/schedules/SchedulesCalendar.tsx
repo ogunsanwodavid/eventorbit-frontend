@@ -11,11 +11,13 @@ import {
 import { Calendar } from "@/app/shadcn-ui/ui/calendar";
 
 interface SchedulesCalendarProps {
-  schedules: Omit<Schedule, "_id" | "sold">[];
+  schedules: Omit<Schedule, "_id" | "sold">[] | Schedule[];
+  className?: string;
 }
 
 export default function SchedulesCalendar({
   schedules,
+  className,
 }: SchedulesCalendarProps) {
   //States
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -25,6 +27,7 @@ export default function SchedulesCalendar({
   const [displayedSchedule, setDisplayedSchedule] = useState<string[] | null>(
     null
   );
+  const [earliestDate, setEarliestDate] = useState<Date | null>(null);
 
   //Format time slot object
   //eg to "5am for 2 hours"
@@ -42,13 +45,30 @@ export default function SchedulesCalendar({
     return `${timeStr} for ${durationStr}`;
   }
 
+  //Find the earliest date from formattedSchedules
+  useEffect(() => {
+    const getEarliestDate = () => {
+      const keys = Object.keys(formattedSchedules);
+      if (keys.length === 0) return undefined;
+
+      const dates = keys.map((key) => {
+        const [day, month, year] = key.split("-").map(Number);
+        return new Date(year, month - 1, day);
+      });
+
+      return new Date(Math.min(...dates.map((d) => d.getTime())));
+    };
+
+    setEarliestDate(getEarliestDate() || null);
+  }, [formattedSchedules]);
+
   useEffect(() => {
     //Week day map
     const dayMap: WeekDay[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
     //Format schedules to an array that maps every day in the timeslot range and formatted time slots assigned to it
     function formatSchedules(
-      schedules: Omit<Schedule, "_id" | "sold">[]
+      schedules: Omit<Schedule, "_id" | "sold">[] | Schedule[]
     ): Record<string, string[]> {
       const result: Record<string, string[]> = {};
 
@@ -107,7 +127,9 @@ export default function SchedulesCalendar({
   }, [selectedDate, formattedSchedules]);
 
   return (
-    <div className="w-full h-max bg-white rounded-[15px] shadow-[0_1px_3px_0_#d4d4d5,_0_0_0_0_#d4d4d5] overflow-hidden lg:max-w-[310px] lg:shrink-0">
+    <div
+      className={`w-full h-max bg-white rounded-[15px] shadow-[0_1px_3px_0_#d4d4d5,_0_0_0_0_#d4d4d5] overflow-hidden lg:max-w-[310px] lg:shrink-0 ${className}`}
+    >
       {/** Calendar */}
       <main className="max-w-[500px] mx-auto">
         <Calendar
@@ -134,6 +156,7 @@ export default function SchedulesCalendar({
             selected: "selected-day",
           }}
           endMonth={new Date(2099, 0)}
+          month={earliestDate || undefined} //Display the earliest active date first if it exists
         />
       </main>
 

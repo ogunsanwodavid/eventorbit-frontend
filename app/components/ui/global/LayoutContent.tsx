@@ -22,7 +22,7 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className="flex flex-col"
+      className="flex flex-col duration-250 transition-all"
       style={{
         minHeight: `${windowHeight}px`,
       }}
@@ -49,7 +49,7 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
       <Toaster
         richColors
         position="top-center"
-        className="!font-quicksand !z-30 !mt-[45px] lg:!mt-[60px] !text-[17px]"
+        className="!font-quicksand !z-99 !mt-[45px] lg:!mt-[60px] !text-[17px]"
         closeButton
       />
     </div>

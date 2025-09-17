@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
+import Image from "next/image";
+import Link from "next/link";
+
 import { redirect, usePathname } from "next/navigation";
 
 import { useAuth } from "@/app/contexts/AuthContext";
 
 import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContext";
-
-import Image from "next/image";
-import Link from "next/link";
 
 import { signOut } from "@/app/api/auth/sign-out";
 
@@ -105,11 +105,28 @@ export default function Navbar() {
     }
   };
 
+  //Routes that make navbar have a transparent background
+  const [hasTransparentBg, setHasTransparentBg] = useState<boolean>(false);
+
+  useEffect(() => {
+    const transparentNavRoutes = ["/events/"];
+
+    if (transparentNavRoutes.some((route) => pathname.startsWith(route))) {
+      setHasTransparentBg(true);
+    } else {
+      setHasTransparentBg(false);
+    }
+  }, [pathname]);
+
   //Dont show navbar if visibility false
   if (!showNav) return null;
 
   return (
-    <nav className="fixed top-0 left-0 z-5 w-full bg-teal px-5 flex items-center justify-between lg:px-10">
+    <nav
+      className={`fixed top-0 left-0 z-5 w-full bg-teal px-5 flex items-center justify-between lg:px-10 ${
+        hasTransparentBg && "!bg-[rgba(0,0,0,0.5)] !h-[72px]"
+      }`}
+    >
       {/** Logo */}
       <Link href="/">
         <Image
@@ -133,12 +150,15 @@ export default function Navbar() {
       {/** Text Links */}
       <section className="hidden gap-x-8 lg:flex">
         <Link href="/explore" className="block">
-          <NavHover>Find Events</NavHover>
+          <NavHover isTransparent={hasTransparentBg}>Find Events</NavHover>
         </Link>
 
         {/** Host events dropdown */}
         <div className="relative">
-          <NavHover onClick={() => toggleHostEventsDropdown()}>
+          <NavHover
+            isTransparent={hasTransparentBg}
+            onClick={() => toggleHostEventsDropdown()}
+          >
             Host Events
           </NavHover>
 
@@ -182,12 +202,12 @@ export default function Navbar() {
           <>
             {/** Sign in */}
             <Link href="/sign-in" className="block">
-              <NavHover>Log In</NavHover>
+              <NavHover isTransparent={hasTransparentBg}>Log In</NavHover>
             </Link>
 
             {/** Sign up */}
             <Link href="/sign-up" className="block">
-              <NavHover>Sign Up</NavHover>
+              <NavHover isTransparent={hasTransparentBg}>Sign Up</NavHover>
             </Link>
           </>
         )}
@@ -195,7 +215,10 @@ export default function Navbar() {
         {/** User display picture and name */}
         {isAuthenticated && profile && (
           <div className="relative pr-4">
-            <NavHover onClick={() => toggleUserDropdown()}>
+            <NavHover
+              isTransparent={hasTransparentBg}
+              onClick={() => toggleUserDropdown()}
+            >
               <div className="w-full h-full flex items-center gap-2">
                 {/** Display pic
                  * or initials if no profile picture set

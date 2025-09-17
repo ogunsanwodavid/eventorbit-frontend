@@ -6,9 +6,10 @@ import { eachDayOfInterval, format as formatDateFns } from "date-fns";
 
 import { TimeSlotAdderMode } from "./TimeSlotAdder";
 
+import { InfoIcon } from "lucide-react";
+
 import EditSolid from "../../ui/icons/EditSolid";
 import Delete from "../../ui/icons/Delete";
-import { InfoIcon } from "lucide-react";
 
 interface SchedulesTableProps {
   schedules: Omit<Schedule, "_id" | "sold">[];

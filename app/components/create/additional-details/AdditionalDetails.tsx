@@ -286,6 +286,7 @@ export default function AdditionalDetails({}: AdditonalDetailsProps) {
     if (!hasPageErrors) {
       const payload = {
         ...createEventState.event,
+        status,
         additionalDetails: {
           contact: contactDetails,
           orderMessage,
