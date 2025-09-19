@@ -19,6 +19,8 @@ import { getEventByAlias } from "@/app/api/events/get-event-by-alias";
 
 import { isSameDay, format as formatDateFns } from "date-fns";
 
+import moment from "moment-timezone";
+
 import getSymbolFromCurrency from "currency-symbol-map";
 
 import { toast } from "sonner";
@@ -35,6 +37,7 @@ import EditSolid from "../ui/icons/EditSolid";
 import Location from "../ui/icons/Location";
 import Share from "../ui/icons/Share";
 import Tag from "../ui/icons/Tag";
+import AlarmClock from "../ui/icons/AlarmClock";
 
 import eventNotFoundImg from "@/static/events/event-not-found.svg";
 
@@ -109,15 +112,22 @@ export default function EventPage() {
     fetchEvent();
   }, []);
 
-  //Toast info about the event being drafted if user is the host
+  //Toast info about the event being drafted or expired if user is the host
   useEffect(() => {
-    if (isUserHost && event?.status === "drafted") {
+    if (
+      isUserHost &&
+      (event?.status === "drafted" || event?.status === "expired")
+    ) {
       setShowFooter(true);
 
       toast.dismiss();
 
       toast.info(
-        "Your event is currently drafted and unpublished. Only you can see the information on this page",
+        `Your event ${event.status === "drafted" ? "is currently" : "has"} ${
+          event.status
+        } ${
+          event.status === "drafted" && "and unpublished"
+        }. Only you can see the information on this page.`,
         {
           duration: Infinity,
           position: "top-right",
@@ -157,16 +167,19 @@ export default function EventPage() {
       return `${formatDateFns(
         start,
         `${monthFormat} do, yyyy h:mma`
-      )} - ${formatDateFns(end, "h:mma")}`;
+      )} - ${formatDateFns(end, "h:mma")} ${event?.duration?.timeZone}`;
     }
 
     //If on different days
     return `${formatDateFns(
       start,
       `${monthFormat} do, yyyy h:mma`
-    )} - ${formatDateFns(end, `${monthFormat} do, yyyy h:mma`)}`;
+    )} - ${formatDateFns(end, `${monthFormat} do, yyyy h:mma`)} ${
+      event?.duration?.timeZone
+    }`;
   }
 
+  //Formate ticket prices to get the accurate price range
   function formatTicketPriceRange(
     tickets: TicketType[],
     currencyCode: string = "USD"
@@ -205,6 +218,12 @@ export default function EventPage() {
     return `${symbol}${min} - ${symbol}${max}`;
   }
 
+  //Format time zone abbreviation (e.g. America/New_York -> EST/EDT)
+  function formatTimeZone(timeZone: string): string {
+    const now = moment().tz(timeZone);
+    return now.format("z");
+  }
+
   //Return Block shuffle spinner while fetching page
   if (isFetchingEvent)
     return (
@@ -238,8 +257,13 @@ export default function EventPage() {
       </div>
     );
 
-  //Error UI when event is drafted and viewer is not the host
-  if (!isFetchingEvent && event && event.status === "drafted" && !isUserHost)
+  //Error UI when event is drafted or expired and viewer is not the host
+  if (
+    !isFetchingEvent &&
+    event &&
+    (event.status === "drafted" || event.status === "expired") &&
+    !isUserHost
+  )
     return (
       <div className="flex-1 flex flex-col items-center justify-center">
         {/** SVG */}
@@ -318,6 +342,22 @@ export default function EventPage() {
                   </span>
                 </p>
 
+                {/** Time zone
+                 * For timed-entry events
+                 */}
+                {event?.type === "timed-entry" && (
+                  <p className="flex items-center gap-x-2 text-[17px] font-semibold">
+                    <AlarmClock size="18" />
+
+                    <span>
+                      {formatTimeZone(
+                        event.schedules?.at(0)?.timeSlots.at(0)?.startTime
+                          .timeZone || "UTC"
+                      )}
+                    </span>
+                  </p>
+                )}
+
                 {/** Location */}
                 {event?.basics.location.isVirtual === false && (
                   <p className="flex items-center gap-x-2 text-[17px] font-semibold">
@@ -376,6 +416,22 @@ export default function EventPage() {
                   )}`}
             </span>
           </p>
+
+          {/** Time zone
+           * For timed-entry events
+           */}
+          {event?.type === "timed-entry" && (
+            <p className="flex items-center gap-x-2 text-[16px] medium">
+              <AlarmClock size="17" />
+
+              <span>
+                {formatTimeZone(
+                  event.schedules?.at(0)?.timeSlots.at(0)?.startTime.timeZone ||
+                    "UTC"
+                )}
+              </span>
+            </p>
+          )}
 
           {/** Location */}
           {event?.basics.location.isVirtual === false && (
@@ -504,7 +560,7 @@ export default function EventPage() {
                   {event?.type === "timed-entry" && event.schedules && (
                     <SchedulesCalendar
                       schedules={event.schedules}
-                      className="!mt-4 !max-w-[300px]"
+                      className="!mt-4 !max-w-[350px]"
                     />
                   )}
                 </div>
