@@ -12,6 +12,7 @@ import { Pagination as PaginationModel } from "@/app/models/global";
 import { Event as EventModel, EventStatus } from "@/app/models/events";
 
 import { getMyEvents } from "@/app/api/my-events/get-my-events";
+
 import {
   getRecentlyUpdated,
   RecentlyUpdatedEvent,
@@ -20,8 +21,6 @@ import {
 import { format as formatDateFns } from "date-fns";
 
 import { toZonedTime } from "date-fns-tz";
-
-import moment from "moment-timezone";
 
 import Select from "@/app/components/my-events/Select";
 import Event from "@/app/components/my-events/Event";
@@ -90,22 +89,6 @@ export default function MyEvents() {
     return response;
   };
 
-  //Fetch events
-  const fetchEvents = async () => {
-    setIsFetchingEvents(true);
-
-    try {
-      await getEvents();
-    } finally {
-      setIsFetchingEvents(false);
-    }
-  };
-
-  //Fetch events on mount
-  useEffect(() => {
-    fetchEvents();
-  }, [debouncedSearch, status, page]);
-
   //Function to get 3 recently updated events
   const getRecentlyUpdatedEvents = async () => {
     const response = await getRecentlyUpdated(3);
@@ -122,24 +105,33 @@ export default function MyEvents() {
     return response;
   };
 
-  //Fetch recently updated events on mount
+  //Fetch events
+  const fetchEvents = async () => {
+    setIsFetchingEvents(true);
+
+    try {
+      await getEvents();
+
+      await getRecentlyUpdatedEvents();
+    } finally {
+      setIsFetchingEvents(false);
+    }
+  };
+
+  //Fetch events on mount
+  useEffect(() => {
+    fetchEvents();
+  }, [debouncedSearch, status, page]);
+
+  /*   //Fetch recently updated events on mount
   useEffect(() => {
     getRecentlyUpdatedEvents();
-  }, []);
-
-  //Format time zone abbreviation (e.g. America/New_York -> EST/EDT)
-  function formatTimeZone(timeZone: string): string {
-    const now = moment().tz(timeZone);
-    return now.format("z");
-  }
+  }, []); */
 
   //Format date to full representation and time zone
   const formatDateInZone = (date: Date | string, timeZone: string) => {
     const zonedDate = toZonedTime(date, timeZone);
-    return `${formatDateFns(
-      zonedDate,
-      "MMM d, yyyy h:mma"
-    ).toLowerCase()} ${formatTimeZone(timeZone)}`;
+    return `${formatDateFns(zonedDate, "MMM d, yyyy h:mma").toLowerCase()}`;
   };
 
   return (
@@ -209,7 +201,7 @@ export default function MyEvents() {
         </section>
 
         {/** Main content */}
-        <main className="max:grid max:grid-cols-[1fr_350px] max:gap-x-8">
+        <main className="max:grid max:grid-cols-[1fr_310px] max:gap-x-8">
           {/** Left section */}
           <section className="w-full max-w-[750px] max:max-w-none">
             {/** Loading spinner when fetching events */}

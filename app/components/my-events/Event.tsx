@@ -65,9 +65,10 @@ export default function Event({ event, fetchEvents, setStatus }: EventProps) {
     return `${formatDateFns(
       start,
       `${monthFormat} do, yyyy h:mma`
-    )} - ${formatDateFns(end, `${monthFormat} do, yyyy h:mma`)} ${
-      event?.duration?.timeZone
-    }`;
+    )} - ${formatDateFns(
+      end,
+      `${monthFormat} do, yyyy h:mma`
+    )} ${formatTimeZone(event?.duration?.timeZone || "UTC")}`;
   }
 
   //Function to publish a drafted event

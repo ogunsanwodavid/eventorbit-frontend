@@ -167,16 +167,19 @@ export default function EventPage() {
       return `${formatDateFns(
         start,
         `${monthFormat} do, yyyy h:mma`
-      )} - ${formatDateFns(end, "h:mma")} ${event?.duration?.timeZone}`;
+      )} - ${formatDateFns(end, "h:mma")} ${formatTimeZone(
+        event?.duration?.timeZone || "UTC"
+      )}`;
     }
 
     //If on different days
     return `${formatDateFns(
       start,
       `${monthFormat} do, yyyy h:mma`
-    )} - ${formatDateFns(end, `${monthFormat} do, yyyy h:mma`)} ${
-      event?.duration?.timeZone
-    }`;
+    )} - ${formatDateFns(
+      end,
+      `${monthFormat} do, yyyy h:mma`
+    )} ${formatTimeZone(event?.duration?.timeZone || "UTC")}`;
   }
 
   //Formate ticket prices to get the accurate price range
@@ -299,7 +302,7 @@ export default function EventPage() {
           }}
         >
           <main
-            className="w-full mx-auto h-full bg-cover bg-center shadow-[0_1px_8px_0_rgba(28,35,43,.15)] rounded-t-[6px]  md:max-w-[730px]  lg:max-w-[900px] xl:max-w-[1180px]"
+            className="w-full mx-auto h-full bg-cover bg-center shadow-[0_1px_8px_0_rgba(28,35,43,.15)] rounded-t-[6px]   md:max-w-[730px]  lg:max-w-[900px] xl:max-w-[1180px]"
             style={{
               backgroundImage: `url("${event?.additionalDetails.eventCoverPhoto}")`,
             }}
@@ -326,7 +329,7 @@ export default function EventPage() {
                 </p>
 
                 {/** Event name */}
-                <p className="font-bold text-[35px]">{event?.basics.name}</p>
+                <p className="font-bold text-[30px]">{event?.basics.name}</p>
 
                 {/** Time */}
                 <p className="flex items-center gap-x-2 text-[17px] font-semibold">
@@ -363,7 +366,7 @@ export default function EventPage() {
                   <p className="flex items-center gap-x-2 text-[17px] font-semibold">
                     <Location size="18" />
 
-                    <span>{`${event.basics.location.address}`}</span>
+                    <span>{`${event.basics.location.venueName}`}</span>
                   </p>
                 )}
 
@@ -438,7 +441,7 @@ export default function EventPage() {
             <p className="flex items-center gap-x-2 text-[16px] font-medium">
               <Location size="17" />
 
-              <span>{`${event.basics.location.address}`}</span>
+              <span>{`${event.basics.location.venueName}`}</span>
             </p>
           )}
 
