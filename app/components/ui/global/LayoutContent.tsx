@@ -39,7 +39,7 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
       <main
         className={`${showNav && "flex-1  flex flex-col"}`}
         style={{
-          marginTop: `${navHeight}px`,
+          marginTop: showNav ? `${navHeight}px` : undefined,
         }}
       >
         {children}
