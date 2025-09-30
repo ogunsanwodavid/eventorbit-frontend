@@ -13,36 +13,36 @@ export async function generateMetadata({ params }: { params: paramsType }) {
     const { event, host } = await getEventByAlias(alias);
 
     //User cover photo
-    const coverImage = event.additionalDetails.socialMediaPhoto;
+    const coverImage = event?.additionalDetails.socialMediaPhoto;
 
-    if (event.status === "drafted") {
+    if (event?.status === "drafted") {
       throw new Error("Event is drafted and not live");
     }
 
     return {
-      title: `${event.basics.name} by ${
-        host.info.userType === "individual"
+      title: `${event?.basics.name} by ${
+        host?.info.userType === "individual"
           ? `${host.info.firstName} ${host.info.lastName}`
-          : `${host.info.organizationName}`
+          : `${host?.info.organizationName}`
       } is live`,
-      description: `You can now purchase your tickets on EventOrbit today. ${event.basics.description}`,
+      description: `You can now purchase your tickets on EventOrbit today. ${event?.basics.description}`,
       openGraph: {
-        title: `${event.basics.name} is live`,
-        description: `You can now purchase your tickets on EventOrbit today. ${event.basics.description}`,
+        title: `${event?.basics.name} is live`,
+        description: `You can now purchase your tickets on EventOrbit today. ${event?.basics.description}`,
         url: `https://eventorbit.vercel.app/events/${alias}`,
         images: [
           {
             url: coverImage,
             width: 400,
             height: 400,
-            alt: `${event.basics.name}'s cover photo`,
+            alt: `${event?.basics.name}'s cover photo`,
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: `${event.basics.name} is live`,
-        description: `You can now purchase your tickets on EventOrbit today. ${event.basics.description}`,
+        title: `${event?.basics.name} is live`,
+        description: `You can now purchase your tickets on EventOrbit today. ${event?.basics.description}`,
         images: [coverImage],
       },
     };

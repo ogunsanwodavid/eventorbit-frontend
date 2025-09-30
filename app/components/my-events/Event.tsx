@@ -79,7 +79,7 @@ export default function Event({ event, fetchEvents, setStatus }: EventProps) {
     setIsPublishingEvent(true);
 
     try {
-      const response = await publishEvent(event._id);
+      const response = await publishEvent(event._id!);
 
       if (response.success === true) {
         toast.success(response.message);
@@ -114,7 +114,7 @@ export default function Event({ event, fetchEvents, setStatus }: EventProps) {
     setIsDraftingEvent(true);
 
     try {
-      const response = await draftEvent(event._id);
+      const response = await draftEvent(event._id!);
 
       if (response.success === true) {
         toast.success(response.message);
@@ -149,7 +149,7 @@ export default function Event({ event, fetchEvents, setStatus }: EventProps) {
     setIsDeletingEvent(true);
 
     try {
-      const response = await deleteEvent(event._id);
+      const response = await deleteEvent(event._id!);
 
       if (response.success === true) {
         toast.success(response.message);

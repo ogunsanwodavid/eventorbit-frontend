@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,12 @@ import { redirect, usePathname } from "next/navigation";
 import { useAuth } from "@/app/contexts/AuthContext";
 
 import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContext";
+
+import { useAppDispatch, useAppSelector } from "@/app/hooks/global/redux";
+
+import { setNavHeight } from "@/app/redux/slices/nav/navHeightSlice";
+
+import { toggleOpenSidebar } from "@/app/redux/slices/manage/manageEventSlice";
 
 import { signOut } from "@/app/api/auth/sign-out";
 
@@ -21,17 +27,25 @@ import Menu from "../icons/Menu";
 
 import Tadpole from "../spinners/TadPole";
 
+import ExpandSidebarRight from "../icons/ExpandSidebarRight";
+
 import whiteLogo from "@/public/images/logo-white.png";
 
 export default function Navbar() {
+  //Get the current pathname
+  const pathname = usePathname();
+
   //Navbar visibility
   const { showNav } = useNavFooterVisibility();
 
   //Auth context variables
   const { isAuthenticated, profile, refreshAuth } = useAuth();
 
-  //Get the current pathname
-  const pathname = usePathname();
+  //Redux dispatch function
+  const dispatch = useAppDispatch();
+
+  //Manage event redux state
+  const manageEvent = useAppSelector((state) => state.manageEvent);
 
   //Profile info
   const { info: { userType, firstName, organizationName } = {} } =
@@ -39,6 +53,27 @@ export default function Navbar() {
 
   //State of the mobile nav
   const [isMobileNavOpen, setIsMobileNavOpen] = useState<boolean>(false);
+
+  //Navbar ref
+  const navRef = useRef<HTMLElement | null>(null);
+
+  //Set navbar height in redux
+  useEffect(() => {
+    function updateHeight() {
+      if (navRef.current) {
+        const height = navRef.current.offsetHeight;
+        dispatch(setNavHeight(height));
+      }
+    }
+
+    //Run on mount and pathname change
+    updateHeight();
+
+    //Also run on window resize
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [pathname, dispatch]);
 
   //Function to toggle mobile nav
   function toggleMobileNav() {
@@ -109,13 +144,16 @@ export default function Navbar() {
   const [hasTransparentBg, setHasTransparentBg] = useState<boolean>(false);
 
   useEffect(() => {
-    const transparentNavRoutes = ["/events/"];
+    //Strict routes regex patterns
+    const transparentNavPatterns = [
+      /^\/events\/[^/]+$/, //matches /events/[alias]
+    ];
 
-    if (transparentNavRoutes.some((route) => pathname.startsWith(route))) {
-      setHasTransparentBg(true);
-    } else {
-      setHasTransparentBg(false);
-    }
+    const isTransparent = transparentNavPatterns.some((pattern) =>
+      pattern.test(pathname)
+    );
+
+    setHasTransparentBg(isTransparent);
   }, [pathname]);
 
   //Dont show navbar if visibility false
@@ -123,10 +161,24 @@ export default function Navbar() {
 
   return (
     <nav
+      ref={navRef}
       className={`fixed top-0 left-0 z-5 w-full bg-teal px-5 flex items-center justify-between lg:px-10 ${
-        hasTransparentBg && "!bg-[rgba(0,0,0,0.5)] !h-[72px]"
+        hasTransparentBg && "!bg-[rgba(0,0,0,0.5)]"
       }`}
     >
+      {/** Expand sidebar icon
+       * to toggle sidebar on manage event page
+       * SHOW ONLY IF EVENT EXISTS IN REDUX STORE
+       */}
+      {pathname.startsWith("/events/manage/") && manageEvent.event && (
+        <section
+          className="text-white py-5.5 lg:hidden"
+          onClick={() => dispatch(toggleOpenSidebar())}
+        >
+          <ExpandSidebarRight size="28" />
+        </section>
+      )}
+
       {/** Logo */}
       <Link href="/">
         <Image
@@ -137,8 +189,11 @@ export default function Navbar() {
       </Link>
 
       {/** Menu icon */}
-      <section className="text-white py-3 lg:hidden" onClick={toggleMobileNav}>
-        <Menu size="32" />
+      <section
+        className="text-white py-4.5 lg:hidden"
+        onClick={toggleMobileNav}
+      >
+        <Menu size="28" />
       </section>
 
       {/** Mobile Nav */}

@@ -43,7 +43,6 @@ export default function TicketTypeEditor({
   //Input errors
   const [hasInputErrors, setHasInputErrors] = useState<boolean>(false);
   const hasNameError = hasInputErrors && !name;
-  const hasQuantityError = hasInputErrors && !quantity;
   const hasCostError = hasInputErrors && type !== "free" && !cost;
 
   //Change cost when type changes
@@ -96,7 +95,6 @@ export default function TicketTypeEditor({
   useEffect(() => {
     if (
       name &&
-      quantity &&
       (type === "free" || ((type === "paid" || type === "donation") && cost))
     ) {
       setTicketTypeInputs((prev) => {
@@ -108,7 +106,7 @@ export default function TicketTypeEditor({
                 ticketType: {
                   type: type as "free" | "paid" | "donation",
                   name,
-                  quantity,
+                  quantity: quantity || undefined,
                   price: type === "paid" ? cost! : undefined,
                   minDonation: type === "donation" ? cost! : undefined,
                 },
@@ -184,9 +182,7 @@ export default function TicketTypeEditor({
           type="text"
           name="quantity"
           value={quantity ? String(quantity) : ""}
-          className={`w-full h-[42px] p-3 border-[1px] border-[#e2e5e7] outline-0 rounded-[6px] focus:border-teal ${
-            hasQuantityError && "!bg-error-red-3 && !border-error-red"
-          }`}
+          className={`w-full h-[42px] p-3 border-[1px] border-[#e2e5e7] outline-0 rounded-[6px] focus:border-teal`}
           placeholder="Unlimited"
           inputMode="numeric"
           onChange={(e) => {

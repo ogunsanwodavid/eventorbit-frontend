@@ -6,6 +6,8 @@ import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContex
 
 import useWindowDimensions from "@/app/hooks/global/useWindowDimensions";
 
+import { useAppSelector } from "@/app/hooks/global/redux";
+
 import { Toaster } from "sonner";
 
 import Navbar from "./Navbar";
@@ -20,6 +22,9 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
   //Window dimensions
   const { windowHeight } = useWindowDimensions();
 
+  //Nav height
+  const navHeight = useAppSelector((state) => state.navHeight.height);
+
   return (
     <div
       className="flex flex-col duration-250 transition-all"
@@ -32,9 +37,10 @@ export default function LayoutContent({ children }: { children: ReactNode }) {
 
       {/** Main content */}
       <main
-        className={`${
-          showNav && "flex-1 mt-[56px] flex flex-col lg:mt-[70px]"
-        }`}
+        className={`${showNav && "flex-1  flex flex-col"}`}
+        style={{
+          marginTop: `${navHeight}px`,
+        }}
       >
         {children}
       </main>

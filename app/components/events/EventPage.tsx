@@ -11,6 +11,8 @@ import { useAuth } from "@/app/contexts/AuthContext";
 
 import { useNavFooterVisibility } from "@/app/contexts/NavFooterVisibilityContext";
 
+import { useAppSelector } from "@/app/hooks/global/redux";
+
 import { Profile } from "@/app/models/auth";
 
 import { Event, TicketType } from "@/app/models/events";
@@ -50,6 +52,9 @@ export default function EventPage() {
 
   //Nav footer visibility variables
   const { setShowFooter } = useNavFooterVisibility();
+
+  //Nav height
+  const navHeight = useAppSelector((state) => state.navHeight.height);
 
   //Site url
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
@@ -248,7 +253,9 @@ export default function EventPage() {
           alt="event not found"
         />
 
-        <p className="text-base text-gray font-medium">Event not found</p>
+        <p className="text-center text-base text-gray font-medium">
+          Event not found
+        </p>
 
         {/** Button to refetch event page*/}
         <button
@@ -296,13 +303,15 @@ export default function EventPage() {
       <div>
         {/** Header */}
         <header
-          className="w-full h-[290px] bg-cover bg-center -mt-[56px] pt-[56px] md:h-[360px] lg:h-[425px] lg:-mt-[70px] lg:pt-[70px] xl:h-[540px]"
+          className="relative w-full h-[290px] bg-cover bg-center md:h-[360px] lg:h-[425px] xl:h-[540px]"
           style={{
+            marginTop: `-${navHeight}px`,
+            paddingTop: `${navHeight}px`,
             backgroundImage: `url("${event?.additionalDetails.eventCoverPhoto}")`,
           }}
         >
           <main
-            className="w-full mx-auto h-full bg-cover bg-center shadow-[0_1px_8px_0_rgba(28,35,43,.15)] rounded-t-[6px]   md:max-w-[730px]  lg:max-w-[900px] xl:max-w-[1180px]"
+            className="z-2 relative w-full mx-auto h-full bg-cover bg-center shadow-[0_1px_8px_0_rgba(28,35,43,.15)] rounded-t-[6px]  md:max-w-[730px]  lg:max-w-[900px] xl:max-w-[1180px]"
             style={{
               backgroundImage: `url("${event?.additionalDetails.eventCoverPhoto}")`,
             }}
@@ -310,11 +319,14 @@ export default function EventPage() {
             <div className="w-full h-full px-5 pb-5 bg-[rgba(0,0,0,0.2)] flex flex-col md:justify-between lg:px-8 lg:pb-8">
               {/** Event manager */}
               {isUserHost && (
-                <div className="mt-auto w-max p-3 text-[#ddd] text-[15px] bg-black rounded-[6px] flex items-center gap-x-2 cursor-pointer hover:text-white md:mt-0">
+                <Link
+                  href={`/events/manage/${event?.alias}`}
+                  className="mt-auto w-max p-3 text-[#ddd] text-[15px] bg-black rounded-[6px] flex items-center gap-x-2 cursor-pointer hover:text-white md:mt-0"
+                >
                   <EditSolid size="14" />
 
                   <span>Event Manager</span>
-                </div>
+                </Link>
               )}
 
               {/** Event info
@@ -388,6 +400,9 @@ export default function EventPage() {
               </div>
             </div>
           </main>
+
+          {/** Transparent black overlay */}
+          <div className="z-1 absolute top-0 left-0 w-full bg-[#1c232b88] h-full"></div>
         </header>
 
         {/** Event info

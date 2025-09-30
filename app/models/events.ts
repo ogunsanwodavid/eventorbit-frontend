@@ -27,7 +27,7 @@ export interface Duration {
 }
 
 export interface Schedule {
-  _id: string;
+  _id?: string;
   startDate: Date;
   endDate?: Date;
   timeSlots: TimeSlot[];
@@ -36,7 +36,7 @@ export interface Schedule {
 }
 
 export interface TicketType {
-  _id: string;
+  _id?: string;
   type: "paid" | "free" | "donation";
   name: string;
   sold: number;
@@ -47,7 +47,7 @@ export interface TicketType {
 }
 
 export interface Event {
-  _id: string;
+  _id?: string;
   hostId: string;
   status: EventStatus;
   type: EventType;

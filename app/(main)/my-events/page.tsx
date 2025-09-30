@@ -70,7 +70,7 @@ export default function MyEvents() {
       page,
       status: status === "all" ? undefined : (status as EventStatus),
       search: debouncedSearch,
-      limit: 7, //Allow only 7 events to be displayed per page by default
+      limit: 7, //Allow only 7 events to be displayed per page
     });
 
     if (response.success === true) {
@@ -122,11 +122,6 @@ export default function MyEvents() {
   useEffect(() => {
     fetchEvents();
   }, [debouncedSearch, status, page]);
-
-  /*   //Fetch recently updated events on mount
-  useEffect(() => {
-    getRecentlyUpdatedEvents();
-  }, []); */
 
   //Format date to full representation and time zone
   const formatDateInZone = (date: Date | string, timeZone: string) => {

@@ -77,7 +77,7 @@ export default function MobileNav({
 
   return (
     <div
-      className={`fixed top-0 right-0 bg-blur-black overflow-hidden z-50 transition-opacity duration-400 ${
+      className={`fixed top-0 right-0 bg-blur-black overflow-hidden z-50 transition-all duration-400 ${
         isMobileNavOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
@@ -97,7 +97,7 @@ export default function MobileNav({
         <section className="w-full pt-2 pr-2 pl-6">
           {/** X Icon */}
           <div className="w-max ml-auto" onClick={toggleMobileNav}>
-            <X size="25" color="gray" />
+            <X size="24" color="gray" />
           </div>
 
           {/** Logo */}

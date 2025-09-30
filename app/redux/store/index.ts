@@ -1,28 +1,35 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import navHeightReducer from "../slices/nav/navHeightSlice";
+
 import accountReducer from "../slices/settings/accountSlice";
 
 import emailPreferencesReducer from "../slices/settings/emailPreferencesSlice";
 
 import createEventReducer from "../slices/create/createEventSlice";
 
+import manageEventReducer from "../slices/manage/manageEventSlice";
+
 //Configure the store
 const store = configureStore({
   reducer: {
+    navHeight: navHeightReducer,
     account: accountReducer,
     emailPreferences: emailPreferencesReducer,
     createEvent: createEventReducer,
+    manageEvent: manageEventReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        //ignore these paths in state
+        //Ignore these paths in state
         ignoredPaths: [
-          "createEvent.event.duration.startDate",
-          "createEvent.event.duration.endDate",
+          "createEvent.event.duration",
           "createEvent.event.schedules",
+          "manageEvent.event.duration",
+          "manageEvent.event.schedules",
         ],
-        //ignore these in actions
+        //Ignore these in actions
         ignoredActionPaths: ["payload.startDate", "payload.endDate", "payload"],
       },
     }),

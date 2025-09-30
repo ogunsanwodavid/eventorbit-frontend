@@ -28,6 +28,7 @@ export default function SchedulesCalendar({
     null
   );
   const [earliestDate, setEarliestDate] = useState<Date | null>(null);
+  //const [latestDate, setLatestDate] = useState<Date | null>(null);
 
   //Format time slot object
   //eg to "5am for 2 hours"
@@ -47,7 +48,7 @@ export default function SchedulesCalendar({
 
   //Find the earliest date from formattedSchedules
   useEffect(() => {
-    const getEarliestDate = () => {
+    const getEarliestAndLatestDates = () => {
       const keys = Object.keys(formattedSchedules);
       if (keys.length === 0) return undefined;
 
@@ -56,10 +57,14 @@ export default function SchedulesCalendar({
         return new Date(year, month - 1, day);
       });
 
-      return new Date(Math.min(...dates.map((d) => d.getTime())));
+      return {
+        earliestDate: new Date(Math.min(...dates.map((d) => d.getTime()))),
+        latestDate: new Date(Math.max(...dates.map((d) => d.getTime()))),
+      };
     };
 
-    setEarliestDate(getEarliestDate() || null);
+    setEarliestDate(getEarliestAndLatestDates()?.earliestDate || null);
+    //setLatestDate(getEarliestAndLatestDates()?.latestDate || null);
   }, [formattedSchedules]);
 
   useEffect(() => {
@@ -155,8 +160,8 @@ export default function SchedulesCalendar({
           classNames={{
             selected: "selected-day",
           }}
+          defaultMonth={earliestDate || undefined} //Display the earliest active date first if it exists
           endMonth={new Date(2099, 0)}
-          month={earliestDate || undefined} //Display the earliest active date first if it exists
         />
       </main>
 

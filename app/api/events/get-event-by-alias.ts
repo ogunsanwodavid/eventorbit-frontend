@@ -13,10 +13,18 @@ interface GetEventByAliasApiResponse {
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
 export async function getEventByAlias(alias: string) {
-  const response = await axios.get<GetEventByAliasApiResponse>(
-    `${API_BASE_URL}/api/events/get-by-alias/${alias}`,
-    { withCredentials: true }
-  );
+  try {
+    const response = await axios.get<GetEventByAliasApiResponse>(
+      `${API_BASE_URL}/api/events/get-by-alias/${alias}`,
+      { withCredentials: true }
+    );
 
-  return { event: response.data.event, host: response.data.host };
+    return {
+      success: true,
+      event: response.data.event,
+      host: response.data.host,
+    };
+  } catch {
+    return { success: false, event: null, host: null };
+  }
 }

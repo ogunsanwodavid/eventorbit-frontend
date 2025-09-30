@@ -34,6 +34,7 @@ const footerHiddenRoutes = [
   "/verify-email",
   "/settings",
   "/create",
+  "/events/manage",
 ];
 
 const NavFooterVisibilityContext = createContext<

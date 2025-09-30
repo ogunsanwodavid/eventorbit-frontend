@@ -1,3 +1,3 @@
-export default function ManageEvent() {
+export default function ManageEventPage() {
   return <div></div>;
 }
