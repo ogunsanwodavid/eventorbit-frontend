@@ -27,8 +27,8 @@ export async function signIn(formData: FormData) {
   const validatedFields = SignInFormSchema.safeParse({
     email,
     password,
-    latitude,
-    longitude,
+    latitude: latitude || undefined,
+    longitude: longitude || undefined,
     pageRedirect,
   });
 

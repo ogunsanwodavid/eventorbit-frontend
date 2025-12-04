@@ -101,6 +101,7 @@ export default function SignUp() {
 
     // Set validation errors if any
     setErrors(result?.validationErrors || {});
+    console.log(result?.validationErrors || {});
 
     //Check if request is successful
     if (result.success === true) {

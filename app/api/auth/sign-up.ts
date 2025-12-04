@@ -39,8 +39,8 @@ export async function signUp(formData: FormData) {
     organizationName: isOrganization ? organizationName : undefined,
     email,
     password,
-    latitude,
-    longitude,
+    latitude: latitude || undefined,
+    longitude: longitude || undefined,
     pageRedirect,
   });
 
