@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "EventOrbit is a modern ticketing platform designed to simplify how people discover, create, and attend events. With intuitive navigation and a seamless booking experience, EventOrbit makes it effortless for organizers to set up events and for attendees to secure their tickets. The platform is built to support events of all sizes — from small community gatherings to large-scale concerts — while delivering a smooth, reliable, and engaging experience for everyone involved.",
     images:
-      "https://drive.google.com/file/d/1J6shZESv6iPA0YYwbXRReFLrYb1hEsIU/view?usp=drive_link",
+      "https://res.cloudinary.com/ddcjuf3hq/image/upload/v1765594617/eventorbit-ogimage_f71z6o.jpg",
   },
 };
 
