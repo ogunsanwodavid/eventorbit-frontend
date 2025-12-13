@@ -57,8 +57,7 @@ export default function EventPage() {
   const navHeight = useAppSelector((state) => state.navHeight.height);
 
   //Site url
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL_2;
+  const siteUrl = window.location.origin!;
 
   //States
   const [event, setEvent] = useState<Event | null>(null);
