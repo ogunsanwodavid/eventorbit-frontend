@@ -13,13 +13,13 @@ import LayoutContent from "./components/ui/global/LayoutContent";
 export const metadata: Metadata = {
   title: "EventOrbit",
   description:
-    "Discover Krist, your ultimate destination for stylish and affordable men’s, women’s, and kids' wear. Explore a wide range of trendy outfits designed for every occasion and elevate your wardrobe with our premium-quality apparel. Shop now and experience fashion redefined!",
+    "EventOrbit is a modern ticketing platform designed to simplify how people discover, create, and attend events. With intuitive navigation and a seamless booking experience, EventOrbit makes it effortless for organizers to set up events and for attendees to secure their tickets. The platform is built to support events of all sizes — from small community gatherings to large-scale concerts — while delivering a smooth, reliable, and engaging experience for everyone involved.",
   openGraph: {
     title: "EventOrbit",
     description:
-      "Discover Krist, your ultimate destination for stylish and affordable men’s, women’s, and kids' wear. Explore a wide range of trendy outfits designed for every occasion and elevate your wardrobe with our premium-quality apparel. Shop now and experience fashion redefined!",
+      "EventOrbit is a modern ticketing platform designed to simplify how people discover, create, and attend events. With intuitive navigation and a seamless booking experience, EventOrbit makes it effortless for organizers to set up events and for attendees to secure their tickets. The platform is built to support events of all sizes — from small community gatherings to large-scale concerts — while delivering a smooth, reliable, and engaging experience for everyone involved.",
     images:
-      "https://res.cloudinary.com/ddcjuf3hq/image/upload/v1737908712/krist-og-image_rlbpuo.jpg",
+      "https://drive.google.com/file/d/1J6shZESv6iPA0YYwbXRReFLrYb1hEsIU/view?usp=drive_link",
   },
 };
 
